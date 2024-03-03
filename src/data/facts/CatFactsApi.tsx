@@ -12,7 +12,7 @@ export default class CatFactsApi implements FactRepository {
     * @throws {Error} if failed to fetch the fact
     */
     async fetch(): Promise<CatsFactResult> {
-        console.log(this.apiUrl)
+        console.log('API_LINK', this.apiUrl)
         try {
             const res = await fetch(this.apiUrl, {
                 mode: 'cors',

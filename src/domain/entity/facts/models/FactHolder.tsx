@@ -23,7 +23,7 @@ export default class FactHolder {
       this.notifyListeners();
     }
 
-    public getFactName(): string {
+    public getFact(): string {
       return this.fact;
     }
 
@@ -44,6 +44,6 @@ export default class FactHolder {
     }
   
     private notifyListeners(): void {
-      this.listeners.forEach((listener) => listener.onFactChanged());
+      this.listeners.forEach((listener) => listener.onFactTypeChanged());
     }
   }

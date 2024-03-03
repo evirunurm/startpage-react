@@ -1,13 +1,11 @@
-import React from 'react';
 import DogFactsApi from './data/facts/DogFactsApi';
 import CatFactsApi from './data/facts/CatFactsApi';
 import JokeFactsApi from './data/facts/JokeFactsApi';
 import FactHolder from './domain/entity/facts/models/FactHolder';
 import FactsUseCase from './domain/interactors/facts/factsUseCase';
-import FactViewModelImpl from './presentation/view-model/fact/factViewModelImpl';
-import FactComponent from './presentation/view/components/facts/facts-component';
-
-// const Startpage = React.lazy(() => import('./presentation/view/pages/Startpage'));
+import FactSettingsViewModelImpl from './presentation/view-model/facts-settings/factSettingsViewModelImpl';
+import FactSettingsComponent from './presentation/view/components/facts-settings/facts-settings-component';
+import FactComponent from './presentation/view/components/fact/fact-component';
 
 function App(): JSX.Element {
   // data layer
@@ -20,11 +18,12 @@ function App(): JSX.Element {
   const factUseCase = new FactsUseCase(catFactsApi, dogFactsApi,jokeFactsApi, factHolder);
 
    // view layer
-   const factViewModel = new FactViewModelImpl(factUseCase, factHolder);
+   const factViewModel = new FactSettingsViewModelImpl(factUseCase, factHolder);
 
   return (
     <div>
-      <FactComponent factViewModel={factViewModel} />
+      <FactSettingsComponent factViewModel={factViewModel} />
+      <FactComponent factViewModel={factViewModel} ></FactComponent>
     </div>
   )
 }

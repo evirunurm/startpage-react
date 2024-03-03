@@ -45,7 +45,6 @@ export default class FactsUseCase {
    */
   private async fetchCatsFactResult(): Promise<void> {
     const result : FactResult = await this.catsFactsRepository.fetch();
-    console.log(result)
     const catsResult : CatsFactResult = result as CatsFactResult;
     this.factHolder.onFactFetched(catsResult.fact, FactType.Cats);
   }

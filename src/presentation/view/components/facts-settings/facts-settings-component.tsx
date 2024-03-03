@@ -1,21 +1,22 @@
 import React from "react";
 import { FactType } from "../../../../domain/entity/facts/structures/FactTypeEnum";
-import FactViewModel from "../../../view-model/fact/factViewModel";
+import FactSettingsViewModel from "../../../view-model/facts-settings/factSettingsViewModel";
 import BaseView from "../../BaseView";
+import { getEnumKeys } from "../../../../utils/utils";
 
-export interface FactComponentProps {
-	factViewModel: FactViewModel;
+export interface FactSettingsComponentProps {
+	factViewModel: FactSettingsViewModel;
 }
 
-export interface FactComponentState {
+export interface FactSettingsComponentState {
 	selectedFactType: FactType;
 }
 
-export default class FactComponent extends React.Component<FactComponentProps, FactComponentState>
+export default class FactSettingsComponent extends React.Component<FactSettingsComponentProps, FactSettingsComponentState>
   implements BaseView {
-  private factViewModel: FactViewModel;
+  private factViewModel: FactSettingsViewModel;
 
-  public constructor(props: FactComponentProps) {
+  public constructor(props: FactSettingsComponentProps) {
 	super(props);
 
 	const { factViewModel } = this.props;
@@ -31,12 +32,13 @@ export default class FactComponent extends React.Component<FactComponentProps, F
   }
 
   public componentWillUnmount(): void {
-	this.factViewModel.detachView();
+	this.factViewModel.detachView(this);
   }
 
   // We update state of our component
   // on each update of ViewModel
   public onViewModelChanged(): void {
+	console.log('onViewModelChanged',this.factViewModel.factType)
 	this.setState(
 	{
 		selectedFactType: this.factViewModel.factType,
@@ -51,14 +53,16 @@ export default class FactComponent extends React.Component<FactComponentProps, F
 	return (
 	<>
 		{getEnumKeys(FactType).map((key : number) => (
+			
 		<div key={key}>
+			<p>{selectedFactType}</p>
 			<input
 			type="radio"
 			id={FactType[key]}
 			value={key}
-			name="factType"
+			name="factType" 
 			checked={selectedFactType == (key as FactType)}
-			onChange={(): void => this.factViewModel.onFactTypeChanged(key as FactType)}
+			onChange={(): void => this.factViewModel.onFactTypeClicked(key as FactType)}
 			/>
 			<label htmlFor={FactType[key]}>{FactType[key]}</label>
 		</div>
@@ -68,14 +72,3 @@ export default class FactComponent extends React.Component<FactComponentProps, F
   }
 }
 
-function getEnumKeys<
-T extends string,
-TEnumValue extends string | number,>
-(enumVariable: { [key in T]: TEnumValue })
-{
-	const keysAndValues: string[] = Object.keys(enumVariable);
-	const keys: number[] = keysAndValues
-		.filter((key: number | string) => !isNaN(Number(key)))
-		.map((key: string | number) => Number(key));
-	return keys;
-}

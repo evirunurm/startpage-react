@@ -5,6 +5,9 @@ import { FactType } from "../../../domain/entity/facts/structures/FactTypeEnum";
 // be using
 export default interface FactViewModel extends BaseViewModel {
     factType: FactType;
+    fact: string;
 
-    onFactTypeChanged(factType: FactType): void;
+    onFactTypeClicked(factType: FactType): void;
+    onFactTypeChanged(): void;
+    onNextFactClicked(): void;
 }

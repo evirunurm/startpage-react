@@ -24,6 +24,7 @@ ___
 ### React.lazy
 React.lazy is a feature in React that allows you to load components lazily, meaning they are loaded only when they are actually needed. 
 
+___
 ### Enums
 
 TypeScript enums are quite simple objects:
@@ -54,3 +55,4 @@ stringKeys.forEach((key, index) => {
     console.log(`${key} has index ${index}`)
 })
 ```
+___
