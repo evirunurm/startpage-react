@@ -1,11 +1,11 @@
-import { FactType } from "../structures/FactTypeEnum";
-import FactListener from "./FactListener";
+import { FactType } from "../FactTypeEnum";
+import IFactListener from "./FactListener";
 
 // This class holds Fact data.
 // In order to update presentation layer, we use an "Observer"
 // pattern with AuthListener listener 
 export default class FactHolder {
-    private listeners: FactListener[];
+    private listeners: IFactListener[];
     private fact: string;
     private type: FactType;
     private id: string;
@@ -35,11 +35,11 @@ export default class FactHolder {
       return this.type === FactType.None;
     }
   
-    public addFactListener(factListener: FactListener): void {
+    public addFactListener(factListener: IFactListener): void {
       this.listeners.push(factListener);
     }
   
-    public removeFactListener(factListener: FactListener): void {
+    public removeFactListener(factListener: IFactListener): void {
       this.listeners.splice(this.listeners.indexOf(factListener), 1);
     }
   

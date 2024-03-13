@@ -1,9 +1,9 @@
-import BaseViewModel from "../BaseViewModel";
-import { FactType } from "../../../domain/entity/facts/structures/FactTypeEnum";
+import { FactType } from "../../../domain/entity/facts/FactTypeEnum";
+import IBaseViewModel from "../IBaseViewModel";
 // This is an interface of ViewModel that will be available
 // for View. Here we define all public fields that View will
 // be using
-export default interface FactViewModel extends BaseViewModel {
+export default interface IFactViewModel extends IBaseViewModel {
     factType: FactType;
     fact: string;
 

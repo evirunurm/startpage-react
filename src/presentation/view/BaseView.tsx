@@ -1,3 +1,3 @@
-export default interface BaseView {
+export default interface IBaseView {
     onViewModelChanged(): void;
 }

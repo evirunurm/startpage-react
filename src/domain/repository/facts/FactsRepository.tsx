@@ -1,4 +1,4 @@
-import FactResult from '../../entity/facts/structures/FactResult';
+import IFactResult from '../../entity/facts/structures/IFactResult';
 
 // eHere we define an interface that will b implemented to access the APIs
 export default interface FactRepository {
@@ -7,5 +7,5 @@ export default interface FactRepository {
   /**
    * @throws {Error} if fetch failed
    */
-  fetch(): Promise<FactResult>;
+  fetch(): Promise<IFactResult>;
 }

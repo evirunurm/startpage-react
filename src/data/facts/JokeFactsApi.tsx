@@ -1,5 +1,5 @@
 import FactRepository from '../../domain/repository/facts/FactsRepository';
-import JokesFactResult from '../../domain/entity/facts/structures/JokeFactResult';
+import IJokesFactResult from '../../domain/entity/facts/structures/IJokeFactResult';
 // Class that imitates access to the Cat Facts API
 export default class JokeFactsApi implements FactRepository {
     apiUrl: string;
@@ -11,13 +11,12 @@ export default class JokeFactsApi implements FactRepository {
     /**
     * @throws {Error} if failed to fetch the fact
     */
-    async fetch(): Promise<JokesFactResult> {
-        console.log('API_LINK', this.apiUrl)
+    async fetch(): Promise<IJokesFactResult> {
         try {
             const res = await fetch(this.apiUrl, {
                 mode: 'cors',
             });
-            const factResult : JokesFactResult = await res.json();
+            const factResult : IJokesFactResult = await res.json();
             return factResult;
         } catch (err) {
             throw new Error(String(err));

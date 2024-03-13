@@ -1,7 +1,7 @@
 import React from "react";
-import { FactType } from "../../../../domain/entity/facts/structures/FactTypeEnum";
-import FactSettingsViewModel from "../../../view-model/facts-settings/factSettingsViewModel";
-import BaseView from "../../BaseView";
+import { FactType } from "../../../../domain/entity/facts/FactTypeEnum";
+import FactSettingsViewModel from "../../../view-model/facts/IFactViewModel";
+import IBaseView from "../../BaseView";
 import { getEnumKeys } from "../../../../utils/utils";
 
 export interface FactSettingsComponentProps {
@@ -13,7 +13,7 @@ export interface FactSettingsComponentState {
 }
 
 export default class FactSettingsComponent extends React.Component<FactSettingsComponentProps, FactSettingsComponentState>
-  implements BaseView {
+  implements IBaseView {
   private factViewModel: FactSettingsViewModel;
 
   public constructor(props: FactSettingsComponentProps) {
@@ -35,10 +35,7 @@ export default class FactSettingsComponent extends React.Component<FactSettingsC
 	this.factViewModel.detachView(this);
   }
 
-  // We update state of our component
-  // on each update of ViewModel
   public onViewModelChanged(): void {
-	console.log('onViewModelChanged',this.factViewModel.factType)
 	this.setState(
 	{
 		selectedFactType: this.factViewModel.factType,
@@ -53,19 +50,17 @@ export default class FactSettingsComponent extends React.Component<FactSettingsC
 	return (
 	<>
 		{getEnumKeys(FactType).map((key : number) => (
-			
-		<div key={key}>
-			<p>{selectedFactType}</p>
-			<input
-			type="radio"
-			id={FactType[key]}
-			value={key}
-			name="factType" 
-			checked={selectedFactType == (key as FactType)}
-			onChange={(): void => this.factViewModel.onFactTypeClicked(key as FactType)}
-			/>
-			<label htmlFor={FactType[key]}>{FactType[key]}</label>
-		</div>
+			<div key={key}>
+				<input
+				type="radio"
+				id={FactType[key]}
+				value={key}
+				name="factType" 
+				checked={selectedFactType == (key as FactType)}
+				onChange={(): void => this.factViewModel.onFactTypeClicked(key as FactType)}
+				/>
+				<label htmlFor={FactType[key]}>{FactType[key]}</label>
+			</div>
 		))}
 	</>
 	);
