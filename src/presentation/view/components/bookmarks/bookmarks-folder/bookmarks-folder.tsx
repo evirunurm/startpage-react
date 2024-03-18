@@ -3,15 +3,14 @@ import IBaseView from "../../../BaseView";
 import IBookmarksViewModel from "../../../../view-model/bookmarks/IBookmarksViewModel";
 import BookmarkFolder from "../../../../../domain/entity/bookmarks/models/BookmarkFolder";
 import IBookmark from "../../../../../domain/entity/bookmarks/structures/IBookmark";
+import { Button } from "../../button/button";
 
 export interface BookmarksFolderProps {
 	bookmarksViewModel: IBookmarksViewModel;
 	bookmarksFolder: BookmarkFolder;
 }
 
-export interface BookmarksFolderState {
-	// bookmarksFolder: BookmarksFolder;
-}
+export interface BookmarksFolderState {}
 
 export default class BookmarksFolder extends React.Component<BookmarksFolderProps, BookmarksFolderState>
   implements IBaseView {
@@ -24,10 +23,6 @@ export default class BookmarksFolder extends React.Component<BookmarksFolderProp
 	const { bookmarksViewModel, bookmarksFolder } = this.props;
 	this.bookmarksViewModel = bookmarksViewModel;
 	this.bookmarksFolder = bookmarksFolder;
-
-	// this.state = {
-	// 	bookmarksFolder: bookmarksFolder
-	// };
   }
 
   public componentDidMount(): void {
@@ -39,10 +34,7 @@ export default class BookmarksFolder extends React.Component<BookmarksFolderProp
   }
 
   public onViewModelChanged(): void {
-	this.setState(
-	{
-		// bookmarksFolder: this.bookmarksViewModel.bookmarks,
-	});
+	this.setState({});
   }
 
   public render(): JSX.Element {
@@ -55,6 +47,11 @@ export default class BookmarksFolder extends React.Component<BookmarksFolderProp
 					<li key={index}>{bookmark.name}: {bookmark.url}</li>
 				))
 			}
+			<Button
+				label="Edit"
+				onClick={(): void => this.bookmarksViewModel.onOpenFolderCreatorClick(this.bookmarksFolder.id)}
+			/>
+
 		</div>
 	</>
 	);

@@ -12,6 +12,7 @@ import IBookmarkFolder from "../../../domain/entity/bookmarks/structures/IBookma
 export default class BookmarksViewModel extends BaseViewModel implements IBookmarksViewModel, IBookmarksListener {
 	public bookmarks: IBookmarkContainer | undefined;
 	public bookmarkFolderEditorOpen: boolean;
+	public bookmarkFolderIdEditing?: string;
 
 	public bookmarksUseCase: BookmarksUseCase;
 	public bookmarksHolder: BookmarksHolder;
@@ -35,8 +36,9 @@ export default class BookmarksViewModel extends BaseViewModel implements IBookma
 		return this.bookmarksUseCase.getBookmarkFolderByID(id);
 	}
 
-	onOpenFolderCreatorClick(): void {
+	onOpenFolderCreatorClick(folderId?: string): void {
 		this.bookmarkFolderEditorOpen = true;
+		this.bookmarkFolderIdEditing = folderId;
 		this.notifyViewAboutChanges();
 	}
 	

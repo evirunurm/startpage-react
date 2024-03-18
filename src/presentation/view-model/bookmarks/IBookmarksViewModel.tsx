@@ -5,8 +5,9 @@ import IBaseViewModel from "../IBaseViewModel";
 export default interface IBookmarksViewModel extends IBaseViewModel {
     bookmarks?: IBookmarkContainer;
     bookmarkFolderEditorOpen: boolean;
+    bookmarkFolderIdEditing?: string;
 
-    onOpenFolderCreatorClick(): void;
+    onOpenFolderCreatorClick(folderId?: string): void;
     onCreateFolderClick(bookmarkFolder: BookmarkFolder): void;
     getFolderByID(id: string): BookmarkFolder | undefined ;
 }

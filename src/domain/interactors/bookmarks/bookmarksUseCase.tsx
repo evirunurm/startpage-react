@@ -50,9 +50,18 @@ export default class BookmarksUseCase {
 		const bookmarks : IBookmarkContainer | undefined  = this.localStorageRepository.getBookmarks();
 		console.log(bookmarks)
 		if (bookmarks) {
-			bookmarks.bookmarkFolders.push(bookmarkFolder);
-			this.localStorageRepository.saveBookmarks(bookmarks);
-			this.bookmarksHolder.onBookmarksChanged(bookmarks);
+			const folder = bookmarks.bookmarkFolders.find(folder => folder.id === bookmarkFolder.id);
+			if (folder) {
+				folder.bookmarks = bookmarkFolder.bookmarks;
+				folder.name = bookmarkFolder.name;
+				folder.order = bookmarkFolder.order;
+				this.localStorageRepository.saveBookmarks(bookmarks);
+			} else {
+				bookmarks.bookmarkFolders.push(bookmarkFolder);
+				this.localStorageRepository.saveBookmarks(bookmarks);
+				this.bookmarksHolder.onBookmarksChanged(bookmarks);
+			}
+			
 		}
 	}
 

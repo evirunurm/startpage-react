@@ -4,7 +4,7 @@ import { Button } from "../../button/button";
 import IBookmarkContainer from "../../../../../domain/entity/bookmarks/structures/IBookmarkContainer";
 import IBookmarksViewModel from "../../../../view-model/bookmarks/IBookmarksViewModel";
 import IBookmarkFolder from "../../../../../domain/entity/bookmarks/structures/IBookmarkFolder";
-import BookmarksFolderEditorComponent from "../folder-creator/bookmarks-folder-creator";
+import BookmarksFolderEditorComponent from "../folder-editor/bookmarks-folder-editor";
 import BookmarksFolder from "../bookmarks-folder/bookmarks-folder";
 
 export interface BookmarksContainerProps {
@@ -14,6 +14,7 @@ export interface BookmarksContainerProps {
 export interface BookmarksContainerState {
 	bookmarks?: IBookmarkContainer;
 	bookmarkFolderEditorOpen: boolean;
+	bookmarkFolderIdEditing?: string;
 }
 
 export default class BookmarksContainer extends React.Component<BookmarksContainerProps, BookmarksContainerState>
@@ -29,6 +30,7 @@ export default class BookmarksContainer extends React.Component<BookmarksContain
 	this.state = {
 		bookmarks: bookmarksViewModel.bookmarks,
 		bookmarkFolderEditorOpen: this.bookmarksViewModel.bookmarkFolderEditorOpen,
+		bookmarkFolderIdEditing: this.bookmarksViewModel.bookmarkFolderIdEditing
 	};
   }
 
@@ -44,14 +46,16 @@ export default class BookmarksContainer extends React.Component<BookmarksContain
 	this.setState(
 	{
 		bookmarks: this.bookmarksViewModel.bookmarks,
-		bookmarkFolderEditorOpen: this.bookmarksViewModel.bookmarkFolderEditorOpen
+		bookmarkFolderEditorOpen: this.bookmarksViewModel.bookmarkFolderEditorOpen,
+		bookmarkFolderIdEditing: this.bookmarksViewModel.bookmarkFolderIdEditing,
 	});
   }
 
   public render(): JSX.Element {
 	const {
 		bookmarks,
-		bookmarkFolderEditorOpen
+		bookmarkFolderEditorOpen,
+		bookmarkFolderIdEditing
 	} = this.state;
 
 	return (
@@ -66,12 +70,14 @@ export default class BookmarksContainer extends React.Component<BookmarksContain
 			)) 
 			: null
 		}
+		<p>{bookmarkFolderIdEditing}</p>
 		<Button label="Create new folder" onClick={(): void => this.bookmarksViewModel.onOpenFolderCreatorClick()} />
 		{
 			bookmarkFolderEditorOpen ? 
 			<BookmarksFolderEditorComponent 
-				bookmarksViewModel={this.bookmarksViewModel}>
-			</BookmarksFolderEditorComponent> 
+				bookmarksViewModel={this.bookmarksViewModel}
+				bookmarkFolderID={bookmarkFolderIdEditing}
+			/>
 			: null
 		}	
 	</>
