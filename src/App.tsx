@@ -31,6 +31,8 @@ function App(): JSX.Element {
    const factViewModel = new FactViewModel(factUseCase, factHolder);
    const bookmarksViewModel = new BookmarksViewModel(bookmarksUseCase, bookmarksHolder);
 
+   console.log(bookmarksViewModel)
+
   return (
     <div>
       <FactSettingsComponent factViewModel={factViewModel} />

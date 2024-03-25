@@ -1,11 +1,11 @@
 import React from "react";
-import IBaseView from "../../../BaseView";
 import { Button } from "../../button/button";
 import IBookmarkContainer from "../../../../../domain/entity/bookmarks/structures/IBookmarkContainer";
 import IBookmarksViewModel from "../../../../view-model/bookmarks/IBookmarksViewModel";
 import IBookmarkFolder from "../../../../../domain/entity/bookmarks/structures/IBookmarkFolder";
 import BookmarksFolderEditorComponent from "../folder-editor/bookmarks-folder-editor";
 import BookmarksFolder from "../bookmarks-folder/bookmarks-folder";
+import IBaseView from "../../../IBaseView";
 
 export interface BookmarksContainerProps {
 	bookmarksViewModel: IBookmarksViewModel;
@@ -17,8 +17,13 @@ export interface BookmarksContainerState {
 	bookmarkFolderIdEditing?: string;
 }
 
-export default class BookmarksContainer extends React.Component<BookmarksContainerProps, BookmarksContainerState>
-  implements IBaseView {
+export default class BookmarksContainer extends 
+	React.Component<
+		BookmarksContainerProps, 
+		BookmarksContainerState
+	> 
+	implements IBaseView 
+{
   private bookmarksViewModel: IBookmarksViewModel;
 
   public constructor(props: BookmarksContainerProps) {
@@ -64,7 +69,7 @@ export default class BookmarksContainer extends React.Component<BookmarksContain
 			bookmarks ? bookmarks.bookmarkFolders.map((bookmarkFolder: IBookmarkFolder, index: number) => (
 				<BookmarksFolder
 					bookmarksViewModel={this.bookmarksViewModel}
-					bookmarksFolder={bookmarkFolder}
+					bookmarksFolderId={bookmarkFolder.id}
 					key={index}
 				/>
 			)) 

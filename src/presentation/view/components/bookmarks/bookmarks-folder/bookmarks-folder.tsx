@@ -1,28 +1,40 @@
 import React from "react";
-import IBaseView from "../../../BaseView";
 import IBookmarksViewModel from "../../../../view-model/bookmarks/IBookmarksViewModel";
 import BookmarkFolder from "../../../../../domain/entity/bookmarks/models/BookmarkFolder";
 import IBookmark from "../../../../../domain/entity/bookmarks/structures/IBookmark";
 import { Button } from "../../button/button";
+import IBaseView from "../../../IBaseView";
 
 export interface BookmarksFolderProps {
 	bookmarksViewModel: IBookmarksViewModel;
-	bookmarksFolder: BookmarkFolder;
+	bookmarksFolderId: string;
 }
 
 export interface BookmarksFolderState {}
 
-export default class BookmarksFolder extends React.Component<BookmarksFolderProps, BookmarksFolderState>
-  implements IBaseView {
-  private bookmarksViewModel: IBookmarksViewModel;
-  private bookmarksFolder: BookmarkFolder;
+export default class BookmarksFolder extends 
+	React.Component<
+		BookmarksFolderProps, 
+		BookmarksFolderState
+	>
+	implements IBaseView 
+{
+	private bookmarksViewModel: IBookmarksViewModel;	
+	private bookmarksFolderId: string;
+	private bookmarksFolder: BookmarkFolder;
 
   public constructor(props: BookmarksFolderProps) {
 	super(props);
 
-	const { bookmarksViewModel, bookmarksFolder } = this.props;
+	const { bookmarksViewModel, bookmarksFolderId } = this.props;
+	this.bookmarksFolderId = bookmarksFolderId;
 	this.bookmarksViewModel = bookmarksViewModel;
-	this.bookmarksFolder = bookmarksFolder;
+	const folder = this.bookmarksViewModel.getFolderByID(this.bookmarksFolderId)
+	if (folder) {
+		this.bookmarksFolder = folder;
+	} else {
+		throw new Error;
+	}
   }
 
   public componentDidMount(): void {
@@ -34,7 +46,15 @@ export default class BookmarksFolder extends React.Component<BookmarksFolderProp
   }
 
   public onViewModelChanged(): void {
-	this.setState({});
+	const folder = this.bookmarksViewModel.getFolderByID(this.bookmarksFolderId)
+	console.log('Fetched folder', folder)
+	if (folder) {
+		this.setState(
+			this.bookmarksFolder = folder
+		);
+	} else {
+		throw new Error;
+	}
   }
 
   public render(): JSX.Element {

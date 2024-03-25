@@ -1,26 +1,22 @@
-import IBaseView from '../view/BaseView';
+import IBaseView from '../view/IBaseView';
 import IBaseViewModel from './IBaseViewModel';
 
 export default class BaseViewModel implements IBaseViewModel {
-  private baseViews: IBaseView[];
+	private baseViews: IBaseView[];
 
-  public constructor() {
+	public constructor() {
 		this.baseViews = [];
 	}
 
-  notifyViewAboutChanges = (): void => {
+	notifyViewAboutChanges = (): void => {
+		console.log('Notifying views', this.baseViews)
 		this.baseViews.forEach((view : IBaseView) => {
 			view.onViewModelChanged();
 		});
 	};
 
-  attachView(baseView: IBaseView): void {
-		const index = this.baseViews.findIndex((view: IBaseView) => {
-			return (view.constructor.name) == (baseView.constructor.name);
-		});
-		if (index === -1) {
-			this.baseViews.push(baseView);	
-		}
+	attachView(baseView: IBaseView): void {
+		this.baseViews.push(baseView);	
 	}
 
 	attachViews(baseViews: IBaseView[]): void {
@@ -29,7 +25,7 @@ export default class BaseViewModel implements IBaseViewModel {
 
 	detachView(baseView: IBaseView): void {
 		const index = this.baseViews.findIndex((view: IBaseView) => {
-			return (view.constructor.name) == (baseView.constructor.name);
+			return view == baseView;
 		});
 		if (index !== -1) {
 			this.baseViews.splice(index, 1);

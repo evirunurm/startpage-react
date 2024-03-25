@@ -1,9 +1,9 @@
 import React from "react";
-import IBaseView from "../../../BaseView";
 import IBookmarksViewModel from "../../../../view-model/bookmarks/IBookmarksViewModel";
 import IBookmarkFolder from "../../../../../domain/entity/bookmarks/structures/IBookmarkFolder";
 import BookmarkFolder from "../../../../../domain/entity/bookmarks/models/BookmarkFolder";
 import { Button } from "../../button/button";
+import IBaseView from "../../../IBaseView";
 
 export interface BookmarksFolderEditorComponentProps {
 	bookmarksViewModel: IBookmarksViewModel;
@@ -18,29 +18,26 @@ export default class BookmarksFolderEditorComponent
 	extends React.Component<
 		BookmarksFolderEditorComponentProps,
 		BookmarksFolderEditorComponentState
-	>
-	implements IBaseView
+	> implements IBaseView
 {
 	private bookmarksViewModel: IBookmarksViewModel;
-	private bookmarkFolderID: string;
 
 	public constructor(props: BookmarksFolderEditorComponentProps) {
 		super(props);
-		const { bookmarksViewModel, bookmarkFolderID } = this.props;
+		const { bookmarksViewModel } = this.props;
 		this.bookmarksViewModel = bookmarksViewModel;
 		let bookmarkFolder: BookmarkFolder | undefined;
-		if (bookmarkFolderID) {
-			bookmarkFolder = bookmarksViewModel.getFolderByID(bookmarkFolderID);
-		}
+
+		bookmarkFolder = bookmarksViewModel.getEditingFolder();
 		if (!bookmarkFolder) {
 			bookmarkFolder = new BookmarkFolder();
 		}
-		this.bookmarkFolderID = bookmarkFolder.id;
 
 		this.state = {
 			bookmarkFolder: bookmarkFolder,
 		};
 	}
+	
 
 	public componentDidMount(): void {
 		this.bookmarksViewModel.attachView(this);
@@ -51,9 +48,10 @@ export default class BookmarksFolderEditorComponent
 	}
 
 	public onViewModelChanged(): void {
+		console.log(this.bookmarksViewModel.getEditingFolder())
 		this.setState(
 			{
-				bookmarkFolder: this.bookmarksViewModel.getFolderByID(this.bookmarkFolderID) ?? new BookmarkFolder()
+				bookmarkFolder: this.bookmarksViewModel.getEditingFolder() ?? new BookmarkFolder()
 			}
 		);
 	}
@@ -79,7 +77,7 @@ export default class BookmarksFolderEditorComponent
 
 		return (
 			<>
-				<p>{this.bookmarkFolderID}</p>
+				<p>{bookmarkFolder.id}</p>
 				<section>
 					<input type="text" value={bookmarkFolder.name} onChange={this.handleNameChange} />
 					<input type="number" value={bookmarkFolder.order.toString()} onChange={this.handleOrderChange} />
@@ -87,7 +85,7 @@ export default class BookmarksFolderEditorComponent
 				<Button
 					label="Save Folder"
 					onClick={(): void =>
-						this.bookmarksViewModel.onCreateFolderClick(
+						this.bookmarksViewModel.onSaveFolderClick(
 							bookmarkFolder
 						)
 					}

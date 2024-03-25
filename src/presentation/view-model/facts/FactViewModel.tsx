@@ -49,7 +49,7 @@ export default class FactViewModel extends BaseViewModel implements IFactViewMod
 		try {
 			await this.factsUseCase.fetchFactResult(factType);
 		} catch (e) {
-			console.log(e)
+			console.log('Error', e)
 		}
 	};
 

@@ -48,7 +48,7 @@ export default class BookmarksUseCase {
 
 	public addBookmarkFolder(bookmarkFolder: BookmarkFolder): void {
 		const bookmarks : IBookmarkContainer | undefined  = this.localStorageRepository.getBookmarks();
-		console.log(bookmarks)
+		console.log('Adding BookmarkFolder', bookmarks)
 		if (bookmarks) {
 			const folder = bookmarks.bookmarkFolders.find(folder => folder.id === bookmarkFolder.id);
 			if (folder) {
@@ -61,7 +61,6 @@ export default class BookmarksUseCase {
 				this.localStorageRepository.saveBookmarks(bookmarks);
 				this.bookmarksHolder.onBookmarksChanged(bookmarks);
 			}
-			
 		}
 	}
 

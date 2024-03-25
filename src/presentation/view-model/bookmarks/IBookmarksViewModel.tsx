@@ -8,6 +8,7 @@ export default interface IBookmarksViewModel extends IBaseViewModel {
     bookmarkFolderIdEditing?: string;
 
     onOpenFolderCreatorClick(folderId?: string): void;
-    onCreateFolderClick(bookmarkFolder: BookmarkFolder): void;
+    onSaveFolderClick(bookmarkFolder: BookmarkFolder): void;
+    getEditingFolder(): BookmarkFolder | undefined ;
     getFolderByID(id: string): BookmarkFolder | undefined ;
 }

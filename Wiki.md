@@ -56,3 +56,17 @@ stringKeys.forEach((key, index) => {
 })
 ```
 ___
+### Mixins
+
+[In progress...]
+
+___
+### ViewModel views
+While refactoring my code, I found myself in the following situation:
+
+I made my ViewModels to have a property _baseViews_, which is an array of _IBaseView_ (`private baseViews: IBaseView[]`). There, I stored all the views that were depended on that view model. When a view is instanced, it attaches itself to the view model. And whenever the view model changes, it notifies the views about that change, so that they could get the updated info. All of them get the same information from the same place.
+
+View Model tells the View that it's changed. The View updates it's info from View Model's data.
+
+
+[In progress...]

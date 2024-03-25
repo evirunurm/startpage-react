@@ -1,8 +1,8 @@
 import React from "react";
 import { FactType } from "../../../../domain/entity/facts/FactTypeEnum";
 import FactSettingsViewModel from "../../../view-model/facts/IFactViewModel";
-import IBaseView from "../../BaseView";
 import { getEnumKeys } from "../../../../utils/utils";
+import IBaseView from "../../IBaseView";
 
 export interface FactSettingsComponentProps {
 	factViewModel: FactSettingsViewModel;
@@ -12,8 +12,13 @@ export interface FactSettingsComponentState {
 	selectedFactType: FactType;
 }
 
-export default class FactSettingsComponent extends React.Component<FactSettingsComponentProps, FactSettingsComponentState>
-  implements IBaseView {
+export default class FactSettingsComponent extends 
+	React.Component<
+		FactSettingsComponentProps, 
+		FactSettingsComponentState
+	> 
+	implements IBaseView 
+{
   private factViewModel: FactSettingsViewModel;
 
   public constructor(props: FactSettingsComponentProps) {

@@ -1,4 +1,4 @@
-import IBaseView from '../view/BaseView';
+import IBaseView from '../view/IBaseView';
 
 export default interface IBaseViewModel {
   notifyViewAboutChanges(baseView: IBaseView): void;

@@ -36,15 +36,24 @@ export default class BookmarksViewModel extends BaseViewModel implements IBookma
 		return this.bookmarksUseCase.getBookmarkFolderByID(id);
 	}
 
+	getEditingFolder(): BookmarkFolder | undefined {
+		if (this.bookmarkFolderIdEditing) {
+			return this.bookmarksUseCase.getBookmarkFolderByID(this.bookmarkFolderIdEditing);
+		}
+		return undefined;
+	}
+
 	onOpenFolderCreatorClick(folderId?: string): void {
+		console.log('Clicked open folder editor', folderId);
 		this.bookmarkFolderEditorOpen = true;
 		this.bookmarkFolderIdEditing = folderId;
 		this.notifyViewAboutChanges();
 	}
 	
-	onCreateFolderClick(bookmarkFolder: BookmarkFolder): void {
-		console.log(bookmarkFolder)
+	onSaveFolderClick(bookmarkFolder: BookmarkFolder): void {
+		console.log('Clicked save folder', bookmarkFolder);
 		this.bookmarksUseCase.addBookmarkFolder(bookmarkFolder);
+		this.onBookmarksChanged();
 	}
 
 	onBookmarksChanged(): void {
