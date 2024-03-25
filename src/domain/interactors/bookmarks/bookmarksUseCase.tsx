@@ -2,6 +2,7 @@ import { generateNewBookmarksContainer } from '../../../utils/utils';
 import Bookmark from '../../entity/bookmarks/models/Bookmark'
 import BookmarkFolder from '../../entity/bookmarks/models/BookmarkFolder';
 import BookmarksHolder from '../../entity/bookmarks/models/BookmarksHolder';
+import IBookmark from '../../entity/bookmarks/structures/IBookmark';
 import IBookmarkContainer from '../../entity/bookmarks/structures/IBookmarkContainer';
 import ILocalStorageRepository from '../../repository/facts/LocalStorageRepository';
 
@@ -26,16 +27,25 @@ export default class BookmarksUseCase {
 		}
 	}
 
-	public addBookmark(bookmarkFolderId: string, name: string, url: string): void {
+	public addBookmark(bookmarkFolderId: string, bookmark: Bookmark): void {
 		const bookmarks : IBookmarkContainer | undefined = this.localStorageRepository.getBookmarks();
 		
 		if (bookmarks) {
 			const folder = bookmarks.bookmarkFolders.find(folder => folder.id === bookmarkFolderId);
 
 			if (folder) {
-				const newBookmark = new Bookmark(name, url);
-				folder.bookmarks.push(newBookmark);
-				this.localStorageRepository.saveBookmarks(bookmarks);
+				const existingBookmark = folder.bookmarks.find(bm => bm.id === bookmark.id);
+				if (existingBookmark) {
+					console.log('Updaing existing bookmark', existingBookmark)
+					existingBookmark.name = bookmark.name;
+					existingBookmark.order = bookmark.order;
+					existingBookmark.url = bookmark.url;
+					this.localStorageRepository.saveBookmarks(bookmarks);
+				} else {
+					console.log('Inserting new bookmark', bookmark)
+					folder.bookmarks.push(bookmark);
+					this.localStorageRepository.saveBookmarks(bookmarks);
+				}
 				this.bookmarksHolder.onBookmarksChanged(bookmarks);
 			}
 		}
@@ -73,4 +83,23 @@ export default class BookmarksUseCase {
 		}
 		return undefined;
 	}
+
+	public getBookmarkByID(id: string): Bookmark | undefined {
+		const bookmarksContainer : IBookmarkContainer | undefined  = this.localStorageRepository.getBookmarks();
+
+		if (bookmarksContainer) {
+			// Flatten all the folders and bookmarks
+			const flatBookmarks: IBookmark[] = bookmarksContainer.bookmarkFolders
+				.flatMap(folder => folder.bookmarks);
+	
+			// Find the bookmark with the given id
+			const bookmark: Bookmark | undefined = flatBookmarks
+				.find(bookmark => bookmark.id === id);
+	
+			return bookmark;
+		}
+
+		return undefined;
+	}
+	
 }

@@ -76,7 +76,7 @@ export default class BookmarksContainer extends
 			: null
 		}
 		<p>{bookmarkFolderIdEditing}</p>
-		<Button label="Create new folder" onClick={(): void => this.bookmarksViewModel.onOpenFolderCreatorClick()} />
+		<Button label="Create new folder" onClick={(): void => this.bookmarksViewModel.onOpenFolderSaverClick()} />
 		{
 			bookmarkFolderEditorOpen ? 
 			<BookmarksFolderEditorComponent 

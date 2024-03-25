@@ -4,6 +4,7 @@ import IBookmarkFolder from "../../../../../domain/entity/bookmarks/structures/I
 import BookmarkFolder from "../../../../../domain/entity/bookmarks/models/BookmarkFolder";
 import { Button } from "../../button/button";
 import IBaseView from "../../../IBaseView";
+import BookmarkEditorComponent from "../bookmark-editor/bookmark-editor";
 
 export interface BookmarksFolderEditorComponentProps {
 	bookmarksViewModel: IBookmarksViewModel;
@@ -77,10 +78,37 @@ export default class BookmarksFolderEditorComponent
 
 		return (
 			<>
-				<p>{bookmarkFolder.id}</p>
+				<h2>Folder Editor: {bookmarkFolder.name} ({bookmarkFolder.id})</h2>
 				<section>
 					<input type="text" value={bookmarkFolder.name} onChange={this.handleNameChange} />
 					<input type="number" value={bookmarkFolder.order.toString()} onChange={this.handleOrderChange} />
+					<ol>
+						{
+							bookmarkFolder.bookmarks.map((bookmark, index) => 
+								<li key={index}>
+									{bookmark.name}: <strong>{bookmark.url}</strong>
+									<Button
+										label="Edit bookmark"
+										onClick={(): void => this.bookmarksViewModel.onOpenBookmarkSaverClick(bookmark.id)}
+									/>
+								</li>
+							)
+						}
+					</ol>
+
+					{
+						this.bookmarksViewModel.bookmarkEditorOpen ? 
+						<BookmarkEditorComponent 
+							bookmarksViewModel={this.bookmarksViewModel}
+						/> : null
+					}
+
+					<Button
+						label="Add new Bookmark"
+						onClick={(): void =>
+							this.bookmarksViewModel.onOpenBookmarkSaverClick()
+						}
+					></Button>
 				</section>
 				<Button
 					label="Save Folder"

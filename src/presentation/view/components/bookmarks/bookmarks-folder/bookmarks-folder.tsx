@@ -64,14 +64,15 @@ export default class BookmarksFolder extends
 			<h3>{this.bookmarksFolder.name}</h3>
 			{ 
 				this.bookmarksFolder.bookmarks.map((bookmark : IBookmark, index: number) => (
-					<li key={index}>{bookmark.name}: {bookmark.url}</li>
+					<li key={index}>
+						{bookmark.name}: {bookmark.url} 
+					</li>
 				))
 			}
 			<Button
-				label="Edit"
-				onClick={(): void => this.bookmarksViewModel.onOpenFolderCreatorClick(this.bookmarksFolder.id)}
+				label="Edit folder"
+				onClick={(): void => this.bookmarksViewModel.onOpenFolderSaverClick(this.bookmarksFolder.id)}
 			/>
-
 		</div>
 	</>
 	);

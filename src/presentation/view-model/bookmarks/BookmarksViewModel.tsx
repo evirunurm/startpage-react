@@ -12,7 +12,9 @@ import IBookmarkFolder from "../../../domain/entity/bookmarks/structures/IBookma
 export default class BookmarksViewModel extends BaseViewModel implements IBookmarksViewModel, IBookmarksListener {
 	public bookmarks: IBookmarkContainer | undefined;
 	public bookmarkFolderEditorOpen: boolean;
+	public bookmarkEditorOpen: boolean;
 	public bookmarkFolderIdEditing?: string;
+	public bookmarkIdEditing?: string;
 
 	public bookmarksUseCase: BookmarksUseCase;
 	public bookmarksHolder: BookmarksHolder;
@@ -20,6 +22,7 @@ export default class BookmarksViewModel extends BaseViewModel implements IBookma
 	public constructor(bookmarksUseCase: BookmarksUseCase, bookmarksHolder: BookmarksHolder) {
 		super();
 		this.bookmarkFolderEditorOpen = false;
+		this.bookmarkEditorOpen = false;
 		this.bookmarksUseCase = bookmarksUseCase;
 		this.bookmarksHolder = bookmarksHolder;
 		this.bookmarksHolder.addBookmarksListener(this);
@@ -30,6 +33,28 @@ export default class BookmarksViewModel extends BaseViewModel implements IBookma
 			this.bookmarks = generateNewBookmarksContainer();
 			bookmarksUseCase.saveBookmarkContainer(this.bookmarks);
 		}
+	}
+
+	onOpenBookmarkSaverClick(bookmarkId?: string | undefined): void {
+		console.log('Clicked open bookmark editor', bookmarkId);
+		this.bookmarkEditorOpen = true;
+		this.bookmarkIdEditing = bookmarkId;
+		this.notifyViewAboutChanges();
+	}
+
+	onSaveBookmarkClick(bookmark: Bookmark): void {
+		console.log('Clicked save bookmark', bookmark);
+		if (this.bookmarkFolderIdEditing) {
+			this.bookmarksUseCase.addBookmark(this.bookmarkFolderIdEditing, bookmark);
+			this.onBookmarksChanged();
+		}
+	}
+
+	getEditingBookmark(): Bookmark | undefined {
+		if (this.bookmarkIdEditing) {
+			return this.bookmarksUseCase.getBookmarkByID(this.bookmarkIdEditing);
+		}
+		return undefined;
 	}
 	
 	getFolderByID(id: string): BookmarkFolder | undefined {
@@ -43,7 +68,7 @@ export default class BookmarksViewModel extends BaseViewModel implements IBookma
 		return undefined;
 	}
 
-	onOpenFolderCreatorClick(folderId?: string): void {
+	onOpenFolderSaverClick(folderId?: string): void {
 		console.log('Clicked open folder editor', folderId);
 		this.bookmarkFolderEditorOpen = true;
 		this.bookmarkFolderIdEditing = folderId;
