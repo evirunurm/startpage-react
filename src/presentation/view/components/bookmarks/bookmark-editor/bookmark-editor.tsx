@@ -47,7 +47,6 @@ export default class BookmarkEditorComponent
 	}
 
 	public onViewModelChanged(): void {
-		console.log(this.bookmarksViewModel.getEditingBookmark())
 		this.setState(
 			{
 				bookmark: this.bookmarksViewModel.getEditingBookmark() ?? new Bookmark()
@@ -78,11 +77,17 @@ export default class BookmarkEditorComponent
 					<input type="number" value={bookmark.order.toString()} onChange={this.handleOrderChange} />
 				</section>
 				<Button
-					label="Save Folder"
+					label="Save Bookmark"
 					onClick={(): void =>
 						this.bookmarksViewModel.onSaveBookmarkClick(
 							bookmark
 						)
+					}
+				></Button>
+				<Button
+					label="Close"
+					onClick={(): void =>
+						this.bookmarksViewModel.onCloseBookmarkEditor()
 					}
 				></Button>
 			</>

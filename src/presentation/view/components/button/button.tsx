@@ -1,4 +1,4 @@
-import '../../../styles/button.css';
+import { Button as ButtonAria } from 'react-aria-components';
 
 interface ButtonProps {
   backgroundColor?: string;
@@ -12,13 +12,12 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   return (
-    <button
+    <ButtonAria
       type="button"
-      className="primary-button"
       style={{ backgroundColor }}
       {...props}
     >
       {label}
-    </button>
+    </ButtonAria>
   );
 };

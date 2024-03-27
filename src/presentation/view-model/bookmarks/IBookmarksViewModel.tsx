@@ -4,6 +4,8 @@ import IBookmarkContainer from "../../../domain/entity/bookmarks/structures/IBoo
 import IBaseViewModel from "../IBaseViewModel";
 
 export default interface IBookmarksViewModel extends IBaseViewModel {
+	onCloseFolderEditor(): void;
+	onCloseBookmarkEditor(): void;
     bookmarks?: IBookmarkContainer;
     bookmarkFolderEditorOpen: boolean;
     bookmarkEditorOpen: boolean;

@@ -35,6 +35,17 @@ export default class BookmarksViewModel extends BaseViewModel implements IBookma
 		}
 	}
 
+	onCloseFolderEditor(): void {
+		this.resetFolderEditing();
+		this.resetBookmarkEditing();
+		this.notifyViewAboutChanges();
+	}
+
+	onCloseBookmarkEditor(): void {
+		this.resetBookmarkEditing();
+		this.notifyViewAboutChanges();
+	}
+
 	onOpenBookmarkSaverClick(bookmarkId?: string | undefined): void {
 		console.log('Clicked open bookmark editor', bookmarkId);
 		this.bookmarkEditorOpen = true;
@@ -46,8 +57,19 @@ export default class BookmarksViewModel extends BaseViewModel implements IBookma
 		console.log('Clicked save bookmark', bookmark);
 		if (this.bookmarkFolderIdEditing) {
 			this.bookmarksUseCase.addBookmark(this.bookmarkFolderIdEditing, bookmark);
+			this.resetBookmarkEditing();
 			this.onBookmarksChanged();
 		}
+	}
+
+	resetBookmarkEditing(): void {
+		this.bookmarkIdEditing = undefined;
+		this.bookmarkEditorOpen = false;
+	}
+
+	resetFolderEditing(): void {
+		this.bookmarkFolderIdEditing = undefined;
+		this.bookmarkFolderEditorOpen = false;
 	}
 
 	getEditingBookmark(): Bookmark | undefined {
@@ -78,6 +100,8 @@ export default class BookmarksViewModel extends BaseViewModel implements IBookma
 	onSaveFolderClick(bookmarkFolder: BookmarkFolder): void {
 		console.log('Clicked save folder', bookmarkFolder);
 		this.bookmarksUseCase.addBookmarkFolder(bookmarkFolder);
+		this.resetFolderEditing();
+		this.resetBookmarkEditing();
 		this.onBookmarksChanged();
 	}
 

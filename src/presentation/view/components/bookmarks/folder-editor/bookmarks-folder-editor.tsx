@@ -49,7 +49,6 @@ export default class BookmarksFolderEditorComponent
 	}
 
 	public onViewModelChanged(): void {
-		console.log(this.bookmarksViewModel.getEditingFolder())
 		this.setState(
 			{
 				bookmarkFolder: this.bookmarksViewModel.getEditingFolder() ?? new BookmarkFolder()
@@ -62,11 +61,7 @@ export default class BookmarksFolderEditorComponent
 		const updatedFolder = { ...bookmarkFolder, name: event.target.value };
 		this.setState({ bookmarkFolder: updatedFolder });
 	};
-
-	// handleBookmarksChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-	// 	// Update bookmarks array based on user input
-	// };
-
+	
 	handleOrderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { bookmarkFolder } = this.state;
 		const updatedFolder = { ...bookmarkFolder, order: parseInt(event.target.value) };
@@ -100,15 +95,16 @@ export default class BookmarksFolderEditorComponent
 						this.bookmarksViewModel.bookmarkEditorOpen ? 
 						<BookmarkEditorComponent 
 							bookmarksViewModel={this.bookmarksViewModel}
-						/> : null
+						/> : 
+						<Button
+							label="Add new Bookmark"
+							onClick={(): void =>
+								this.bookmarksViewModel.onOpenBookmarkSaverClick()
+							}
+						></Button>
 					}
 
-					<Button
-						label="Add new Bookmark"
-						onClick={(): void =>
-							this.bookmarksViewModel.onOpenBookmarkSaverClick()
-						}
-					></Button>
+					
 				</section>
 				<Button
 					label="Save Folder"
@@ -116,6 +112,12 @@ export default class BookmarksFolderEditorComponent
 						this.bookmarksViewModel.onSaveFolderClick(
 							bookmarkFolder
 						)
+					}
+				></Button>
+				<Button
+					label="Close Folder Editor"
+					onClick={(): void =>
+						this.bookmarksViewModel.onCloseFolderEditor()
 					}
 				></Button>
 			</>
