@@ -52,8 +52,6 @@ export default class BookmarksFolder extends
 		this.setState(
 			this.bookmarksFolder = folder
 		);
-	} else {
-		throw new Error;
 	}
   }
 

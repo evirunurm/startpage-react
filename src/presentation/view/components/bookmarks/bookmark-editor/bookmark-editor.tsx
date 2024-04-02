@@ -1,9 +1,9 @@
 import React from "react";
-import IBookmarksViewModel from "../../../../view-model/bookmarks/IBookmarksViewModel";
-import { Button } from "../../button/button";
-import IBaseView from "../../../IBaseView";
-import IBookmark from "../../../../../domain/entity/bookmarks/structures/IBookmark";
-import Bookmark from "../../../../../domain/entity/bookmarks/models/Bookmark";
+import IBookmarksViewModel from "@viewModels/bookmarks/IBookmarksViewModel";
+import { Button } from "@components/button/button";
+import IBaseView from "@view/IBaseView";
+import IBookmark from "@entity/bookmarks/structures/IBookmark";
+import Bookmark from "@entity/bookmarks/models/Bookmark";
 
 export interface BookmarkEditorComponentProps {
 	bookmarksViewModel: IBookmarksViewModel;

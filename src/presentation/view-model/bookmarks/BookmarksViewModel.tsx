@@ -52,7 +52,8 @@ export default class BookmarksViewModel extends BaseViewModel implements IBookma
 			this.bookmarksUseCase.removeFolder(this.idBookmarkFolderDeleting);
 		}
 		this.resetBookmarkFolderDeleting();
-		this.notifyViewAboutChanges();
+		console.log('Here')
+		this.onBookmarksChanged();
 	}
 
 	public onCloseFolderEditor(): void {
@@ -133,6 +134,7 @@ export default class BookmarksViewModel extends BaseViewModel implements IBookma
 
 	onBookmarksChanged(): void {
 		this.bookmarks = this.bookmarksHolder.getBookmarks();
+		console.log(this.bookmarks)
 		this.notifyViewAboutChanges();
 	}
 }

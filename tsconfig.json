@@ -18,7 +18,15 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@components/*": ["presentation/view/components/*"],
+      "@view/*": ["presentation/view/*"],
+      "@viewModels/*": ["presentation/view-model/*"],
+      "@data/*":["data/*"],
+      "@entity/*": ["domain/entity/*"],
+    }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

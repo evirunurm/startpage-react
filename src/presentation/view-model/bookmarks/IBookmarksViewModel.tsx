@@ -10,6 +10,7 @@ export default interface IBookmarksViewModel extends IBaseViewModel {
     isBookmarkEditorOpen: boolean;
     idBookmarkEditing?: string;
     isDeleteConfirmationOpen: boolean;
+    idBookmarkFolderDeleting?: string;
 
     onOpenBookmarkSaverClick(bookmarkId?: string): void;
     onOpenFolderSaverClick(folderId?: string): void;

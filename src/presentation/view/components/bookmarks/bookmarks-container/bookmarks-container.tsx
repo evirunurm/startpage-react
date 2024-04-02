@@ -1,12 +1,12 @@
 import React from "react";
-import { Button } from "../../button/button";
-import IBookmarkContainer from "../../../../../domain/entity/bookmarks/structures/IBookmarkContainer";
-import IBookmarksViewModel from "../../../../view-model/bookmarks/IBookmarksViewModel";
-import IBookmarkFolder from "../../../../../domain/entity/bookmarks/structures/IBookmarkFolder";
-import BookmarksFolderEditorComponent from "../folder-editor/bookmarks-folder-editor";
-import BookmarksFolder from "../bookmarks-folder/bookmarks-folder";
-import IBaseView from "../../../IBaseView";
-import ModalComponent from "../../modal/modal";
+import { Button } from "@components/button/button";
+import IBookmarkContainer from "@entity/bookmarks/structures/IBookmarkContainer";
+import IBookmarksViewModel from "@viewModels/bookmarks/IBookmarksViewModel";
+import IBookmarkFolder from "@entity/bookmarks/structures/IBookmarkFolder";
+import BookmarksFolderEditorComponent from "@components/bookmarks/folder-editor/bookmarks-folder-editor";
+import BookmarksFolder from "@components/bookmarks/bookmarks-folder/bookmarks-folder";
+import IBaseView from "@view/IBaseView";
+import ModalComponent from "@components/modal/modal";
 
 export interface BookmarksContainerProps {
 	bookmarksViewModel: IBookmarksViewModel;
@@ -56,7 +56,7 @@ export default class BookmarksContainer extends
 		bookmarks: this.bookmarksViewModel.bookmarks,
 		isBookmarkFolderEditorOpen: this.bookmarksViewModel.isBookmarkFolderEditorOpen,
 		bookmarkFolderIdEditing: this.bookmarksViewModel.idBookmarkFolderEditing,
-		isDeleteFolderConfirmationOpen: this.bookmarksViewModel.isDeleteConfirmationOpen,
+		isDeleteFolderConfirmationOpen: this.bookmarksViewModel.isDeleteConfirmationOpen
 	});
   }
 
@@ -94,7 +94,16 @@ export default class BookmarksContainer extends
 			isDeleteFolderConfirmationOpen ? 
 			<ModalComponent 
 				text="Are you sure you want to delete this folder?"
-				options={}
+				options={[
+					{
+						text: 'Confirm',
+						onClick: (): void => this.bookmarksViewModel.onConfirmDeleteFolderClick(true)
+					},
+					{
+						text: 'Cancel',
+						onClick: (): void => this.bookmarksViewModel.onConfirmDeleteFolderClick(false)
+					}
+				]}
 			/>
 			: null
 		}	
