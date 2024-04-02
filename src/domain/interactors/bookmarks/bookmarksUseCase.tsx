@@ -14,20 +14,20 @@ export default class BookmarksUseCase {
 		bookmarksHolder: BookmarksHolder) {
 		this.localStorageRepository = localStorageRepository;
 		this.bookmarksHolder = bookmarksHolder;
-		this.syncronizeBookmarks();
+		this.syncronize();
 	}
 
-	public syncronizeBookmarks(): void {
+	public syncronize(): void {
 		const bookmarks : IBookmarkContainer | undefined = this.localStorageRepository.getBookmarks();
 		if (bookmarks) {
 			this.bookmarksHolder.onBookmarksChanged(bookmarks);
 		} else {
 			const newEmptyBookmarks = generateNewBookmarksContainer();
-			this.saveBookmarkContainer(newEmptyBookmarks);
+			this.saveContainer(newEmptyBookmarks);
 		}
 	}
 
-	public addBookmark(bookmarkFolderId: string, bookmark: Bookmark): void {
+	public add(bookmarkFolderId: string, bookmark: Bookmark): void {
 		const bookmarks : IBookmarkContainer | undefined = this.localStorageRepository.getBookmarks();
 		
 		if (bookmarks) {
@@ -51,12 +51,24 @@ export default class BookmarksUseCase {
 		}
 	}
 
-	public saveBookmarkContainer(bookmarkContainer: IBookmarkContainer): void {
+	public removeFolder(bookmarkFolderId: string): void {
+		const bookmarks : IBookmarkContainer | undefined = this.localStorageRepository.getBookmarks();
+		if (bookmarks) {
+			const folderIndex = bookmarks.bookmarkFolders.findIndex(folder => folder.id === bookmarkFolderId);
+			if (folderIndex > -1) {
+				bookmarks.bookmarkFolders.splice(folderIndex, 1);
+				this.localStorageRepository.saveBookmarks(bookmarks);
+				this.bookmarksHolder.onBookmarksChanged(bookmarks);
+			}
+		}
+	}
+
+	public saveContainer(bookmarkContainer: IBookmarkContainer): void {
 		this.localStorageRepository.saveBookmarks(bookmarkContainer);
 		this.bookmarksHolder.onBookmarksChanged(bookmarkContainer);
 	}
 
-	public addBookmarkFolder(bookmarkFolder: BookmarkFolder): void {
+	public addFolder(bookmarkFolder: BookmarkFolder): void {
 		const bookmarks : IBookmarkContainer | undefined  = this.localStorageRepository.getBookmarks();
 		console.log('Adding BookmarkFolder', bookmarks)
 		if (bookmarks) {
@@ -74,7 +86,7 @@ export default class BookmarksUseCase {
 		}
 	}
 
-	public getBookmarkFolderByID(id: string): BookmarkFolder | undefined {
+	public getFolderByID(id: string): BookmarkFolder | undefined {
 		const bookmarks : IBookmarkContainer | undefined  = this.localStorageRepository.getBookmarks();
 
 		if (bookmarks) {
@@ -84,7 +96,7 @@ export default class BookmarksUseCase {
 		return undefined;
 	}
 
-	public getBookmarkByID(id: string): Bookmark | undefined {
+	public getByID(id: string): Bookmark | undefined {
 		const bookmarksContainer : IBookmarkContainer | undefined  = this.localStorageRepository.getBookmarks();
 
 		if (bookmarksContainer) {

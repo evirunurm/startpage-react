@@ -71,7 +71,13 @@ export default class BookmarksFolder extends
 			}
 			<Button
 				label="Edit folder"
-				onClick={(): void => this.bookmarksViewModel.onOpenFolderSaverClick(this.bookmarksFolder.id)}
+				onClick={(): void => this.bookmarksViewModel
+					.onOpenFolderSaverClick(this.bookmarksFolder.id)}
+			/>
+			<Button
+				label="Delete folder"
+				onClick={(): void => this.bookmarksViewModel
+					.onDeleteFolderClick(this.bookmarksFolder.id)}
 			/>
 		</div>
 	</>

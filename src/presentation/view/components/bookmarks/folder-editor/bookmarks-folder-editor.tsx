@@ -92,7 +92,7 @@ export default class BookmarksFolderEditorComponent
 					</ol>
 
 					{
-						this.bookmarksViewModel.bookmarkEditorOpen ? 
+						this.bookmarksViewModel.isBookmarkEditorOpen ? 
 						<BookmarkEditorComponent 
 							bookmarksViewModel={this.bookmarksViewModel}
 						/> : 

@@ -5,101 +5,127 @@ import BookmarksHolder from "../../../domain/entity/bookmarks/models/BookmarksHo
 import IBookmarksListener from "../../../domain/entity/bookmarks/models/IBookmarksListener";
 import BaseViewModel from "../BaseViewModel";
 import BookmarkFolder from "../../../domain/entity/bookmarks/models/BookmarkFolder";
-import { generateNewBookmarksContainer, generateUnique } from "../../../utils/utils";
+import { generateNewBookmarksContainer } from "../../../utils/utils";
 import Bookmark from "../../../domain/entity/bookmarks/models/Bookmark";
-import IBookmarkFolder from "../../../domain/entity/bookmarks/structures/IBookmarkFolder";
 
 export default class BookmarksViewModel extends BaseViewModel implements IBookmarksViewModel, IBookmarksListener {
-	public bookmarks: IBookmarkContainer | undefined;
-	public bookmarkFolderEditorOpen: boolean;
-	public bookmarkEditorOpen: boolean;
-	public bookmarkFolderIdEditing?: string;
-	public bookmarkIdEditing?: string;
-
 	public bookmarksUseCase: BookmarksUseCase;
 	public bookmarksHolder: BookmarksHolder;
+	public bookmarks: IBookmarkContainer | undefined;
+	public isBookmarkFolderEditorOpen: boolean;
+	public idBookmarkFolderEditing?: string;
+	public isBookmarkEditorOpen: boolean;
+	public idBookmarkEditing?: string;
+	public isDeleteConfirmationOpen: boolean;
+	public idBookmarkFolderDeleting?: string;
 
 	public constructor(bookmarksUseCase: BookmarksUseCase, bookmarksHolder: BookmarksHolder) {
 		super();
-		this.bookmarkFolderEditorOpen = false;
-		this.bookmarkEditorOpen = false;
 		this.bookmarksUseCase = bookmarksUseCase;
 		this.bookmarksHolder = bookmarksHolder;
+		this.isBookmarkFolderEditorOpen = false;
+		this.isBookmarkEditorOpen = false;
+		this.isDeleteConfirmationOpen = false;
+
 		this.bookmarksHolder.addBookmarksListener(this);
-		const existingBookmarks = bookmarksHolder.getBookmarks();
+		this.synchronizeBookmarks();
+	}
+
+	private synchronizeBookmarks() {
+		const existingBookmarks = this.bookmarksHolder.getBookmarks();
 		if (existingBookmarks) {
 			this.bookmarks = existingBookmarks;
 		} else {
 			this.bookmarks = generateNewBookmarksContainer();
-			bookmarksUseCase.saveBookmarkContainer(this.bookmarks);
+			this.bookmarksUseCase.saveContainer(this.bookmarks);
 		}
 	}
 
-	onCloseFolderEditor(): void {
+	public onDeleteFolderClick(id: string): void {
+		this.isDeleteConfirmationOpen = true;
+		this.idBookmarkFolderDeleting = id;
+		this.notifyViewAboutChanges();
+	}
+
+	public onConfirmDeleteFolderClick(confirmation: boolean): void {
+		if (confirmation && this.idBookmarkFolderDeleting) {
+			this.bookmarksUseCase.removeFolder(this.idBookmarkFolderDeleting);
+		}
+		this.resetBookmarkFolderDeleting();
+		this.notifyViewAboutChanges();
+	}
+
+	public onCloseFolderEditor(): void {
 		this.resetFolderEditing();
 		this.resetBookmarkEditing();
 		this.notifyViewAboutChanges();
 	}
 
-	onCloseBookmarkEditor(): void {
+	public onCloseBookmarkEditor(): void {
 		this.resetBookmarkEditing();
 		this.notifyViewAboutChanges();
 	}
 
-	onOpenBookmarkSaverClick(bookmarkId?: string | undefined): void {
+	public onOpenBookmarkSaverClick(bookmarkId?: string | undefined): void {
 		console.log('Clicked open bookmark editor', bookmarkId);
-		this.bookmarkEditorOpen = true;
-		this.bookmarkIdEditing = bookmarkId;
+		this.isBookmarkEditorOpen = true;
+		this.idBookmarkEditing = bookmarkId;
 		this.notifyViewAboutChanges();
 	}
 
-	onSaveBookmarkClick(bookmark: Bookmark): void {
+	public onSaveBookmarkClick(bookmark: Bookmark): void {
 		console.log('Clicked save bookmark', bookmark);
-		if (this.bookmarkFolderIdEditing) {
-			this.bookmarksUseCase.addBookmark(this.bookmarkFolderIdEditing, bookmark);
+		if (this.idBookmarkFolderEditing) {
+			this.bookmarksUseCase.add(this.idBookmarkFolderEditing, bookmark);
 			this.resetBookmarkEditing();
 			this.onBookmarksChanged();
 		}
 	}
 
+	resetBookmarkFolderDeleting(): void {
+		this.isDeleteConfirmationOpen = false;
+		this.idBookmarkFolderDeleting = undefined;
+	}
+
+
 	resetBookmarkEditing(): void {
-		this.bookmarkIdEditing = undefined;
-		this.bookmarkEditorOpen = false;
+		this.isBookmarkEditorOpen = false;
+		this.idBookmarkEditing = undefined;
 	}
 
 	resetFolderEditing(): void {
-		this.bookmarkFolderIdEditing = undefined;
-		this.bookmarkFolderEditorOpen = false;
+		this.isBookmarkFolderEditorOpen = false;
+		this.idBookmarkFolderEditing = undefined;
 	}
 
 	getEditingBookmark(): Bookmark | undefined {
-		if (this.bookmarkIdEditing) {
-			return this.bookmarksUseCase.getBookmarkByID(this.bookmarkIdEditing);
+		if (this.idBookmarkEditing) {
+			return this.bookmarksUseCase.getByID(this.idBookmarkEditing);
 		}
 		return undefined;
 	}
 	
 	getFolderByID(id: string): BookmarkFolder | undefined {
-		return this.bookmarksUseCase.getBookmarkFolderByID(id);
+		return this.bookmarksUseCase.getFolderByID(id);
 	}
 
 	getEditingFolder(): BookmarkFolder | undefined {
-		if (this.bookmarkFolderIdEditing) {
-			return this.bookmarksUseCase.getBookmarkFolderByID(this.bookmarkFolderIdEditing);
+		if (this.idBookmarkFolderEditing) {
+			return this.bookmarksUseCase.getFolderByID(this.idBookmarkFolderEditing);
 		}
 		return undefined;
 	}
 
 	onOpenFolderSaverClick(folderId?: string): void {
 		console.log('Clicked open folder editor', folderId);
-		this.bookmarkFolderEditorOpen = true;
-		this.bookmarkFolderIdEditing = folderId;
+		this.isBookmarkFolderEditorOpen = true;
+		this.idBookmarkFolderEditing = folderId;
 		this.notifyViewAboutChanges();
 	}
 	
 	onSaveFolderClick(bookmarkFolder: BookmarkFolder): void {
 		console.log('Clicked save folder', bookmarkFolder);
-		this.bookmarksUseCase.addBookmarkFolder(bookmarkFolder);
+		this.bookmarksUseCase.addFolder(bookmarkFolder);
 		this.resetFolderEditing();
 		this.resetBookmarkEditing();
 		this.onBookmarksChanged();
@@ -108,20 +134,5 @@ export default class BookmarksViewModel extends BaseViewModel implements IBookma
 	onBookmarksChanged(): void {
 		this.bookmarks = this.bookmarksHolder.getBookmarks();
 		this.notifyViewAboutChanges();
-	}
-
-	generateNewBookmarksContainer() {
-		const newBookmarksContainer: IBookmarkContainer = {
-			bookmarkFolders: [
-				{
-					id: generateUnique(),
-					name: 'New Folder',
-					bookmarks: [new Bookmark()],
-					order: 0
-				} as IBookmarkFolder
-			]
-		};
-		this.bookmarksUseCase.saveBookmarkContainer(newBookmarksContainer);
-		return newBookmarksContainer;
 	}
 }

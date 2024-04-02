@@ -4,13 +4,12 @@ import IBookmarkContainer from "../../../domain/entity/bookmarks/structures/IBoo
 import IBaseViewModel from "../IBaseViewModel";
 
 export default interface IBookmarksViewModel extends IBaseViewModel {
-	onCloseFolderEditor(): void;
-	onCloseBookmarkEditor(): void;
     bookmarks?: IBookmarkContainer;
-    bookmarkFolderEditorOpen: boolean;
-    bookmarkEditorOpen: boolean;
-    bookmarkFolderIdEditing?: string;
-    bookmarkIdEditing?: string;
+    isBookmarkFolderEditorOpen: boolean;
+    idBookmarkFolderEditing?: string;
+    isBookmarkEditorOpen: boolean;
+    idBookmarkEditing?: string;
+    isDeleteConfirmationOpen: boolean;
 
     onOpenBookmarkSaverClick(bookmarkId?: string): void;
     onOpenFolderSaverClick(folderId?: string): void;
@@ -19,4 +18,8 @@ export default interface IBookmarksViewModel extends IBaseViewModel {
     getEditingBookmark(): Bookmark | undefined ;
     getEditingFolder(): BookmarkFolder | undefined ;
     getFolderByID(id: string): BookmarkFolder | undefined ;
+    onDeleteFolderClick(id: string): void;
+    onConfirmDeleteFolderClick(confirmation: boolean): void;
+	onCloseFolderEditor(): void;
+	onCloseBookmarkEditor(): void;
 }
