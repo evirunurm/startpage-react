@@ -9,7 +9,6 @@ export default class BaseViewModel implements IBaseViewModel {
 	}
 
 	notifyViewAboutChanges = (): void => {
-		console.log('Notifying views', this.baseViews)
 		this.baseViews.forEach((view : IBaseView) => {
 			view.onViewModelChanged();
 		});

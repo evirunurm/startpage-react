@@ -3,10 +3,9 @@ import { Button } from "@components/button/button";
 import IBookmarkContainer from "@entity/bookmarks/structures/IBookmarkContainer";
 import IBookmarksViewModel from "@viewModels/bookmarks/IBookmarksViewModel";
 import IBookmarkFolder from "@entity/bookmarks/structures/IBookmarkFolder";
-import BookmarksFolderEditorComponent from "@components/bookmarks/folder-editor/bookmarks-folder-editor";
-import BookmarksFolder from "@components/bookmarks/bookmarks-folder/bookmarks-folder";
+import BookmarksFolderEditorComponent from "@components/folder-editor/bookmarks-folder-editor";
+import BookmarksFolder from "@components/bookmarks-folder/bookmarks-folder";
 import IBaseView from "@view/IBaseView";
-import ModalComponent from "@components/modal/modal";
 
 export interface BookmarksContainerProps {
 	bookmarksViewModel: IBookmarksViewModel;
@@ -16,7 +15,6 @@ export interface BookmarksContainerState {
 	bookmarks?: IBookmarkContainer;
 	isBookmarkFolderEditorOpen: boolean;
 	bookmarkFolderIdEditing?: string;
-	isDeleteFolderConfirmationOpen: boolean
 }
 
 export default class BookmarksContainer extends 
@@ -37,8 +35,7 @@ export default class BookmarksContainer extends
 	this.state = {
 		bookmarks: bookmarksViewModel.bookmarks,
 		isBookmarkFolderEditorOpen: this.bookmarksViewModel.isBookmarkFolderEditorOpen,
-		bookmarkFolderIdEditing: this.bookmarksViewModel.idBookmarkFolderEditing,
-		isDeleteFolderConfirmationOpen: this.bookmarksViewModel.isDeleteConfirmationOpen
+		bookmarkFolderIdEditing: this.bookmarksViewModel.idBookmarkFolderEditing
 	};
   }
 
@@ -51,12 +48,10 @@ export default class BookmarksContainer extends
   }
 
   public onViewModelChanged(): void {
-	this.setState(
-	{
+	this.setState({
 		bookmarks: this.bookmarksViewModel.bookmarks,
 		isBookmarkFolderEditorOpen: this.bookmarksViewModel.isBookmarkFolderEditorOpen,
-		bookmarkFolderIdEditing: this.bookmarksViewModel.idBookmarkFolderEditing,
-		isDeleteFolderConfirmationOpen: this.bookmarksViewModel.isDeleteConfirmationOpen
+		bookmarkFolderIdEditing: this.bookmarksViewModel.idBookmarkFolderEditing
 	});
   }
 
@@ -65,47 +60,32 @@ export default class BookmarksContainer extends
 		bookmarks,
 		isBookmarkFolderEditorOpen,
 		bookmarkFolderIdEditing,
-		isDeleteFolderConfirmationOpen
 	} = this.state;
 
 	return (
 	<>
 		{
-			bookmarks ? bookmarks.bookmarkFolders.map((bookmarkFolder: IBookmarkFolder, index: number) => (
+		(bookmarks && bookmarks.bookmarkFolders) ? 
+			bookmarks.bookmarkFolders.map((bookmarkFolder: IBookmarkFolder) => 
+			{
+				return (
 				<BookmarksFolder
 					bookmarksViewModel={this.bookmarksViewModel}
 					bookmarksFolderId={bookmarkFolder.id}
-					key={index}
-				/>
-			)) 
-			: null
+					key={bookmarkFolder.id}
+				/>)
+			}) 
+		: null
 		}
 		<p>{bookmarkFolderIdEditing}</p>
-		<Button label="Create new folder" onClick={(): void => this.bookmarksViewModel.onOpenFolderSaverClick()} />
+		<Button label="Create new folder" onPress={(): void => this.bookmarksViewModel.onOpenFolderSaverClick()} />
 		{
-			isBookmarkFolderEditorOpen ? 
-			<BookmarksFolderEditorComponent 
-				bookmarksViewModel={this.bookmarksViewModel}
-				bookmarkFolderID={bookmarkFolderIdEditing}
-			/>
-			: null
-		}	
-		{
-			isDeleteFolderConfirmationOpen ? 
-			<ModalComponent 
-				text="Are you sure you want to delete this folder?"
-				options={[
-					{
-						text: 'Confirm',
-						onClick: (): void => this.bookmarksViewModel.onConfirmDeleteFolderClick(true)
-					},
-					{
-						text: 'Cancel',
-						onClick: (): void => this.bookmarksViewModel.onConfirmDeleteFolderClick(false)
-					}
-				]}
-			/>
-			: null
+		isBookmarkFolderEditorOpen ? 
+		<BookmarksFolderEditorComponent 
+			bookmarksViewModel={this.bookmarksViewModel}
+			bookmarkFolderID={bookmarkFolderIdEditing}
+		/>
+		: null
 		}	
 	</>
 	);

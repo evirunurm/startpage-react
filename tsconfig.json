@@ -26,6 +26,8 @@
       "@viewModels/*": ["presentation/view-model/*"],
       "@data/*":["data/*"],
       "@entity/*": ["domain/entity/*"],
+      "@interactors/*": ["domain/interactors/*"],
+      "@utils/*": ["utils/*"],
     }
   },
   "include": ["src"],

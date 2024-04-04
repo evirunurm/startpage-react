@@ -55,7 +55,7 @@ export default class FactComponent extends
 	return (
 	<>
 		<p>FACT: {fact}</p>
-		<Button label="Next" onClick={this.factViewModel.onNextFactClicked}></Button>
+		<Button label="Next" onPress={this.factViewModel.onNextFactClicked}></Button>
 	</>
 	);
   }

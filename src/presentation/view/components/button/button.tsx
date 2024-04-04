@@ -2,7 +2,7 @@ import { Button as ButtonAria } from 'react-aria-components';
 
 interface ButtonProps {
   label: string;
-  onClick?: () => void;
+  onPress?: () => void;
 }
 
 export const Button = ({

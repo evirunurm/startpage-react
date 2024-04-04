@@ -153,3 +153,43 @@ function App() {
 ```
 
 With JSS, you have to create a hook by passing in the style definitions, outside of the component. This will prevent the code from running on every re-render; since the style definitions are static, there’s no reason to run the code more then once.
+
+___
+### Keys
+
+Usually you would render lists inside a component. Keys help React identify which items have changed, are added, or are removed. Keys should be given to the elements inside the array to give the elements a stable identity.
+
+The best way to pick a key is to use a string that uniquely identifies a list item among its siblings. Most often you would use IDs from your data as keys. But, when you don’t have stable IDs for rendered items, you may use the item index as a key as a last resort. Although using indexes for keys it's not recommended if the order of items may change. This can negatively impact performance and may cause issues with component state.
+
+Let's get into an example of a component state issue:
+
+Consider the following code snippet, which renders a BookmarksFolder component for each element of the `bookmarks.bookmarkFolders` list, and they can be deleted or updated.
+```
+bookmarks.bookmarkFolders
+  .map((bookmarkFolder: IBookmarkFolder, index) => 
+    { return (
+      <BookmarksFolder
+        bookmarksViewModel={this.bookmarksViewModel}
+        bookmarksFolderId={bookmarkFolder.id}
+        key={index}
+      />
+    )}) 
+```
+
+Now, i'll illustrate a behavior I encountered: Imagine we have a list of elements `[1, 2, 3, 4]`.  If we delete any element, the resulting list remains the same but is truncated from the end. For instance, if we delete `2`, the rendered list will be `[1, 2, 3]`. Similarly, if we delete `3`, we'll still get `[1, 2, 3]`. 
+
+This behavior arises because React uses the `index` as the `key`, which remains unchanged even when items are deleted. As a result, React does not recognize the change in the array structure, leading to unexpected rendering behavior. 
+
+Therefore, the correct way of rendering this this is:
+```
+bookmarks.bookmarkFolders
+  .map((bookmarkFolder: IBookmarkFolder) => 
+    {
+      return (
+      <BookmarksFolder
+        bookmarksViewModel={this.bookmarksViewModel}
+        bookmarksFolderId={bookmarkFolder.id}
+        key={bookmarkFolder.id}
+      />)
+    }) 
+```

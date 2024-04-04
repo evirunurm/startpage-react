@@ -18,6 +18,8 @@ export default defineConfig({
       '@data': path.resolve(__dirname, 'src/data'),
       '@entity': path.resolve(__dirname, 'src/domain/entity'),
       '@viewModels': path.resolve(__dirname, 'src/presentation/view-model'),
+      "@interactors": path.resolve(__dirname, 'src/domain/interactors'),
+      "@utils": path.resolve(__dirname, 'src/utils'),
     },
   },
 })

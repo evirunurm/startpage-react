@@ -1,9 +1,9 @@
 import React from "react";
-import IBookmarksViewModel from "../../../../view-model/bookmarks/IBookmarksViewModel";
-import IBookmarkFolder from "../../../../../domain/entity/bookmarks/structures/IBookmarkFolder";
-import BookmarkFolder from "../../../../../domain/entity/bookmarks/models/BookmarkFolder";
-import { Button } from "../../button/button";
-import IBaseView from "../../../IBaseView";
+import IBookmarksViewModel from "@viewModels/bookmarks/IBookmarksViewModel";
+import IBookmarkFolder from "@entity/bookmarks/structures/IBookmarkFolder";
+import BookmarkFolder from "@entity/bookmarks/models/BookmarkFolder";
+import { Button } from "@components/button/button";
+import IBaseView from "@view/IBaseView";
 import BookmarkEditorComponent from "../bookmark-editor/bookmark-editor";
 
 export interface BookmarksFolderEditorComponentProps {
@@ -27,18 +27,13 @@ export default class BookmarksFolderEditorComponent
 		super(props);
 		const { bookmarksViewModel } = this.props;
 		this.bookmarksViewModel = bookmarksViewModel;
-		let bookmarkFolder: BookmarkFolder | undefined;
-
-		bookmarkFolder = bookmarksViewModel.getEditingFolder();
-		if (!bookmarkFolder) {
-			bookmarkFolder = new BookmarkFolder();
+		const bookmarkFolder = bookmarksViewModel.getEditingFolder();
+		if (bookmarkFolder) {
+			this.state = {
+				bookmarkFolder: bookmarkFolder,
+			};
 		}
-
-		this.state = {
-			bookmarkFolder: bookmarkFolder,
-		};
 	}
-	
 
 	public componentDidMount(): void {
 		this.bookmarksViewModel.attachView(this);
@@ -84,7 +79,7 @@ export default class BookmarksFolderEditorComponent
 									{bookmark.name}: <strong>{bookmark.url}</strong>
 									<Button
 										label="Edit bookmark"
-										onClick={(): void => this.bookmarksViewModel.onOpenBookmarkSaverClick(bookmark.id)}
+										onPress={(): void => this.bookmarksViewModel.onOpenBookmarkSaverClick(bookmark.id)}
 									/>
 								</li>
 							)
@@ -92,23 +87,21 @@ export default class BookmarksFolderEditorComponent
 					</ol>
 
 					{
-						this.bookmarksViewModel.isBookmarkEditorOpen ? 
-						<BookmarkEditorComponent 
-							bookmarksViewModel={this.bookmarksViewModel}
-						/> : 
-						<Button
-							label="Add new Bookmark"
-							onClick={(): void =>
-								this.bookmarksViewModel.onOpenBookmarkSaverClick()
-							}
-						></Button>
+					this.bookmarksViewModel.isBookmarkEditorOpen ? 
+					<BookmarkEditorComponent 
+						bookmarksViewModel={this.bookmarksViewModel}
+					/> : 
+					<Button
+						label="Add new Bookmark"
+						onPress={(): void =>
+							this.bookmarksViewModel.onOpenBookmarkSaverClick()
+						}
+					></Button>
 					}
-
-					
 				</section>
 				<Button
 					label="Save Folder"
-					onClick={(): void =>
+					onPress={(): void =>
 						this.bookmarksViewModel.onSaveFolderClick(
 							bookmarkFolder
 						)
@@ -116,7 +109,7 @@ export default class BookmarksFolderEditorComponent
 				></Button>
 				<Button
 					label="Close Folder Editor"
-					onClick={(): void =>
+					onPress={(): void =>
 						this.bookmarksViewModel.onCloseFolderEditor()
 					}
 				></Button>

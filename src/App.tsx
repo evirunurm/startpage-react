@@ -1,17 +1,20 @@
-import DogFactsApi from './data/facts/DogFactsApi';
-import CatFactsApi from './data/facts/CatFactsApi';
-import JokeFactsApi from './data/facts/JokeFactsApi';
-import FactHolder from './domain/entity/facts/models/FactHolder';
-import FactsUseCase from './domain/interactors/facts/factsUseCase';
-import FactViewModel from './presentation/view-model/facts/FactViewModel';
-import BookmarksViewModel from './presentation/view-model/bookmarks/BookmarksViewModel';
-import BookmarksUseCase from './domain/interactors/bookmarks/bookmarksUseCase';
-import BookmarksHolder from './domain/entity/bookmarks/models/BookmarksHolder';
-import LocalStorageRepository from './data/localStorage/BookmarksRepository';
+import DogFactsApi from '@data/facts/DogFactsApi';
+import CatFactsApi from '@data/facts/CatFactsApi';
+import JokeFactsApi from '@data/facts/JokeFactsApi';
+import LocalStorageRepository from '@data/localStorage/BookmarksRepository';
 
-import FactComponent from './presentation/view/components/fact/fact-component';
-import BookmarksContainer from './presentation/view/components/bookmarks/bookmarks-container/bookmarks-container';
-import FactSettingsComponent from './presentation/view/components/facts-settings/facts-settings-component';
+import FactHolder from '@entity/facts/models/FactHolder';
+import BookmarksHolder from '@entity/bookmarks/models/BookmarksHolder';
+
+import FactViewModel from '@viewModels/facts/FactViewModel';
+import BookmarksViewModel from '@viewModels/bookmarks/BookmarksViewModel';
+
+import BookmarksUseCase from '@interactors/bookmarks/bookmarksUseCase';
+import FactsUseCase from '@interactors/facts/factsUseCase';
+
+import FactComponent from '@components/fact/fact-component';
+import BookmarksContainer from '@components/bookmarks-container/bookmarks-container';
+import FactSettingsComponent from '@components/facts-settings/facts-settings-component';
 
 function App(): JSX.Element {
   // data layer

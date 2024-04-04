@@ -23,4 +23,5 @@ export default interface IBookmarksViewModel extends IBaseViewModel {
     onConfirmDeleteFolderClick(confirmation: boolean): void;
 	onCloseFolderEditor(): void;
 	onCloseBookmarkEditor(): void;
+    onDeleteBookmarkClick(id: string): void;
 }

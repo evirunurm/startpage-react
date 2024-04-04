@@ -78,18 +78,26 @@ export default class BookmarkEditorComponent
 				</section>
 				<Button
 					label="Save Bookmark"
-					onClick={(): void =>
+					onPress={(): void =>
 						this.bookmarksViewModel.onSaveBookmarkClick(
 							bookmark
 						)
 					}
-				></Button>
+				/>
 				<Button
 					label="Close"
-					onClick={(): void =>
+					onPress={(): void =>
 						this.bookmarksViewModel.onCloseBookmarkEditor()
 					}
-				></Button>
+				/>
+				<Button
+					label="Delete Bookmark"
+					onPress={(): void =>
+						this.bookmarksViewModel.onDeleteBookmarkClick(
+							bookmark.id
+						)
+					}
+				/>
 			</>
 		);
 	}

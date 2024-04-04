@@ -34,7 +34,6 @@ export default class LocalStorageRepository implements ILocalStorageRepository {
 	}
 
 	saveBookmarks(bookmarks: IBookmarkContainer): void {
-		console.log('Saving bookmarks', bookmarks)
 		const bookmarksString: string = JSON.stringify(bookmarks);
 		localStorage.setItem(this.bookmarksRef, bookmarksString);
 	}
