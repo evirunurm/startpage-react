@@ -1,52 +1,61 @@
 # React startpage
 
-This project is me learning the basics of clean   er react code. 
+This project is me learning the basics of clean   er react code.
 
-This code's purpose is purely educational. 
+This code's purpose is purely educational.
 
 ## Project creation
 
 ### 1. Create the basic structure
+
 Create the basic structure of a React Typescript app using vite
-```
+
+``` cmd
 npx create-vite retropage --template react-ts
 ```
 
 ### 2. Install the dependencies
+
 Install the dependencies for easier component management
 
-```
+``` cmd
 cd retropage
 npm install
 ```
 
 ### 3. Install Storybook
-Install Storybookor easier component management
 
-```
+Install Storybook for easier component management
+
+``` cmd
 npx sb init
 ```
 
 ## Project execution
+
 ### 1. Clone the repository
- ```
+
+ ``` cmd
  git clone {location-to-this-repository} 
  ```
 
 ### 2. Install the dependencies
- ```
+
+ ``` cmd
  npm install
  ```
 
-### 3. Run 
+### 3. Run
+
 This is how you execute scripts defined inside package.json
- ```
+
+ ``` cmd
  npm run {your-script} 
  ```
 
 Available scripts
 
-```package.json
+``` json
 ...
 "scripts": { 
   "dev": "vite", # Runs the app in development mode
@@ -67,80 +76,104 @@ Available scripts
 
 ## Project structure
 
-### The Clean Architecture for frontend
+### The Clean Architecture (functional components) for frontend
 
-| UI | View Models | Use cases | Entities | Repository Interfaces | Repository Implementation |
-| ---------|:--------:| --------:| --------:| --------:| --------:| 
-| Presentation | Presentation | Domain | Domain | Domain | Data | Data |
-| User |  |  |  |  |Storage, API |
+#### Key concepts in Clean Architecture
 
+##### Separation of concerns
 
-* **Entities**: Contain the _business logic_ of the application and there are no platform dependencies. They describe bussiness logic (Note that Entities know how to store a state and are often used for this purpose).
+Each component in your application has a **clear responsibility**. This decoupling makes code easier to **reason about**, **modify**, and **reuse**.
 
-* **Repository interfaces**: _Interfaces to access the API_, database, storages, etc. Repositories do not know anything about use cases, but they do know about entities. 
+##### Dependency Inversion Principle
 
-* **Use Cases (Interactors)**: They describe _how to interact with the entities in the context of our application_, so we could say they are objects that implement business logic in the context of our application (i.e. understand what to do with entities — send, upload, filter, merge).
+High-level modules shouldn’t depend on low-level details. Instead, **core business logic** depends on **abstractions** (e.g., interfaces), making it possible to swap out concrete implementations without breaking things.
 
-* **View Models & View Interfaces**: 
-  * View Model: Doesn’t know about View, having only one method to _notify about changes_. View simply “monitors” the state of the View Model.
-  * View Interface: The base class for all the Views, through which View Model _notifies specific View implementations about changes_. It contains the onViewModelChanged() method.
+#### Layers
 
-* **External interfaces**: These are Platform-dependent (React) _components and implementations of interfaces to access the API_.
+##### View Layer
 
+The View Layer’s responsibility is to **translate data** into the **visual elements** that users interact with. React components here should be **as lightweight as possible**, primarily concerned with **displaying information** and **handling basic user input**.
 
-### Structure example
-More info about clean React-Typescript project architecture on [here](https://medium.com/@rostislavdugin/the-clean-architecture-using-react-and-typescript-a832662af803).
-```
-|-- app.css
-|-- App.tsx
-|-- index.tsx
-|-- react-app-en.d.ts
-|-- serviceWorker.ts
-|-- data/ # Classes for accessing the data. These classes know about API and platform dependent things.
-|   |-- auth/
-|   |   |-- AuthApi.tsx 
+``` jsx
+import React from "react";
 
-|-- domain/ # Classes of business logic. 
-|   |-- entity/
-|   |   |-- auth/
-|   |   |   |-- models/ # Entities with logic.
-|   |   |   |   |-- AuthHolder.tsx
-|   |   |   |   |-- AuthListener.tsx
-|   |   |   |-- structures/ # Data structures, normally results from API calls.
-|   |   |   |   |-- AutorizationResult.tsx
-|   |   |   |   |-- ValidationResult.tsx
-|   |-- interactors/
-|   |   |-- auth/
-|   |   |   |-- LoginUseCas.tsx
-|   |-- repository/
-|   |   |-- auth/
-|   |   |   |-- AuthRepository.tsx
+const BlogPost: React.FC<PostViewModel> = ({
+  title,
+  contentSnippet,
+  readingTime,
+}) => {
+  return (
+    <article>
+      <h2>{title}</h2>
+      <p>{contentSnippet}</p>
+      <p>Estimated reading time: {readingTime} minutes</p>
+    </article>
+  );
+};
 
-|-- presentation/
-|   |-- util/ # Validations and utilities
-|   |-- view/
-|   |   |-- BaseView.tsx
-|   |   |-- auth/
-|   |   |   |-- auth-component.css
-|   |   |   |-- authComponent.tsx
-|   |-- view-model/
-|   |   |-- BaseViewModel.tsx
-|   |   |-- auth/
-|   |   |   |-- authViewModel.tsx
-|   |   |   |-- authViewModelImpl.tsx
+export default BlogPost;
 ```
 
+##### UseCase Layer
 
+The UseCase layer **orchestrates the steps a user takes within your application**, such as submitting a form, navigating between pages, or loading complex data. It **retrieves data from repositories** and **maps it** into a form readily consumable by your **view components** (view models).
 
+``` jsx
+import postsRepository from "@/repositories/postsRepository";
+import calculateReadingTime from "@/services/readingTimeService";
 
+const fetchPostsUseCase = async (): Promise<PostViewModel[]> => {
+  const posts: Post[] = await postsRepository.getAllPosts();
 
+  return posts.map((post) => ({
+    title: post.title,
+    contentSnippet: post.content.substring(0, 100) + "...",
+    readingTime: calculateReadingTime(post.content),
+  }));
+};
 
+export default fetchPostsUseCase;
+```
 
+##### Repository Layer
 
+The Repository layer **isolates your application’s core logic** from the specifics of data storage. Whether it’s a local database, a cloud service, or even browser storage: The repository hides the details. Repositories offer a **consistent (API-like) way** to **get**, **change**, and potentially **invalidate data**.
 
+``` jsx
+interface PostsRepository {
+  getAllPosts(): Promise<Post[]>;
+}
 
+export default PostsRepository; 
+```
 
+##### Adapter Layer
 
+The adapter is the **concrete implementation of the repository** interface, actually **handling the network operations**.
 
+``` jsx
+import PostsRepository from "@/repositories/postsRepository";
 
+class PostsApiAdapter implements PostsRepository {
+  async getAllPosts(): Promise<Post[]> {
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+    return response.json();
+  }
+}
 
+export default PostsApiAdapter;
+```
+
+##### Service Layer
+
+Services encapsulate **domain logic**, **independent of UI** concerns.
+
+``` jsx
+const calculateReadingTime = (content: string): number => {
+  const wordsPerMinute = 200; // Average reading speed
+  const wordCount = content.split(" ").length;
+  return Math.ceil(wordCount / wordsPerMinute);
+};
+
+export default calculateReadingTime;
+```
