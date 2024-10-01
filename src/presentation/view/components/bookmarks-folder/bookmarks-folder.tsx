@@ -51,14 +51,6 @@ export default class BookmarksFolder extends
 		this.bookmarksViewModel.detachView(this);
 	}
 
-	public componentDidUpdate(prevProps: BookmarksFolderProps): void {
-		this.bookmarksFolderId = this.props.bookmarksFolderId;
-		console.log(this.bookmarksViewModel.getFolderByID(this.props.bookmarksFolderId))
-        if (prevProps.bookmarksFolderId !== this.props.bookmarksFolderId) {
-            // this.updateFolderState(this.props.bookmarksFolderId);
-        }
-    }
-
 	public onViewModelChanged(): void {
 		const folder = this.bookmarksViewModel.getFolderByID(this.bookmarksFolderId);
 		if (!folder) return;

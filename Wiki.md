@@ -128,8 +128,6 @@ Disadvantages:
 
 #### JSS
 
-
-
 ```
 import { createUseStyles } from 'react-jss';
 
@@ -153,6 +151,111 @@ function App() {
 ```
 
 With JSS, you have to create a hook by passing in the style definitions, outside of the component. This will prevent the code from running on every re-render; since the style definitions are static, there’s no reason to run the code more then once.
+
+##### How can JSS be used?
+Based on [this article](https://jarombek.com/blog/jun-30-2021-react-jss#react-jss-production-code-examples), these are the main points to consider when writing scalable, and easy maintanable JSS (JavaScript Style Sheets) :
+
+1. **Importing createUseStyles**: Begin by importing the _createUseStyles()_ function from the React JSS library.
+	```
+	import { createUseStyles } from 'react-jss'
+	```
+
+2. **Usage of createUseStyles**: Utilize the _createUseStyles()_ function outside of the component function to define a React hook, typically named _useStyles_, which will be used to retrieve stylesheet classes within the component.
+	```
+	[imports]
+
+	const useStyles = createUseStyles(styles);
+
+	[Component]
+	```
+
+3. **Retrieving Styles**: Inside the component function, invoke the _useStyles_ hook with to retrieve all the stylesheet classes. These classes will be accessible through the _classes_ object.
+	```
+	(...)
+
+	const Component: React.FunctionComponent<Props> = ({[Props]}) => {
+		const classes = useStyles();
+		return (
+			<>
+				[Component]
+			</>
+		);
+	};
+	```
+
+3. **Applying Styles**: In the component's return statement, apply JSS classes to JSX elements using the _className_ prop. Assign the appropriate JSS class from the classes object to style each JSX element.
+	```
+	(...)
+	return (
+		<>
+			<div className={classes.className}>
+				(...)
+			</div>
+		</>
+	);
+	(...)
+	```
+
+4. **Separation of Concerns**: Consider separating component code from stylesheet code by importing the styles object from a separate file, typically named _styles.ts_. This enhances organization and maintainability.
+	```
+	(...)
+	import { styles } from './styles';
+
+	const useStyles = createUseStyles(styles);
+
+	[Component]
+	```
+
+5. **Styles Object Structure**: Define the styles object in the styles.ts file with properties representing different classes (e.g., checkBox, input). Each class property contains CSS styles as nested objects.
+	```
+	// styles.ts
+	export const styles = {
+		wrapper: {
+			padding: 20,
+		},
+		input: {
+			display: 'none',
+			'& + span': {
+				display: 'inline-block',
+				border: '2px solid #999',
+				borderRadius: 2,
+				width: 16,
+				height: 16,
+				position: 'relative',
+				'& > p': {
+					color: '#FFF',
+					position: 'absolute',
+					margin: 0,
+					top: -1,
+					left: -3
+				}
+			},
+		}
+	}
+	```
+
+6. **Modularity and Reusability**: Import additional code for reusability purposes, enhancing the modularity and maintainability of the component's styling. This can include utility functions or constants shared across multiple components.
+	
+	```
+	import Colors from '../../../styles/colors';
+	import { FontMixins } from '../../../styles/mixins';
+
+	export const styles = {
+		(...)
+		input: {
+			(...)
+			'& + span': {
+				...FontMixins.elegantIcons(),
+				border: `2px solid ${Colors.Black}`,
+				(...)
+				'& > p': {
+					color: Colors.White,
+					(...)
+				}
+			},
+		}
+	}
+	```
 
 ___
 ### Keys

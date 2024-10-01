@@ -28,6 +28,7 @@
       "@entity/*": ["domain/entity/*"],
       "@interactors/*": ["domain/interactors/*"],
       "@utils/*": ["utils/*"],
+      "@styles/*": ["presentation/styles/*"],
     }
   },
   "include": ["src"],

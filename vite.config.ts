@@ -2,7 +2,6 @@ import { defineConfig } from 'vite';
 import path from 'path';
 import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   define: {'process.env': {
@@ -20,6 +19,7 @@ export default defineConfig({
       '@viewModels': path.resolve(__dirname, 'src/presentation/view-model'),
       "@interactors": path.resolve(__dirname, 'src/domain/interactors'),
       "@utils": path.resolve(__dirname, 'src/utils'),
+      "@styles": path.resolve(__dirname, 'src/presentation/styles'),
     },
   },
 })
