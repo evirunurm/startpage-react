@@ -1,8 +1,25 @@
 # Project Wiki
 
+## Table of contents
+
+- [Project Wiki](#project-wiki)
+  - [Table of contents](#table-of-contents)
+  - [Concepts](#concepts)
+    - [React Fragments](#react-fragments)
+    - [React.lazy](#reactlazy)
+    - [Enums](#enums)
+    - [Provider](#provider)
+    - [Styling React Components](#styling-react-components)
+      - [Plain CSS](#plain-css)
+      - [Inline styles with JS-style obejcts](#inline-styles-with-js-style-obejcts)
+      - [JSS](#jss)
+    - [Keys](#keys)
+
+___
+
 ## Concepts
 
-### **React Fragments**
+### React Fragments
 
 ``` tsx
  return (
@@ -64,9 +81,9 @@ stringKeys.forEach((key, index) => {
 
 ___
 
-### Mixins
+### Provider
 
-[In progress...]
+asd
 
 ___
 

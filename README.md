@@ -76,6 +76,8 @@ Available scripts
 
 ## Project structure
 
+[Reference](https://github.com/bespoyasov/frontend-clean-architecture/blob/master/src/App.tsx)
+
 ### The Clean Architecture (functional components) for frontend
 
 #### Key concepts in Clean Architecture
@@ -177,3 +179,50 @@ const calculateReadingTime = (content: string): number => {
 
 export default calculateReadingTime;
 ```
+
+#### Designing the application
+
+##### Domain
+
+This is where the **main entities** of the application and their **data transformations** are.
+
+The store domain may include:
+
+- **Data types** of each entity: user, cookie, cart, and order;
+- **Factories** for creating each entity, or classes if you write in OOP;
+- **Transformation functions** for that data.
+  - Function for calculating the total cost of items in the shopping cart.
+  - Function for determining whether an item is in the shopping cart.
+
+For example, for this application we could have:
+
+- **Fact**: Includes a fact type and the fact itself.
+- **Image**: Includes the Base64 image, a name for the image, etc
+- **Color scheme**: Includes a primary, a secondary, a background and a font hex color.
+- **Bookmarks**: Includes a named list of bookmarks; each consisting of a name, and order, and an URL.
+
+##### Application
+
+The application layer contains the **use cases**. A use case always has an **actor**, an **action**, and a **result**.
+
+Use cases are usually described in terms of the subject area.  The use case function will be the code that describes each scenario, consisting of several steps.
+
+For example, for this application we could distinguish:
+
+- A fact type changing scenario.
+- A 'Next Fact' button click scenario.
+- An image change scenario.
+- A color scheme change scenario.
+- A new bookmark named list scenario.
+- A new bookmark in a named list scenario.
+- A name change in a named bookmark list scenario.
+- A bookmark details chnage scenario.
+- A bookmarks reorder scenario.
+- A bookmarks named list reorder scenario.
+
+Also, in the application layer there are **ports—interfaces** for communicating with the outside world.
+
+##### Adapters
+
+In the adapters layer, we declare adapters to **external services**. Adapters make incompatible **APIs of third-party services** compatible to our system.
+
