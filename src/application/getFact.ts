@@ -1,27 +1,23 @@
-import { useCatFact } from "../service/catFactsAdapter";
-
+import { useCatFactService } from "@service/catFactsAdapter";
 // Note that the port interfaces are in the _application layer_,
-// but their implementation is in the _adapter_ layer.
-import { IFactsService } from "./ports";
-import { FactType } from "../domain/facts/FactTypeEnum";
-import ICatsFactResult from "../domain/facts/catFact";
+// but their implementation is in the _service_ layer.
+import { FactType } from "@domain/fact/FactTypeEnum";
+import ICatsFactResult from "@domain/fact/catFact";
+import { IFactsService } from "@application/ports";
 
-export function useGetFact() {
+
+export default function useGetFact() {
 	// Usually, we access services through Dependency Injection.
 	// Here we can use hooks as a crooked “DI-container”.
 
-	// The use case function doesn't call third-party services directly,
-	// instead, it relies on the interfaces we declared earlier.
+	// TODO: Remove
+	// eslint-disable-next-line prefer-const
 	let factType: FactType = FactType.Cats; // Will change to a previously stored value
 	let fact: string = String();
-	const catFactService: IFactsService<ICatsFactResult> = useCatFact();
+	const catFactService: IFactsService<ICatsFactResult> = useCatFactService();
 
 	function getFact(): string {
 		return fact;
-	}
-
-	function setFactType(newFactType: FactType): void {
-		factType = newFactType;
 	}
 
 	async function updateFact(): Promise<void> {
@@ -33,7 +29,6 @@ export function useGetFact() {
 		default:
 			throw new Error("Unknown fact type");
 	}
-	console.log(newFact)
 	fact = newFact;
 	}
 
@@ -44,7 +39,6 @@ export function useGetFact() {
 
   return {
     getFact,
-    updateFact,
-    setFactType
+    updateFact
   };
 }

@@ -1,12 +1,8 @@
-import { Fact } from "./view/components/fact/Fact"
+import Startpage from "@pages/Startpage"
 
 function App(): JSX.Element {
   return (
-      // Settings
-      // Aside
-      // Aside
-      // Markups
-      <Fact />
+    <Startpage />
   )
 }
 

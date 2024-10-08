@@ -1,4 +1,5 @@
-import ICatsFactResult from "../domain/facts/catFact";
+import { LocalStorageType } from "@domain/localStorage/LocalStorageTypesEnum";
+import ICatsFactResult from "../domain/fact/catFact";
 
 export async function catFactsAPI(): Promise<ICatsFactResult> {
     const apiUrl = process.env.REACT_APP_FACTS_CATS_URL || '';
@@ -10,4 +11,13 @@ export async function catFactsAPI(): Promise<ICatsFactResult> {
     }
     const data = await response.json();
     return data as ICatsFactResult;
+}
+
+export async function getLocalStorage(key: LocalStorageType): Promise<string | null>{
+    const item = window.localStorage.getItem(key);
+    return item;
+}
+
+export async function postLocalStorage(key: LocalStorageType, value: string): Promise<void> {
+    window.localStorage.setItem(key, value);
 }

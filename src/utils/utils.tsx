@@ -1,7 +1,3 @@
-import Bookmark from "../domain/entity/bookmarks/models/Bookmark";
-import IBookmarkContainer from "../domain/entity/bookmarks/structures/IBookmarkContainer";
-import IBookmarkFolder from "../domain/entity/bookmarks/structures/IBookmarkFolder";
-
 export function getEnumKeys<
 T extends string,
 TEnumValue extends string | number,>
@@ -16,17 +12,4 @@ TEnumValue extends string | number,>
 
 export function generateUnique() {
 	return (Date.now() * Math.random()).toString();
-}
-
-export function generateNewBookmarksContainer() {
-	return {
-		bookmarkFolders: [
-			{
-				id: generateUnique(),
-				name: 'New Folder',
-				bookmarks: [new Bookmark()],
-				order: 0
-			} as IBookmarkFolder
-		],
-	} as IBookmarkContainer;
 }

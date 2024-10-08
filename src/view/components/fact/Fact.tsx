@@ -1,6 +1,6 @@
-import { useGetFact } from "../../../application/getFact";
-import { Button } from "../button/button";
-import { useStore } from "../../../service/store";
+import useGetFact from "@application/getFact";
+import { Button } from "@components/button/button";
+import { useStore } from "@service/store";
 
 export const Fact: React.FC = () => {
 	// Get access to the use case in the component:
