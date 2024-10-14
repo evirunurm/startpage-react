@@ -1,5 +1,5 @@
-import { LocalStorageType } from "@domain/localStorage/LocalStorageTypesEnum";
-import ICatsFactResult from "../domain/fact/catFact";
+import { LocalStorageType } from "@domain/localStorage/LocalStorageTypeEnum";
+import ICatsFactResult from "../domain/fact/ICatsFactResult";
 
 export async function catFactsAPI(): Promise<ICatsFactResult> {
     const apiUrl = process.env.REACT_APP_FACTS_CATS_URL || '';

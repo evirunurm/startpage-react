@@ -2,7 +2,7 @@ import { useCatFactService } from "@service/catFactsAdapter";
 // Note that the port interfaces are in the _application layer_,
 // but their implementation is in the _service_ layer.
 import { FactType } from "@domain/fact/FactTypeEnum";
-import ICatsFactResult from "@domain/fact/catFact";
+import ICatsFactResult from "@domain/fact/ICatsFactResult";
 import { IFactsService } from "@application/ports";
 
 
