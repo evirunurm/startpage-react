@@ -1,5 +1,3 @@
-import IBookmarkLibrary from "@domain/bookmarks/BookmarkLibrary";
-import IImage from "@domain/image/Image";
 import React, { PropsWithChildren, useState } from "react";
 import { useContext } from "react";
 

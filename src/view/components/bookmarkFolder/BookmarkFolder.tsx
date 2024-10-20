@@ -1,22 +1,33 @@
 import { Bookmark } from "@components/bookmark/Bookmark";
+import { BookmarkFolderEditor } from "@components/bookmarkFolderEditor/BookmarkFolderEditor";
 import { Button } from "@components/button/button";
 import IBookmark from "@domain/bookmarks/Bookmark";
+import { useState } from "react";
 
 interface BookmarkFolderProps {
+    id: string;
     name: string;
     bookmarks: IBookmark[];
-    onEdit: (folderName: string, newFolder: string) => void;
+    onEdit: (folderId: string, newFolderName: string) => void;
     onDelete: (folderName: string) => void;
 }
 
-export const BookmarkFolder: React.FC<BookmarkFolderProps> = ({ name, bookmarks, onEdit, onDelete }) => {
+export const BookmarkFolder: React.FC<BookmarkFolderProps> = ({ id, name, bookmarks, onEdit, onDelete }) => {
+
+    const [isEditing, setIsEditing ] = useState(false);
 
     const handleEditFolderClick = () => {
-        onEdit(name, 'New Name');
+        setIsEditing(true);
+        console.log(`Edit folder ${name}`);
     }
 
     const handleDeleteFolderClick = () => {
-        onDelete(name);
+        onDelete(id);
+    }
+
+    const handleFolderNameSave = (folderId: string, newFolderName: string) => {
+        onEdit(folderId, newFolderName);
+        setIsEditing(false);
     }
     
     return (
@@ -26,7 +37,7 @@ export const BookmarkFolder: React.FC<BookmarkFolderProps> = ({ name, bookmarks,
                 <Button
                  label={`Edit '${name}'`}
                  onPress={handleEditFolderClick}
-                 key={name}
+                 key={id}
                  />
                 <Button
                 label={`Delete '${name}'`}
@@ -35,11 +46,22 @@ export const BookmarkFolder: React.FC<BookmarkFolderProps> = ({ name, bookmarks,
             </div>
             {bookmarks.map((bookmark) => (
                 <Bookmark 
-                    key={bookmark.name}
+                    key={bookmark.id}
                     name={bookmark.name}
                     url={bookmark.url}
                 />
             ))}
+
+                {isEditing &&
+                        <BookmarkFolderEditor
+                            key={id}
+                            id={id}
+                            name={name}
+                            bookmarks={bookmarks}
+                            onNameSave={handleFolderNameSave}
+                    />
+                }
+           
         </div>
     );
 };

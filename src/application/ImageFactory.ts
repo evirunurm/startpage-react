@@ -7,7 +7,7 @@ const defaultImage: IImage = {
 	custom: false
 };
 
-export default function useImageLoader() {
+export default function ImageFactory() {
 	function getDefaultImage(): IImage {
 		return defaultImage;
 	}

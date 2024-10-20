@@ -1,6 +1,7 @@
 import { Fact } from "@components/fact/Fact"
 import { Image } from "@components/image/Image"
 import { BookmarkLibrary } from "@components/bookmarkLibrary/BookmarkLibrary";
+import { Time } from "@components/time/Time";
 
 const Startpage = () => {
   return (
@@ -12,6 +13,7 @@ const Startpage = () => {
       <BookmarkLibrary />
       <Image />
       <Fact />
+      <Time/>
     </main>
   );
 };

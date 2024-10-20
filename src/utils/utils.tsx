@@ -12,6 +12,9 @@ export function getEnumKeys<
 		.map((key: string | number) => Number(key));
 	return keys;
 }
+export function generateUniqueId() {
+	return Math.random().toString(36).slice(2, 16);
+}
 
 export function useLibraryState() {
 	const setLibraryState = (newValue: IBookmarkLibrary) => {
@@ -65,3 +68,37 @@ export function useLocalStorageState<TResult>(key: string) {
 	return [store, setState] as const;
 }
 
+export function transformDateTo12H(date: Date, showSeconds: boolean = true) {
+	const hour = date.getHours();
+	const minute = date.getMinutes();
+	const second = date.getSeconds();
+
+	let ampm = '';
+	if (hour >= 12) {
+		ampm = 'PM';
+	} else {
+		ampm = 'AM';
+	}
+
+	if (hour > 12) {
+		return (hour - 12) + ':' + 
+		minute + ':' + 
+		(showSeconds ? second : '') + 
+		' ' + ampm;
+	}
+
+	return hour + ':' + 
+	minute + ':' + 
+	(showSeconds ? second : '') + 
+	' ' + ampm;
+}
+
+export function transformDateTo24H(date: Date, showSeconds: boolean = true) {
+	const hour = date.getHours();
+	const minute = date.getMinutes();
+	const second = date.getSeconds();
+
+	return hour + ':' + 
+	minute + ':' + 
+	(showSeconds ? second : '');
+}

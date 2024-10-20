@@ -2,17 +2,16 @@ import { useEffect } from "react";
 import { BookmarkFolder } from "@components/bookmarkFolder/BookmarkFolder";
 
 import { useLocalStorageState } from "@utils/utils";
-import useBookmarksLoader from "@application/BookmarksLoader";
+import BookmarkFactory from "@application/BookmarkFactory";
 import IBookmarkLibrary from "@domain/bookmarks/BookmarkLibrary";
 import { LocalStorageType } from "@domain/localStorage/LocalStorageTypeEnum";
 
 export const BookmarkLibrary: React.FC = () => {
-    const { editBookmarkFolderName, deleteBookmarkFolder, getDefaultBookmaekLibrary } = useBookmarksLoader();
-    // const [ store, setLibraryState ] = useLibraryState();
+    const { editBookmarkFolderName, deleteBookmarkFolder, getDefaultBookmaekLibrary } = BookmarkFactory();
     const [ store, setState] = useLocalStorageState<IBookmarkLibrary>(LocalStorageType.BookmarkLibrary);
 
-    const handleFolderEdit = (oldFolderName: string, newFolderName: string) => {
-        const newLibrary = editBookmarkFolderName(oldFolderName, newFolderName, store!);
+    const handleFolderNameEdit = (folderId: string, newFolderName: string) => {
+        const newLibrary = editBookmarkFolderName(folderId, newFolderName, store!);
         setState(newLibrary);
     }
 
@@ -32,10 +31,11 @@ export const BookmarkLibrary: React.FC = () => {
         <div>
             {store?.bookmarkFolders?.map((bookmarkFolder) => (
                 <BookmarkFolder
-                    key={bookmarkFolder.name}
+                    id={bookmarkFolder.id}
+                    key={bookmarkFolder.id}
                     name={bookmarkFolder.name}
                     bookmarks={bookmarkFolder.bookmarks}
-                    onEdit={handleFolderEdit}
+                    onEdit={handleFolderNameEdit}
                     onDelete={handleFolderDelete}
                 />
             ))}
