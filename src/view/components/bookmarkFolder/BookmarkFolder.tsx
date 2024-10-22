@@ -1,5 +1,5 @@
 import { Bookmark } from "@components/bookmark/Bookmark";
-import { Button } from "@components/button/button";
+import { Button } from "@components/atoms/button/button";
 import IBookmark from "@domain/bookmarks/Bookmark";
 
 interface BookmarkFolderProps {

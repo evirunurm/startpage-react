@@ -23,11 +23,15 @@ export function useLibraryState() {
 			JSON.stringify(newValue)
 		);
 		window.dispatchEvent(
-			new StorageEvent("storage", { key: LocalStorageType.BookmarkLibrary, newValue: JSON.stringify(newValue) })
+			new StorageEvent("storage", {
+				key: LocalStorageType.BookmarkLibrary,
+				newValue: JSON.stringify(newValue),
+			})
 		);
 	};
 
-	const getSnapshot = () => localStorage.getItem(LocalStorageType.BookmarkLibrary);
+	const getSnapshot = () =>
+		localStorage.getItem(LocalStorageType.BookmarkLibrary);
 
 	const subscribe = (listener: () => void) => {
 		window.addEventListener("storage", listener);
@@ -35,8 +39,8 @@ export function useLibraryState() {
 	};
 
 	const storeSnapshot = React.useSyncExternalStore(subscribe, getSnapshot);
-	const store: IBookmarkLibrary | null = storeSnapshot 
-		? JSON.parse(storeSnapshot as string) as IBookmarkLibrary 
+	const store: IBookmarkLibrary | null = storeSnapshot
+		? (JSON.parse(storeSnapshot as string) as IBookmarkLibrary)
 		: null;
 
 	return [store, setLibraryState] as const;
@@ -44,12 +48,12 @@ export function useLibraryState() {
 
 export function useLocalStorageState<TResult>(key: string) {
 	const setState = (newValue: TResult) => {
-		window.localStorage.setItem(
-			key,
-			JSON.stringify(newValue)
-		);
+		window.localStorage.setItem(key, JSON.stringify(newValue));
 		window.dispatchEvent(
-			new StorageEvent("storage", { key, newValue: JSON.stringify(newValue) })
+			new StorageEvent("storage", {
+				key,
+				newValue: JSON.stringify(newValue),
+			})
 		);
 	};
 
@@ -61,8 +65,8 @@ export function useLocalStorageState<TResult>(key: string) {
 	};
 
 	const storeSnapshot = React.useSyncExternalStore(subscribe, getSnapshot);
-	const store: TResult | null = storeSnapshot 
-		? JSON.parse(storeSnapshot as string) as TResult 
+	const store: TResult | null = storeSnapshot
+		? (JSON.parse(storeSnapshot as string) as TResult)
 		: null;
 
 	return [store, setState] as const;
@@ -73,24 +77,27 @@ export function transformDateTo12H(date: Date, showSeconds: boolean = true) {
 	const minute = date.getMinutes();
 	const second = date.getSeconds();
 
-	let ampm = '';
+	let ampm = "";
 	if (hour >= 12) {
-		ampm = 'PM';
+		ampm = "PM";
 	} else {
-		ampm = 'AM';
+		ampm = "AM";
 	}
 
 	if (hour > 12) {
-		return (hour - 12) + ':' + 
-		minute + ':' + 
-		(showSeconds ? second : '') + 
-		' ' + ampm;
+		return (
+			hour -
+			12 +
+			":" +
+			minute +
+			":" +
+			(showSeconds ? second : "") +
+			" " +
+			ampm
+		);
 	}
 
-	return hour + ':' + 
-	minute + ':' + 
-	(showSeconds ? second : '') + 
-	' ' + ampm;
+	return hour + ":" + minute + ":" + (showSeconds ? second : "") + " " + ampm;
 }
 
 export function transformDateTo24H(date: Date, showSeconds: boolean = true) {
@@ -98,7 +105,28 @@ export function transformDateTo24H(date: Date, showSeconds: boolean = true) {
 	const minute = date.getMinutes();
 	const second = date.getSeconds();
 
-	return hour + ':' + 
-	minute + ':' + 
-	(showSeconds ? second : '');
+	return hour + ":" + minute + ":" + (showSeconds ? second : "");
+}
+
+function nth(day: number) {
+	if (day > 3 && day < 21) return "th";
+	switch (day % 10) {
+		case 1:
+			return "st";
+		case 2:
+			return "nd";
+		case 3:
+			return "rd";
+		default:
+			return "th";
+	}
+}
+
+export function transformDateToString(date: Date) {
+	const weekDay = date.toLocaleString("en-US", { weekday: "long" });
+	const monthDay = date.toLocaleString("en-US", { day: "numeric" });
+	const month = date.toLocaleString("en-US", { month: "short" });
+	const year = date.getFullYear();
+
+	return `${weekDay}, ${monthDay}${nth(parseInt(monthDay))} ${month} ${year}`;
 }

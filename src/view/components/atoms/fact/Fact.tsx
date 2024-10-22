@@ -1,5 +1,5 @@
 import useGetFact from "@application/getFact";
-import { Button } from "@components/button/button";
+import { Button } from "@components/atoms/button/button";
 import { useStore } from "@service/store";
 
 export const Fact: React.FC = () => {

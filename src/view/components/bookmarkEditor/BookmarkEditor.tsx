@@ -1,5 +1,5 @@
-import { Button } from "@components/button/button";
-import { Input } from "@components/input/Input";
+import { Button } from "@components/atoms/button/button";
+import { Input } from "@components/atoms/input/Input";
 import IBookmark from "@domain/bookmarks/Bookmark";
 import { useState } from "react";
 

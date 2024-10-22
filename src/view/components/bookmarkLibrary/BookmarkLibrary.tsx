@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BookmarkFolder } from "@components/bookmarkFolder/BookmarkFolder";
-import { Button } from "@components/button/button";
+import { Button } from "@components/atoms/button/button";
 import { useLocalStorageState } from "@utils/utils";
 import BookmarkFactory from "@application/BookmarkFactory";
 import IBookmarkLibrary from "@domain/bookmarks/BookmarkLibrary";

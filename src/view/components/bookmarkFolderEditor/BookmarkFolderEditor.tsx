@@ -1,6 +1,6 @@
 import { BookmarkEditor } from "@components/bookmarkEditor/BookmarkEditor";
-import { Button } from "@components/button/button";
-import { Input } from "@components/input/Input";
+import { Button } from "@components/atoms/button/button";
+import { Input } from "@components/atoms/input/Input";
 import BookmarkFactory from "@application/BookmarkFactory";
 import { useLocalStorageState } from "@utils/utils";
 import IBookmark from "@domain/bookmarks/Bookmark";
