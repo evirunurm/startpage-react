@@ -1,35 +1,25 @@
 import { Bookmark } from "@components/bookmark/Bookmark";
-import { BookmarkFolderEditor } from "@components/bookmarkFolderEditor/BookmarkFolderEditor";
 import { Button } from "@components/button/button";
 import IBookmark from "@domain/bookmarks/Bookmark";
-import { useState } from "react";
 
 interface BookmarkFolderProps {
     id: string;
     name: string;
     bookmarks: IBookmark[];
-    onEdit: (folderId: string, newFolderName: string) => void;
     onDelete: (folderName: string) => void;
+    onEditClick: (folderId: string) => void;
 }
 
-export const BookmarkFolder: React.FC<BookmarkFolderProps> = ({ id, name, bookmarks, onEdit, onDelete }) => {
-
-    const [isEditing, setIsEditing ] = useState(false);
+export const BookmarkFolder: React.FC<BookmarkFolderProps> = ({ id, name, bookmarks, onEditClick, onDelete }) => {
 
     const handleEditFolderClick = () => {
-        setIsEditing(true);
-        console.log(`Edit folder ${name}`);
+        onEditClick(id);
     }
 
     const handleDeleteFolderClick = () => {
         onDelete(id);
     }
 
-    const handleFolderNameSave = (folderId: string, newFolderName: string) => {
-        onEdit(folderId, newFolderName);
-        setIsEditing(false);
-    }
-    
     return (
         <div>
             <div>
@@ -51,17 +41,6 @@ export const BookmarkFolder: React.FC<BookmarkFolderProps> = ({ id, name, bookma
                     url={bookmark.url}
                 />
             ))}
-
-                {isEditing &&
-                        <BookmarkFolderEditor
-                            key={id}
-                            id={id}
-                            name={name}
-                            bookmarks={bookmarks}
-                            onNameSave={handleFolderNameSave}
-                    />
-                }
-           
         </div>
     );
 };
