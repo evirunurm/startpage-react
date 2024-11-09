@@ -1,20 +1,8 @@
-import { Button as ButtonAria } from 'react-aria-components';
-
-interface ButtonProps {
-  label: string;
-  onPress?: () => void;
-}
+import { Button as ButtonAria, ButtonProps } from "react-aria-components";
 
 export const Button = ({
-  label,
-  ...props
-}: ButtonProps) => {
-  return (
-    <ButtonAria
-      type="button"
-      {...props}
-    >
-      {label}
-    </ButtonAria>
-  );
+	children,
+	...props
+}: React.PropsWithChildren<ButtonProps>) => {
+	return <ButtonAria {...props}>{children}</ButtonAria>;
 };

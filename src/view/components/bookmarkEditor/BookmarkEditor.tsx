@@ -18,29 +18,35 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 	onSave,
 	onDelete,
 }) => {
-	const [folderName, setFolderName] = useState(name);
-	const [folderUrl, setFolderUrl] = useState(url);
+	const [bookmarkName, setBookmarkName] = useState(name);
+	const [bookmarkUrl, setBookmarkUrl] = useState(url);
 
 	const handleDeleteBookmark = () => {
-		// TODO: Ask for confirmation
-		onDelete(id);
+		const confirmation = window.confirm("Are you sure you want to delete this bookmark?");
+		if (confirmation) {
+			onDelete(id);
+		}
 	};
 
 	const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setFolderName(e.currentTarget.value);
+		if (e.currentTarget.value) {
+			setBookmarkName(e.currentTarget.value);
+		} else {
+			// Show error message
+		}
 	};
 
 	const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setFolderUrl(e.currentTarget.value);
+		setBookmarkUrl(e.currentTarget.value);
 	};
 
 	const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === "Enter") {
-			console.log("Save folder name:" + name);
+			console.log("Save bookmark with name:" + name);
 			onSave(id, {
 				id,
-				name: folderName,
-				url: folderUrl,
+				name: bookmarkName,
+				url: bookmarkUrl,
 				order: 0,
 			} as IBookmark);
 		}
@@ -50,7 +56,7 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 		<section>
 			<Input
 				name={name}
-				value={folderName}
+				value={bookmarkName}
 				type="text"
 				key={`${id}-name-edit`}
 				onKeyPress={handleKeyPress}
@@ -58,13 +64,13 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 			/>
 			<Input
 				name={name}
-				value={folderUrl}
+				value={bookmarkUrl}
 				type="text"
 				key={`${id}-url-edit`}
-				onKeyPress={handleKeyPress}
+				onKeyDown={handleKeyPress}
 				onChange={handleUrlChange}
 			/>
-			<Button label="Delete Bookmark" onPress={handleDeleteBookmark} />
+			<Button onPress={handleDeleteBookmark}>Delete Bookmark</Button>
 		</section>
 	);
 };

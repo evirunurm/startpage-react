@@ -16,7 +16,9 @@ export const Fact: React.FC = () => {
     return (
         <>
             <p>{storedFact}</p>
-            <Button label="Next Fact" onPress={handleButtonClick} />
+            <Button onPress={handleButtonClick}>
+                Next Fact
+            </Button>
         </>
     );
 };
