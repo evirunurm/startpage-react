@@ -5,18 +5,18 @@ import styles from "./fact.module.css";
 
 export const Fact: React.FC = () => {
     const { getFact, updateFact } = useGetFact();
-    const { storedFact, updateStoredFact } = useStore();
+    const { storedFact, updateStoredFact, storedFactType} = useStore();
 
-    const handleButtonClick = async () => {
-		await updateFact();
+    const handleNextFactClick = async () => {
+		await updateFact(storedFactType);
         const newFact = getFact();
         updateStoredFact(newFact);
     };
 
     return (
-        <section classNames={styles['fact-container']}>
-            <p>{storedFact}</p>
-            <Button onPress={handleButtonClick}>
+        <section className={styles['fact-container']}>
+            <p className={styles["fact-container__fact"]}>{storedFact}</p>
+            <Button onPress={handleNextFactClick}>
                 Next Fact
             </Button>
         </section>

@@ -1,4 +1,4 @@
-import ICatsFactResult from "@domain/fact/catFact";
+import ICatsFactResult from "@domain/fact/ICatsFactResult";
 import { IFactsService } from "@application/ports";
 import { catFactsAPI } from "./api";
 
