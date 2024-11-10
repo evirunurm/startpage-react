@@ -1,8 +1,8 @@
 import { transformDateTo12H, transformDateTo24H } from "@utils/utils";
 import { useEffect, useState } from "react";
+import styles from "./current-time.module.css";
 
 export const CurrentTime: React.FC = () => {
-	// Displays the current time, in 24 Hour format and 12 Hour format (Both with and without "AM/PM").
 
 	const getCurrentTime = (hour24: boolean = true) => {
 		if (hour24) {
@@ -22,8 +22,6 @@ export const CurrentTime: React.FC = () => {
 	}, []);
 
 	return (
-		<>
-			<p>{time}</p>
-		</>
+		<h2 className={styles["current-time"]}>{time}</h2>
 	);
 };

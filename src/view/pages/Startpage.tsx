@@ -1,4 +1,4 @@
-import { Fact } from "@components/atoms/fact/Fact"
+import { Fact } from "@components/atoms/fact/fact"
 import { Image } from "@components/image/Image"
 import { BookmarkLibrary } from "@components/bookmark-library/bookmark-library";
 import { DateTime } from "@components/date-time/date-time";

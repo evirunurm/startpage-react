@@ -73,9 +73,9 @@ export function useLocalStorageState<TResult>(key: string) {
 }
 
 export function transformDateTo12H(date: Date, showSeconds: boolean = true) {
-	const hour = date.getHours();
-	const minute = date.getMinutes();
-	const second = date.getSeconds();
+	const hour: number = date.getHours();
+	const minute: string = date.getMinutes().toString().padStart(2, '0');
+	const second: string = date.getSeconds().toString().padStart(2, '0');
 
 	let ampm = "";
 	if (hour >= 12) {

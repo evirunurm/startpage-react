@@ -1,6 +1,7 @@
-.date-time {
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-  gap: 0.5rem;
+@layer components.date-time {
+  .date-time {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+  }
 }

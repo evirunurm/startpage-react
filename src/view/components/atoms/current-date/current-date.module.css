@@ -1,0 +1,5 @@
+@layer components.current-date {
+    .current-date {
+        font-size: 1.25rem;
+    }
+}

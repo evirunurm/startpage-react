@@ -1,4 +1,5 @@
-@layer reset, variables;
+@import 'layers.css';
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
 @layer reset {
 	*:where(
@@ -12,9 +13,17 @@
 	}
 }
 
+@layer fonts {
+	body {
+		font-family: 'Noto Sans', sans-serif;
+	}
+}
+
 @layer variables {
 	:root {
 		--color-primary: #007bff;
 		--color-secondary: #6c757d;
+		--color-background: #f8f9fa;
+		--color-font: #343a40;
 	}
 }

@@ -13,6 +13,7 @@
       - [Plain CSS](#plain-css)
       - [Inline styles with JS-style obejcts](#inline-styles-with-js-style-obejcts)
       - [JSS](#jss)
+      - [CSS Modules (This project)](#css-modules-this-project)
     - [Keys](#keys)
 
 ___
@@ -89,11 +90,12 @@ ___
 
 ### Styling React Components
 
-There are three main ways of styling React components:
+There are several ways of styling React components. Some of thems are:
 
 - Plain CSS
 - Inline styles with JS-style obejcts
 - JSS (Library for creating CSS with JavaScript)
+- **CSS Modules**
 
 #### Plain CSS
 
@@ -172,6 +174,48 @@ function App() {
 ```
 
 With JSS, you have to create a hook by passing in the style definitions, outside of the component. This will prevent the code from running on every re-render; since the style definitions are static, there’s no reason to run the code more then once.
+
+#### CSS Modules (This project)
+
+``` tsx
+import styles from 'App.module.css';
+(...)
+
+function App() {
+
+  return (
+    <div className={styles['app-container']}>
+      <Alert />
+    </div>
+  )
+}
+```
+
+CSS Modules scope CSS to a specific component, making it easier to manage styles in larger applications and reducing naming conflicts.
+
+- Configuration to use project's Typescript version instead local must be configred in .vscode folder, settings.json file
+
+``` json
+{
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true
+}
+```
+
+- Typescript project configuration file.
+
+``` json
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+```
+
+- Create global styles.d.ts file in src folder, with following code
+
+``` ts
+declare module "*.module.css" {
+  const classes: { [key: string]: string };
+  export default classes;
+}
+```
 
 ___
 

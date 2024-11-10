@@ -1,9 +1,8 @@
 import { transformDateToString } from "@utils/utils";
 import { useEffect, useState } from "react";
+import styles from "./current-date.module.css";
 
 export const CurrentDate: React.FC = () => {
-	// Displays current week day, month day, month and year, in the format: "Monday, 1st Jan 2021".
-
 	const getCurrentDate = () => {
 		return transformDateToString(new Date());
 	};
@@ -18,8 +17,6 @@ export const CurrentDate: React.FC = () => {
 	}, []);
 
 	return (
-		<>
-			<p>{date}</p>
-		</>
+		<h1 className={styles["current-date"]}>{date}</h1>
 	);
 };
