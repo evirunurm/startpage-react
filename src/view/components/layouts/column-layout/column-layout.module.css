@@ -2,7 +2,7 @@
     .column-layout {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: end;
         justify-content: space-between;
         height: 100%;
         width: 100%;

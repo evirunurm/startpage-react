@@ -1,4 +1,4 @@
-
+import { Link } from "@components/atoms/link/Link";
 
 interface BookmarkProps {
     name: string;
@@ -8,7 +8,7 @@ interface BookmarkProps {
 export const Bookmark: React.FC<BookmarkProps> = ({ name, url }) => {
     return (
         <div>
-            <a href={url}>{name}</a>
+            <Link href={url}>{name}</Link>
         </div>
     );
 };

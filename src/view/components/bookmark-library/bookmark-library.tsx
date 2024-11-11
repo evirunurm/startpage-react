@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { BookmarkFolder } from "@components/bookmarkFolder/BookmarkFolder";
+import { BookmarkFolder } from "@components/bookmark-folder/bookmark-folder";
 import { Button } from "@components/atoms/button/button";
 import { useLocalStorageState } from "@utils/utils";
 import BookmarkFactory from "@application/BookmarkFactory";
 import IBookmarkLibrary from "@domain/bookmarks/BookmarkLibrary";
 import { LocalStorageType } from "@domain/localStorage/LocalStorageTypeEnum";
 import IBookmarkFolder from "@domain/bookmarks/BookmarkFolder";
-import { BookmarkFolderEditor } from "@components/bookmarkFolderEditor/BookmarkFolderEditor";
+import { BookmarkFolderEditor } from "@components/bookmark-folder-editor/bookmark-folder-editor";
 import styles from "./bookmark-library.module.css";
 
 export const BookmarkLibrary: React.FC = () => {
@@ -77,10 +77,9 @@ export const BookmarkLibrary: React.FC = () => {
 
 	const handleBookmarksUpdate = (updatedFolder: IBookmarkFolder) => {
 		const newLibrary = {
-			...store!,
 			bookmarkFolders: store?.bookmarkFolders.map((folder) =>
 				folder.id === updatedFolder.id ? updatedFolder : folder
-			),
+			)
 		} as IBookmarkLibrary;
 		setStore(newLibrary);
 		setEditingFolder(updatedFolder);

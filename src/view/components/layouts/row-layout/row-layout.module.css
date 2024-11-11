@@ -1,7 +1,10 @@
-.row-layout {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
-    width: 100%;
+@layer components.row-layout {
+    .row-layout {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+        width: 65%;
+        gap: 2rem;
+    }
 }

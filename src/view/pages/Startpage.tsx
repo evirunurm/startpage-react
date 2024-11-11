@@ -1,5 +1,5 @@
 import { Fact } from "@components/atoms/fact/fact"
-import { Image } from "@components/image/Image"
+import { Image } from "@components/image/image"
 import { BookmarkLibrary } from "@components/bookmark-library/bookmark-library";
 import { DateTime } from "@components/date-time/date-time";
 import { StartpageLayout } from "@components/layouts/startpage-layout/startpage-layout";

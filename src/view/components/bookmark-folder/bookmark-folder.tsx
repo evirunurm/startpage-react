@@ -1,6 +1,9 @@
 import { Bookmark } from "@components/bookmark/Bookmark";
-import { Button } from "@components/atoms/button/button";
 import IBookmark from "@domain/bookmarks/Bookmark";
+import { IconTrashX } from "@tabler/icons-react";
+import { IconPencilMinus } from "@tabler/icons-react";
+import { CircularButton } from "@components/atoms/circular-button/circular-button";
+import styles from "./bookmark-folder.module.css";
 
 interface BookmarkFolderProps {
 	id: string;
@@ -32,16 +35,22 @@ export const BookmarkFolder: React.FC<BookmarkFolderProps> = ({
 	};
 
 	return (
-		<div>
-			<div>
-				<h2>{name}</h2>
-				<Button
+		<div className={styles["bookmark-folder"]}>
+			<div className={styles["bookmark-folder__title"]}>
+				<h2 className={styles["bookmark-folder__title__text"]}>{name}</h2>
+				<CircularButton
+					className={styles["bookmark-folder__title__edit-button"]}
 					onPress={handleEditFolderClick}
 					key={id}
-				>{`Edit '${name}'`}</Button>
-				<Button
+				>
+					<IconPencilMinus size={21} />
+				</CircularButton>
+				<CircularButton
+					className={styles["bookmark-folder__title__delete-button"]}
 					onPress={handleDeleteFolderClick}
-				>{`Delete '${name}'`}</Button>
+				>
+					<IconTrashX size={21} />
+				</CircularButton>
 			</div>
 			{bookmarks.map((bookmark) => (
 				<Bookmark

@@ -12,6 +12,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@tabler/icons-react": "^3.21.0",
     "react": "^18.2.0",
     "react-aria-components": "^1.1.1",
     "react-dom": "^18.2.0"

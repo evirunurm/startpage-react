@@ -2,9 +2,10 @@
     .bookmark-library {
         position: relative;
         display: flex;
-        justify-content: center;
-        width: 100%;
+        justify-content: space-between;
+        width: 65%;
         height: 100%;
+        gap: 4rem;
     }
 
     .add-folder-button {
