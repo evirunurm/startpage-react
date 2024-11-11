@@ -16,7 +16,8 @@ export const BookmarkLibrary: React.FC = () => {
 		getDefaultBookmaekLibrary,
 		addBookmarkFolder,
 	} = BookmarkFactory();
-	const [store, setState] = useLocalStorageState<IBookmarkLibrary>(
+
+	const [store, setStore] = useLocalStorageState<IBookmarkLibrary>(
 		LocalStorageType.BookmarkLibrary
 	);
 	const [editingFolder, setEditingFolder] = useState<IBookmarkFolder | null>(
@@ -24,16 +25,12 @@ export const BookmarkLibrary: React.FC = () => {
 	);
 
 	const handleFolderNameSave = (folderId: string, newFolderName: string) => {
-		handleFolderNameEdit(folderId, newFolderName);
-	};
-
-	const handleFolderNameEdit = (folderId: string, newFolderName: string) => {
 		const newLibrary = editBookmarkFolderName(
 			folderId,
 			newFolderName,
 			store!
 		);
-		setState(newLibrary);
+		setStore(newLibrary);
 	};
 
 	const handleFolderEditClick = (folderId: string) => {
@@ -47,7 +44,7 @@ export const BookmarkLibrary: React.FC = () => {
 
 	const handleFolderDelete = (folderName: string) => {
 		const newLibrary = deleteBookmarkFolder(folderName, store!);
-		setState(newLibrary);
+		setStore(newLibrary);
 		setEditingFolder(null);
 	};
 
@@ -65,7 +62,7 @@ export const BookmarkLibrary: React.FC = () => {
 			}
 		}
 		if (newLibrary) {
-			setState(newLibrary!);
+			setStore(newLibrary);
 			setEditingFolder(
 				newLibrary.bookmarkFolders[
 					newLibrary.bookmarkFolders.length - 1
@@ -85,18 +82,18 @@ export const BookmarkLibrary: React.FC = () => {
 				folder.id === updatedFolder.id ? updatedFolder : folder
 			),
 		} as IBookmarkLibrary;
-		setState(newLibrary);
+		setStore(newLibrary);
 		setEditingFolder(updatedFolder);
 	};
 
 	useEffect(() => {
 		if (!store) {
-			setState(getDefaultBookmaekLibrary());
+			setStore(getDefaultBookmaekLibrary());
 		}
-	}, [store, getDefaultBookmaekLibrary, setState]);
+	}, [store, getDefaultBookmaekLibrary, setStore]);
 
 	return (
-		<div className={styles['bookmark-library']}>
+		<div className={styles["bookmark-library"]}>
 			{store?.bookmarkFolders?.map((bookmarkFolder) => (
 				<BookmarkFolder
 					id={bookmarkFolder.id}
@@ -118,8 +115,12 @@ export const BookmarkLibrary: React.FC = () => {
 					onBookmarksUpdate={handleBookmarksUpdate}
 				/>
 			)}
-			<Button className={styles['add-folder-button']}
-			onPress={handleAddNewFolder}>Add Folder</Button>
+			<Button
+				className={styles["add-folder-button"]}
+				onPress={handleAddNewFolder}
+			>
+				Add Folder
+			</Button>
 		</div>
 	);
 };

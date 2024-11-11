@@ -1,14 +1,17 @@
 import useGetFact from "@application/getFact";
 import { Button } from "@components/atoms/button/button";
-import { useStore } from "@service/store";
 import styles from "./fact.module.css";
+import { useLocalStorageState } from "@utils/utils";
+import { LocalStorageType } from "@domain/localStorage/LocalStorageTypeEnum";
+import { FactType } from "@domain/fact/FactTypeEnum";
 
 export const Fact: React.FC = () => {
     const { getFact, updateFact } = useGetFact();
-    const { storedFact, updateStoredFact, storedFactType} = useStore();
+    const [ storedFact, updateStoredFact ] = useLocalStorageState<string>(LocalStorageType.Fact);
+    const [ storedFactType ] = useLocalStorageState<FactType>(FactType.Cats.toString());
 
     const handleNextFactClick = async () => {
-		await updateFact(storedFactType);
+		await updateFact(storedFactType || FactType.Cats);
         const newFact = getFact();
         updateStoredFact(newFact);
     };

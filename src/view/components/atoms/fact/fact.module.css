@@ -1,13 +1,15 @@
-.fact-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: flex-end;
-}
+@layer components.fact {
+    .fact-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: flex-end;
+    }
 
-.fact-container__fact {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: flex-end;
+    .fact-container__fact {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: flex-end;
+    }
 }
