@@ -1,5 +1,3 @@
 import { Input as InputAria, InputProps } from "react-aria-components";
 
-export const Input = ({ ...props }: InputProps) => {
-	return <InputAria {...props} />;
-};
+export const Input = ({ ...props }: InputProps) => <InputAria {...props} />;

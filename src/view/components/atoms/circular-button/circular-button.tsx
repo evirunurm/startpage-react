@@ -1,14 +1,16 @@
 import { Button as ButtonAria, ButtonProps } from "react-aria-components";
 import styles from "./circular-button.module.css";
 
-export const CircularButton = ({
-	children,
-	className,
-	...props
-}: React.PropsWithChildren<ButtonProps>) => {
-	return (
-		<ButtonAria className={`${styles["ciruclar-button"]} ${className}`} {...props}>
-			{children}
-		</ButtonAria>
-	);
-};
+interface CircularButtonProps extends ButtonProps {
+  className?: string;
+}
+
+export const CircularButton: React.FC<CircularButtonProps> = ({
+  children,
+  className = '',
+  ...props
+}) => (
+  <ButtonAria className={`${styles["circular-button"]} ${className}`} {...props}>
+    {children}
+  </ButtonAria>
+);

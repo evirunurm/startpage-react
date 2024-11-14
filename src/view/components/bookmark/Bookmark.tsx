@@ -1,4 +1,5 @@
-import { Link } from "@components/atoms/link/Link";
+import { Link } from "@components/atoms/link/link";
+import styles from "./bookmark.module.css";
 
 interface BookmarkProps {
     name: string;
@@ -7,8 +8,6 @@ interface BookmarkProps {
 
 export const Bookmark: React.FC<BookmarkProps> = ({ name, url }) => {
     return (
-        <div>
-            <Link href={url}>{name}</Link>
-        </div>
+        <Link className={styles.bookmark} href={url}>{name}</Link>
     );
 };

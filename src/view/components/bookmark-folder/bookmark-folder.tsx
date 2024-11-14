@@ -1,4 +1,4 @@
-import { Bookmark } from "@components/bookmark/Bookmark";
+import { Bookmark } from "@components/bookmark/bookmark";
 import IBookmark from "@domain/bookmarks/Bookmark";
 import { IconTrashX } from "@tabler/icons-react";
 import { IconPencilMinus } from "@tabler/icons-react";
