@@ -107,7 +107,7 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 				value={folderName}
 				type="text"
 				key={`${folderId}-name-edit`}
-				onKeyPress={handleKeyPress}
+				onKeyDown={handleKeyPress}
 				onChange={handleNameChange}
 			/>
 			{bookmarks?.map((bookmark) => (

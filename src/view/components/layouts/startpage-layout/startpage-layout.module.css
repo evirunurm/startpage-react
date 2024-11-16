@@ -1,13 +1,23 @@
 @layer components.startpage-layout {
     .startpage-layout {
+        height: 100dvh;
+
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 100vh;
+        gap: 2rem;
+
         color: var(--color-font);
         background-color: var(--color-background);
-        gap: 2rem;
-        min-width: none;
+
+        padding: 1.25rem;
+    }
+
+    @media (max-width: 768px) {
+        .startpage-layout {
+            height: 100%;
+        }
     }
 }
+

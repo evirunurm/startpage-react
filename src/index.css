@@ -11,6 +11,9 @@
 		all: unset;
 		display: revert;
 	}
+	*, :before, :after {
+		box-sizing: border-box;
+	}
 }
 
 @layer fonts {
@@ -25,5 +28,6 @@
 		--color-secondary: #6c757d;
 		--color-background: #f8f9fa;
 		--color-font: #343a40;
+		--transition: all 0.2s, color 0.2s;
 	}
 }

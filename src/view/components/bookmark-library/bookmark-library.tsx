@@ -31,6 +31,7 @@ export const BookmarkLibrary: React.FC = () => {
 			store!
 		);
 		setStore(newLibrary);
+		setEditingFolder(null);
 	};
 
 	const handleFolderEditClick = (folderId: string) => {
@@ -65,7 +66,7 @@ export const BookmarkLibrary: React.FC = () => {
 			setStore(newLibrary);
 			setEditingFolder(
 				newLibrary.bookmarkFolders[
-					newLibrary.bookmarkFolders.length - 1
+				newLibrary.bookmarkFolders.length - 1
 				]
 			);
 		} else {

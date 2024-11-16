@@ -4,12 +4,14 @@
         border-radius: 50%;
         cursor: pointer;
         font-size: 1rem;
-        padding: 0.5rem;
-        transition: background-color 0.3s, color 0.3s;
+        padding: 0.25rem 0.25rem calc(0.25rem + 1px) 0.25rem; /** 1px is added to the bottom padding to visually center the icons */
+        aspect-ratio: 1 / 1;
+        transition: var(--transition);
+        display: flex;
     }
 
     .circular-button:hover {
-        background-color: var(--color-secundary);
-        color: var(--color-primary);
+        background-color: var(--color-primary);
+        color: var(--color-background);
     }
 }

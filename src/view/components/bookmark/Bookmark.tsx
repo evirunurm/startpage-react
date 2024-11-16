@@ -8,6 +8,10 @@ interface BookmarkProps {
 
 export const Bookmark: React.FC<BookmarkProps> = ({ name, url }) => {
     return (
-        <Link className={styles.bookmark} href={url}>{name}</Link>
+        <Link target="_blank"
+            className={styles.bookmark}
+            href={url}>
+            {name}
+        </Link>
     );
 };

@@ -3,9 +3,7 @@
         position: relative;
         display: flex;
         justify-content: space-between;
-        width: 65%;
-        height: 100%;
-        gap: 4rem;
+        flex-wrap: wrap;
     }
 
     .add-folder-button {
