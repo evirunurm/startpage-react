@@ -29,7 +29,7 @@ const defaultBookmarkLibrary: IBookmarkLibrary = {
 } as IBookmarkLibrary;
 
 export default function BookmarkFactory() {
-    
+
     const libraryHasFolderWithName = (name: string, library: IBookmarkLibrary): boolean => {
         return library.bookmarkFolders.some(folder => folder.name === name);
     }
@@ -37,14 +37,14 @@ export default function BookmarkFactory() {
     const libraryHasFolderWithId = (id: string, library: IBookmarkLibrary): boolean => {
         return library.bookmarkFolders.some(folder => folder.id === id);
     }
-    
+
     const addBookmarkFolder = (name: string, library: IBookmarkLibrary): IBookmarkLibrary => {
         if (libraryHasFolderWithName(name, library)) {
             throw new Error(`Folder with name ${name} already exists`);
         }
         const newLibrary: IBookmarkLibrary = {
             ...library,
-           bookmarkFolders: [...library.bookmarkFolders, {  name, bookmarks: [], order: 0, id: generateUniqueId() } as IBookmarkFolder]
+            bookmarkFolders: [...library.bookmarkFolders, { name, bookmarks: [], order: 0, id: generateUniqueId() } as IBookmarkFolder]
         };
         return newLibrary;
     }
@@ -60,7 +60,7 @@ export default function BookmarkFactory() {
         return newLibrary;
     }
 
-    const editBookmarkFolderName =(folderId: string, newName: string, library: IBookmarkLibrary): IBookmarkLibrary => {
+    const editBookmarkFolderName = (folderId: string, newName: string, library: IBookmarkLibrary): IBookmarkLibrary => {
         if (!libraryHasFolderWithId(folderId, library)) {
             throw new Error(`Folder with id ${folderId} doesn't exist`);
         }
@@ -109,7 +109,9 @@ export default function BookmarkFactory() {
         return newLibrary;
     }
 
-    const getDefaultBookmaekLibrary = (): IBookmarkLibrary => defaultBookmarkLibrary;
+    const getDefaultBookmarkLibrary = (): IBookmarkLibrary => defaultBookmarkLibrary;
+
+    const getMaximumAmountOfFolders = (): number => 4;
 
     return {
         addBookmarkFolder,
@@ -118,6 +120,7 @@ export default function BookmarkFactory() {
         updateBookmarkFromFolder,
         deleteBookmarkFolder,
         editBookmarkFolderName,
-        getDefaultBookmaekLibrary
+        getDefaultBookmarkLibrary,
+        getMaximumAmountOfFolders
     };
 }

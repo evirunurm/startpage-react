@@ -29,5 +29,6 @@
 		--color-background: #f8f9fa;
 		--color-font: #343a40;
 		--transition: all 0.2s, color 0.2s;
+		--max-width: 800px;
 	}
 }

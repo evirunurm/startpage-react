@@ -1,0 +1,8 @@
+@layer components.horizontal-line {
+    .horizontal-line {
+        width: 100%;
+        height: 1px;
+        background-color: var(--color-font);
+        max-width: var(--max-width);
+    }
+}

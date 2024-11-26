@@ -5,6 +5,6 @@
         justify-content: space-between;
         gap: 2rem;
         height: 35%;
-        max-width: 50%;
+        max-width: var(--max-width);
     }
 }

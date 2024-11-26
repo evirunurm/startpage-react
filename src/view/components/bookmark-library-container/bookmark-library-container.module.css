@@ -1,0 +1,13 @@
+@layer components.bookmark-library-container {
+    .bookmark-library-container {
+        width: 100%;
+        max-width: var(--max-width);
+        position: relative;
+    }
+
+    .add-folder-button {
+        position: absolute;
+        right: -0.5rem;
+        top: -1rem;
+    }
+}

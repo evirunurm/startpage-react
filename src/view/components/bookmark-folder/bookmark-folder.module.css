@@ -1,11 +1,13 @@
 @layer components.bookmark-folder {
 	.bookmark-folder {
-		--button-positioning: 105%;
+		width: 100%;
+		padding: 2rem;
 		display: flex;
 		flex-direction: column;
 		align-items: end;
 		align-items: center;
-		padding: 2rem;
+		--button-positioning: 105%;
+		--button-transitionduration: 0.05s;
 	}
 
 	.bookmark-folder__title {
@@ -23,17 +25,25 @@
 	.bookmark-folder__title__edit-button {
 		position: absolute;
 		left: calc(var(--button-positioning) + 1.75rem);
-		display: none;
+		transition: opacity var(--button-transitionduration) ease-out;
+		opacity: 0;
 	}
 
 	.bookmark-folder__title__delete-button {
 		position: absolute;
 		left: var(--button-positioning);
-		display: none;
+		transition: opacity var(--button-transitionduration) ease-out;
+		opacity: 0;
 	}
 
 	.bookmark-folder:hover .bookmark-folder__title__edit-button,
-    .bookmark-folder:hover .bookmark-folder__title__delete-button {
-        display: flex;
-    }
+	.bookmark-folder:hover .bookmark-folder__title__delete-button {
+		opacity: 1;
+	}
+
+	.bookmark-folder:not(:hover) .bookmark-folder__title__edit-button,
+	.bookmark-folder:not(:hover) .bookmark-folder__title__delete-button {
+		opacity: 0;
+		transition-delay: 0.01s;
+	}
 }

@@ -1,0 +1,35 @@
+@layer components.bookmark-editor {
+	.bookmark-editor {
+		display: flex;
+		flex-direction: row;
+		gap: 1rem;
+	}
+
+	.bookmark-editor__data {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+
+	.bookmark-editor__data__text {
+		font-size: 0.75rem;
+		opacity: 0.65;
+		font-weight: 500;
+	}
+
+	.bookmark-editor__buttons {
+		display: flex;
+		gap: 0.25rem;
+	}
+
+	.bookmark-editor__buttons--column {
+		flex-direction: column;
+	}
+
+	.bookmark-editor__buttons__button {
+		height: 100%;
+		display: flex;
+		align-items: center;
+	}
+}

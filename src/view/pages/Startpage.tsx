@@ -1,22 +1,24 @@
 import { Fact } from "@components/fact/fact";
 import { Image } from "@components/image/image"
-import { BookmarkLibrary } from "@components/bookmark-library/bookmark-library";
 import { DateTime } from "@components/date-time/date-time";
 import { StartpageLayout } from "@components/layouts/startpage-layout/startpage-layout";
 import { RowLayout } from "@components/layouts/row-layout/row-layout";
 import { ColumnLayout } from "@components/layouts/column-layout/column-layout";
+import { HorizontalLine } from "@components/atoms/horizontal-line/horizontal-line";
+import { BookmarkLibraryContainer } from "@components/bookmark-library-container/bookmark-library-container";
 
 const Startpage = () => {
   return (
     <StartpageLayout>
       <RowLayout>
         <ColumnLayout>
-          <DateTime/>
+          <DateTime />
           <Fact />
         </ColumnLayout>
         <Image />
       </RowLayout>
-      <BookmarkLibrary />
+      <HorizontalLine />
+      <BookmarkLibraryContainer />
     </StartpageLayout>
   );
 };

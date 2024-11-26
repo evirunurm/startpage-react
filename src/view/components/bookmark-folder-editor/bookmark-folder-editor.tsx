@@ -1,6 +1,6 @@
-import { BookmarkEditor } from "@components/bookmarkEditor/BookmarkEditor";
+import { BookmarkEditor } from "@components/bookmark-editor/bookmark-editor";
 import { Button } from "@components/atoms/button/button";
-import { Input } from "@components/atoms/input/Input";
+import { Input } from "@components/atoms/input/input";
 import BookmarkFactory from "@application/BookmarkFactory";
 import { useLocalStorageState } from "@utils/utils";
 import IBookmark from "@domain/bookmarks/Bookmark";
@@ -8,6 +8,9 @@ import IBookmarkLibrary from "@domain/bookmarks/BookmarkLibrary";
 import { LocalStorageType } from "@domain/localStorage/LocalStorageTypeEnum";
 import { useState } from "react";
 import IBookmarkFolder from "@domain/bookmarks/BookmarkFolder";
+import styles from "./bookmark-folder-editor.module.css";
+import { CircularButton } from "@components/atoms/circular-button/circular-button";
+import { IconPlus } from "@tabler/icons-react";
 
 interface BookmarkFolderEditorProps {
 	folderId: string;
@@ -101,15 +104,18 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 	};
 
 	return (
-		<section>
-			<Input
-				name={folderName}
-				value={folderName}
-				type="text"
-				key={`${folderId}-name-edit`}
-				onKeyDown={handleKeyPress}
-				onChange={handleNameChange}
-			/>
+		<section className={styles["bookmark-folder-editor"]}>
+			<div>
+				<Input
+					name={folderName}
+					value={folderName}
+					type="text"
+					key={`${folderId}-name-edit`}
+					onKeyDown={handleKeyPress}
+					onChange={handleNameChange}
+				/>
+			</div>
+
 			{bookmarks?.map((bookmark) => (
 				<BookmarkEditor
 					id={bookmark.id}
@@ -120,7 +126,14 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 					onSave={handleSaveBookmark}
 				/>
 			))}
-			<Button onPress={handleAddBookmark}>Add Bookmark</Button>
+			<CircularButton
+				className={styles["bookmark-folder-editor__add-button"]}
+				onPress={handleAddBookmark}
+				tooltip="Add bookmark"
+				tooltipPlacement="end"
+			>
+				<IconPlus size={21} />
+			</CircularButton>
 		</section>
 	);
 };

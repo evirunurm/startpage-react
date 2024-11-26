@@ -1,0 +1,15 @@
+@layer components.bookmark-folder-editor {
+	.bookmark-folder-editor {
+		background-color: var(--color-background);
+		border: 1px solid var(--color-primary);
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		padding: 0.75rem;
+	}
+
+	.bookmark-folder-editor__add-button {
+		width: fit-content;
+		align-self: center;
+	}
+}
