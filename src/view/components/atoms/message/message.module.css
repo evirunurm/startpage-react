@@ -1,0 +1,8 @@
+@layer components.message {
+    .message {
+        font-size: 0.75rem;
+        color: var(--color-font);
+        opacity: 0.75;
+        text-transform: uppercase;
+    }
+}

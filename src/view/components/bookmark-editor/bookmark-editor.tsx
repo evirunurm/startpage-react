@@ -5,6 +5,7 @@ import { useState } from "react";
 import styles from "./bookmark-editor.module.css";
 import { IconDeviceFloppy, IconPencilMinus, IconTrashX } from "@tabler/icons-react";
 import classNames from 'classnames';
+import { Message } from "@components/atoms/message/message";
 
 interface BookmarkEditorProps {
 	id: string;
@@ -23,7 +24,6 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 }) => {
 	const [bookmarkName, setBookmarkName] = useState(name);
 	const [bookmarkUrl, setBookmarkUrl] = useState(url);
-
 	const [isEditingOpen, setIsEditingOpen] = useState(false);
 
 	const handleEditBookmarkClick = () => {
@@ -77,20 +77,19 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 					onChange={handleNameChange}
 				/>
 				{isEditingOpen && (
-					<>
-						<Input
-							name={name}
-							value={bookmarkUrl}
-							type="text"
-							key={`${id}-url-edit`}
-							onKeyDown={handleKeyDown}
-							onChange={handleUrlChange}
-						/>
-						<p className={styles["bookmark-editor__data__text"]}>
-							ENTER TO SAVE CHANGES
-						</p>
-					</>
+					<Input
+						name={name}
+						value={bookmarkUrl}
+						type="text"
+						key={`${id}-url-edit`}
+						onKeyDown={handleKeyDown}
+						onChange={handleUrlChange}
+					/>
 				)}
+				{bookmarkName != name || bookmarkUrl != url ?
+					<Message>Enter to save changes</Message>
+					: null
+				}
 
 			</div>
 			<div className={classNames(

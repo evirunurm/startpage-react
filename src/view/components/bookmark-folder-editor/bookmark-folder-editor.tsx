@@ -1,5 +1,4 @@
 import { BookmarkEditor } from "@components/bookmark-editor/bookmark-editor";
-import { Button } from "@components/atoms/button/button";
 import { Input } from "@components/atoms/input/input";
 import BookmarkFactory from "@application/BookmarkFactory";
 import { useLocalStorageState } from "@utils/utils";
@@ -11,6 +10,7 @@ import IBookmarkFolder from "@domain/bookmarks/BookmarkFolder";
 import styles from "./bookmark-folder-editor.module.css";
 import { CircularButton } from "@components/atoms/circular-button/circular-button";
 import { IconPlus } from "@tabler/icons-react";
+import { Message } from "@components/atoms/message/message";
 
 interface BookmarkFolderEditorProps {
 	folderId: string;
@@ -114,6 +114,9 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 					onKeyDown={handleKeyPress}
 					onChange={handleNameChange}
 				/>
+				{folderName !== name &&
+					<Message>Enter to save changes</Message>
+				}
 			</div>
 
 			{bookmarks?.map((bookmark) => (

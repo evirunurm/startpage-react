@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styles from './modal.module.css';
-import { Dialog, Heading, Modal as ModalAria, ModalOverlay } from 'react-aria-components';
+import { Dialog, Modal as ModalAria, ModalOverlay } from 'react-aria-components';
 
 interface ModalProps {
 	isDismissable?: boolean;
