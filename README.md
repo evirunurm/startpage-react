@@ -225,4 +225,3 @@ Also, in the application layer there are **ports—interfaces** for communicatin
 ##### Adapters
 
 In the adapters layer, we declare adapters to **external services**. Adapters make incompatible **APIs of third-party services** compatible to our system.
-

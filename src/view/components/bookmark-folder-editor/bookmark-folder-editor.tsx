@@ -11,6 +11,7 @@ import styles from "./bookmark-folder-editor.module.css";
 import { CircularButton } from "@components/atoms/circular-button/circular-button";
 import { IconPlus } from "@tabler/icons-react";
 import { Message } from "@components/atoms/message/message";
+import { ModalContainer } from "@components/atoms/modal-container/modal-container";
 
 interface BookmarkFolderEditorProps {
 	folderId: string;
@@ -69,7 +70,6 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 
 	const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === "Enter") {
-			console.log("Save folder name:" + folderName);
 			onNameSave(folderId, folderName);
 		}
 	};
@@ -81,7 +81,6 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 			folderId,
 			store!
 		);
-		console.log("newBookmark", newBookmark);
 		setState(newLibrary);
 		const updatedFolder = newLibrary.bookmarkFolders.find(
 			(folder) => folder.id === folderId
@@ -104,7 +103,7 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 	};
 
 	return (
-		<section className={styles["bookmark-folder-editor"]}>
+		<ModalContainer>
 			<div>
 				<Input
 					name={folderName}
@@ -137,6 +136,6 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 			>
 				<IconPlus size={21} />
 			</CircularButton>
-		</section>
+		</ModalContainer>
 	);
 };

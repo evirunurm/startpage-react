@@ -17,13 +17,11 @@ export const Modal = ({
 	const [isModalOpen, setModalOpen] = React.useState(isOpen);
 
 	const handleOpenChange = (isOpen: boolean) => {
-		console.log('handleOpenChange:', isOpen);
 		setModalOpen(isOpen);
 		onOpenChange?.(isOpen);
 	}
 
 	useEffect(() => {
-		console.log('Modal is open:', isModalOpen);
 		setModalOpen(isOpen);
 	}, [isOpen]);
 

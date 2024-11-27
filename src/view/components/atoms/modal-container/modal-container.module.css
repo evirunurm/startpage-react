@@ -1,0 +1,21 @@
+@layer components.modal-container {
+	.modal-container {
+		position: absolute;
+		background-color: var(--color-background);
+		border: 1px solid var(--color-primary);
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		padding: 0.75rem;
+		transform: translate(-50%, -50%);
+	}
+
+	.drag-handle {
+		position: absolute;
+		top: 0;
+		right: 0.1rem;
+		cursor: move;
+		color: var(--color-font);
+		opacity: 0.5;
+	}
+}
