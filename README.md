@@ -23,14 +23,6 @@ cd retropage
 npm install
 ```
 
-### 3. Install Storybook
-
-Install Storybook for easier component management
-
-``` cmd
-npx sb init
-```
-
 ## Project execution
 
 ### 1. Clone the repository
@@ -68,8 +60,6 @@ Available scripts
     # Reports unused Eslint directive comment
     # Specifies that there can't be any warnings in order for the app to be linted
   "preview": "vite preview", # Runs the the built app from .dist
-  "storybook": "storybook dev -p 6006", # Runs storybook in development mode at a diferent port from the main app (6006)
-  "build-storybook": "storybook build" # Generates storybook-static directory with the built Storybook app
 },
 ...
 ```

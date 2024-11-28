@@ -19,36 +19,6 @@ export function generateUniqueId() {
 	return Math.random().toString(36).slice(2, 16);
 }
 
-export function useLibraryState() {
-	const setLibraryState = (newValue: IBookmarkLibrary) => {
-		window.localStorage.setItem(
-			LocalStorageType.BookmarkLibrary,
-			JSON.stringify(newValue)
-		);
-		window.dispatchEvent(
-			new StorageEvent("storage", {
-				key: LocalStorageType.BookmarkLibrary,
-				newValue: JSON.stringify(newValue),
-			})
-		);
-	};
-
-	const getSnapshot = () =>
-		localStorage.getItem(LocalStorageType.BookmarkLibrary);
-
-	const subscribe = (listener: () => void) => {
-		window.addEventListener("storage", listener);
-		return () => void window.removeEventListener("storage", listener);
-	};
-
-	const storeSnapshot = React.useSyncExternalStore(subscribe, getSnapshot);
-	const store: IBookmarkLibrary | null = storeSnapshot
-		? (JSON.parse(storeSnapshot as string) as IBookmarkLibrary)
-		: null;
-
-	return [store, setLibraryState] as const;
-}
-
 export function useLocalStorageState<TResult>(key: string) {
 	const setState = (newValue: TResult) => {
 		window.localStorage.setItem(key, JSON.stringify(newValue));

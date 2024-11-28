@@ -1,0 +1,8 @@
+@layer components.color-swatch {
+    .swatch {
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 0.25rem;
+        border: 1px solid var(--color-background);
+    }
+}

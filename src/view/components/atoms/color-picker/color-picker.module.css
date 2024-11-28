@@ -1,0 +1,24 @@
+@layer components.color-picker {
+    .color-picker {
+        width: 100%;
+        display: flex;
+        gap: 0.5rem;
+        text-wrap: nowrap;
+
+        &[data-focus-visible] {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+        }
+    }
+
+    .color-picker-dialog {
+        outline: none;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        min-width: 192px;
+        background-color: var(--color-background);
+        border: 1px solid var(--color-primary);
+    }
+}

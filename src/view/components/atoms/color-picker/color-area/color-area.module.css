@@ -1,0 +1,9 @@
+@layer components.area {
+    .area {
+        width: 10rem;
+        height: 10rem;
+        border-radius: 0.25rem;
+    }
+
+
+}

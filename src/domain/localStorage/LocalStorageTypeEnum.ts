@@ -3,4 +3,5 @@ export enum LocalStorageType {
     BookmarkLibrary = "bookmarkLibrary",
     Fact = "fact",
     FactType = "factType",
+    Colors = "colors",
 }

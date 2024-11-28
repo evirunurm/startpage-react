@@ -1,0 +1,28 @@
+@layer components.color-slider {
+    .slider {
+        display: grid;
+        grid-template-areas: "label output"
+            "track track";
+        grid-template-columns: 1fr auto;
+        gap: 0.25rem;
+        max-width: 300px;
+    }
+
+    .slider__label {
+        grid-area: label;
+    }
+
+    .slider__output {
+        grid-area: output;
+    }
+
+    .slider__track {
+        grid-area: track;
+        border-radius: 0.25rem;
+        height: 28px;
+    }
+
+    .slider__thumb {
+        top: 50%;
+    }
+}

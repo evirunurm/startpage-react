@@ -35,6 +35,12 @@
       "@pages/*": [
         "view/pages/*"
       ],
+      "@context/*": [
+        "view/context/*"
+      ],
+      "@assets/*": [
+        "view/assets/*"
+      ],
       "@domain/*": [
         "domain/*"
       ],
@@ -46,9 +52,6 @@
       ],
       "@service/*": [
         "service/*"
-      ],
-      "@assets/*": [
-        "view/assets/*"
       ],
       "@hooks/*": [
         "hooks/*"

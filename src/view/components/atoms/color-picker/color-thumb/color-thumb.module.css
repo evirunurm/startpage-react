@@ -1,0 +1,15 @@
+@layer components.color-thumb {
+    .thumb {
+        cursor: pointer;
+        border: 2px solid var(--color-background);
+        box-shadow: 0 0 0 1px var(--color-font), inset 0 0 0 1px var(--color-font);
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 50%;
+
+        &[data-focus-visible] {
+            width: 1.75rem;
+            height: 1.75rem;
+        }
+    }
+}
