@@ -1,0 +1,37 @@
+@layer components.radio {
+    .radio {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1rem;
+        forced-color-adjust: none;
+        cursor: pointer;
+
+        &:before {
+            content: '';
+            display: block;
+            width: 1.25rem;
+            height: 1.25rem;
+            box-sizing: border-box;
+            border: 0.125rem solid var(--color-primary);
+            background: var(--color-background);
+            border-radius: 1.25rem;
+            transition: all 100ms;
+        }
+
+        &[data-pressed]:before {
+            border-color: var(--color-primary);
+        }
+
+        &[data-selected] {
+            &:before {
+                border-width: 0.38rem;
+            }
+        }
+
+        &[data-focus-visible]:before {
+            outline: 1px solid var(--color-primary);
+            outline-offset: 1px;
+        }
+    }
+}

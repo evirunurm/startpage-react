@@ -2,10 +2,10 @@
     .link {
         color: var(--color-text);
         cursor: pointer;
-    }
 
-    .link:hover {
-        color: var(--color-primary);
-        text-decoration: line-through;
+        &:hover {
+            color: var(--color-primary);
+            text-decoration: line-through;
+        }
     }
 }

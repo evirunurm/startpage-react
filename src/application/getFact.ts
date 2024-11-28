@@ -15,24 +15,24 @@ export default function useGetFact() {
 	}
 
 	async function updateFact(factType: FactType): Promise<void> {
-	let newFact: string;
-	switch (factType) {
-		case FactType.Cats:
-			newFact = await getCatFact();
-			break;
-		default:
-			throw new Error("Unknown fact type");
-	}
-	fact = newFact;
+		let newFact: string;
+		switch (factType) {
+			case FactType.Cats:
+				newFact = await getCatFact();
+				break;
+			default:
+				throw new Error("Unknown fact type");
+		}
+		fact = newFact;
 	}
 
-  async function getCatFact(): Promise<string> {
-    const newFact = await catFactService.getFact();
-    return newFact.fact;
-  }
+	async function getCatFact(): Promise<string> {
+		const newFact = await catFactService.getFact();
+		return newFact.fact;
+	}
 
-  return {
-    getFact,
-    updateFact
-  };
+	return {
+		getFact,
+		updateFact
+	};
 }

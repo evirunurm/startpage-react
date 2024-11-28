@@ -84,8 +84,6 @@ ___
 
 ### Provider
 
-asd
-
 ___
 
 ### Styling React Components

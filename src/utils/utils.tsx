@@ -2,16 +2,19 @@ import IBookmarkLibrary from "@domain/bookmarks/BookmarkLibrary";
 import { LocalStorageType } from "@domain/localStorage/LocalStorageTypeEnum";
 import React from "react";
 
-export function getEnumKeys<
+export function getEnumArray<
 	T extends string,
 	TEnumValue extends string | number
 >(enumVariable: { [key in T]: TEnumValue }) {
-	const keysAndValues: string[] = Object.keys(enumVariable);
-	const keys: number[] = keysAndValues
-		.filter((key: number | string) => !isNaN(Number(key)))
-		.map((key: string | number) => Number(key));
-	return keys;
+	const result = Object.keys(enumVariable)
+		.filter(key => isNaN(Number(key)))
+		.map(key => ({
+			key,
+			value: enumVariable[key as T]
+		}));
+	return result;
 }
+
 export function generateUniqueId() {
 	return Math.random().toString(36).slice(2, 16);
 }

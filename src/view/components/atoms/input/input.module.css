@@ -3,10 +3,11 @@
         width: 100%;
         padding: 0.5rem 1rem;
         border-bottom: 1px solid color-mix(in srgb, var(--color-font) 15%, transparent);
-    }
 
-    .input:focus {
-        outline: none;
-        border-bottom: 1px solid var(--color-font);
+        &:focus {
+            outline: none;
+            border-bottom: 1px solid var(--color-font);
+        }
+
     }
 }

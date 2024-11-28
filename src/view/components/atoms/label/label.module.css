@@ -1,0 +1,5 @@
+@layer components.label {
+    .label {
+        text-wrap: nowrap;
+    }
+}
