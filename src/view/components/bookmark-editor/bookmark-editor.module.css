@@ -2,14 +2,13 @@
 	.bookmark-editor {
 		display: flex;
 		flex-direction: row;
-		gap: 1rem;
+		gap: 0.5rem;
 	}
 
 	.bookmark-editor__data {
 		width: 100%;
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
 	}
 
 	.bookmark-editor__buttons {

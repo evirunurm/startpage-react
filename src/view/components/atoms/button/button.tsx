@@ -29,7 +29,7 @@ export const Button: React.FC<CustomButtonProps> = ({
 				className={`${styles.button} ${className}`}
 				style={{
 					padding,
-					textAlign: center ? 'center' : 'left',
+					textAlign: center ? 'center' : 'left'
 				}}
 				{...props}
 			>

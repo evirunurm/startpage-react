@@ -2,6 +2,7 @@ import React from "react";
 import { ModalContainer } from "@components/atoms/modal-container/modal-container";
 import { FactTypeSettings } from "./articles/fact-type-settings/fact-type-settings";
 import { ColorsSettings } from "./articles/colors-settings/colors-settings";
+import { ImageSettings } from "./articles/image-settings/image-settings";
 
 export const SettingsModal: React.FC = () => {
 
@@ -11,7 +12,7 @@ export const SettingsModal: React.FC = () => {
         >
             <h1>Settings</h1>
             <FactTypeSettings />
-            {/* Choosing image to display, or loading custom */}
+            <ImageSettings />
             {/* Choosing time format, and wheter to siplay the AM/PM string */}
             <ColorsSettings />
             {/* Choosing colors for application */}

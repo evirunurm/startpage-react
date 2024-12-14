@@ -5,7 +5,7 @@ interface ColorThumbProps extends ColorThumbAriaProps {
     className?: string;
 }
 
-export const ColorThumb = ({ className, ...props }: ColorThumbProps) => (
+export const ColorThumb = ({ className = '', ...props }: ColorThumbProps) => (
     <ColorThumbAria
         className={`${styles.thumb} ${className}`}
         {...props}

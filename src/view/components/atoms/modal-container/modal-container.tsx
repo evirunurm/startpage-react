@@ -19,7 +19,7 @@ const ModalContent: React.FC<React.PropsWithChildren<ModalContainerProps>> = ({
 	const getInitialPosition = () => {
 		switch (initialPosition) {
 			case 'top-right':
-				return { x: window.innerWidth - 75, y: 35 };
+				return { x: window.innerWidth - 35, y: 35 };
 			case 'center':
 			default:
 				return { x: window.innerWidth / 2, y: window.innerHeight / 2 };
@@ -44,11 +44,12 @@ const ModalContent: React.FC<React.PropsWithChildren<ModalContainerProps>> = ({
 		<section
 			ref={modalRef}
 			className={classNames(
-				styles['modal-container'], {
-				[styles['modal-container--centered']]: initialPosition === 'center'
-			})}
+				styles['modal-container'],
+				{ [styles['modal-container--centered']]: initialPosition === 'center' }
+			)}
 			style={{ left: position.x, top: position.y }}
 			role="dialog"
+			aria-labelledby="Modal"
 			aria-label="Modal"
 			aria-modal="true"
 			tabIndex={-1}
@@ -58,6 +59,7 @@ const ModalContent: React.FC<React.PropsWithChildren<ModalContainerProps>> = ({
 				className={styles['drag-handle']}
 				onMouseDown={handleMouseDown}
 				aria-label="Drag handle"
+				aria-labelledby="Drag handle"
 				role="button"
 				tabIndex={0}
 			>

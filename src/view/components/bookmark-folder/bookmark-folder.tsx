@@ -1,7 +1,6 @@
 import { Bookmark } from "@components/bookmark/bookmark";
 import IBookmark from "@domain/bookmarks/Bookmark";
-import { IconTrashX } from "@tabler/icons-react";
-import { IconPencilMinus } from "@tabler/icons-react";
+import { IconPencil, IconX } from "@tabler/icons-react";
 import { CircularButton } from "@components/atoms/circular-button/circular-button";
 import styles from "./bookmark-folder.module.css";
 
@@ -18,7 +17,7 @@ export const BookmarkFolder: React.FC<BookmarkFolderProps> = ({
 	name,
 	bookmarks,
 	onEditClick,
-	onDelete,
+	onDelete
 }) => {
 	const handleEditFolderClick = () => {
 		onEditClick(id);
@@ -43,7 +42,7 @@ export const BookmarkFolder: React.FC<BookmarkFolderProps> = ({
 					className={styles["bookmark-folder__title__delete-button"]}
 					onPress={handleDeleteFolderClick}
 				>
-					<IconTrashX size={21} />
+					<IconX size={21} />
 				</CircularButton>
 				<CircularButton
 					tooltip="Edit folder"
@@ -51,7 +50,7 @@ export const BookmarkFolder: React.FC<BookmarkFolderProps> = ({
 					onPress={handleEditFolderClick}
 					key={id}
 				>
-					<IconPencilMinus size={21} />
+					<IconPencil size={21} />
 				</CircularButton>
 			</div>
 			{bookmarks.map((bookmark) => (

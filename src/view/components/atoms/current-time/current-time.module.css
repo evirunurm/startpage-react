@@ -2,5 +2,6 @@
     .current-time {
         font-weight: 500;
         font-size: 2.5rem;
+        color: color-mix(in srgb, var(--color-font) 65%, transparent);
     }
 }

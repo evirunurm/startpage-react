@@ -38,6 +38,19 @@ export default function BookmarkFactory() {
         return library.bookmarkFolders.some(folder => folder.id === id);
     }
 
+    const updateBookmarkFolderBookmarks = (folderId: string, newBookmarks: IBookmark[], library: IBookmarkLibrary): IBookmarkLibrary => {
+        const newLibrary: IBookmarkLibrary = {
+            bookmarkFolders: library.bookmarkFolders
+                .map(folder => folder.id === folderId ?
+                    {
+                        ...folder,
+                        bookmarks: newBookmarks
+                    }
+                    : folder)
+        };
+        return newLibrary;
+    }
+
     const addBookmarkFolder = (name: string, library: IBookmarkLibrary): IBookmarkLibrary => {
         if (libraryHasFolderWithName(name, library)) {
             throw new Error(`Folder with name ${name} already exists`);
@@ -121,6 +134,7 @@ export default function BookmarkFactory() {
         deleteBookmarkFolder,
         editBookmarkFolderName,
         getDefaultBookmarkLibrary,
+        updateBookmarkFolderBookmarks,
         getMaximumAmountOfFolders
     };
 }

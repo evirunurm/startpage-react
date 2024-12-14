@@ -1,0 +1,12 @@
+@layer components.draggable-bookmarks {
+	.bookmark-folder__grid-list-item {
+		display: flex;
+		-webkit-user-drag: element;
+
+		&[data-dragging] {
+			opacity: 0.6;
+		}
+
+	}
+
+}

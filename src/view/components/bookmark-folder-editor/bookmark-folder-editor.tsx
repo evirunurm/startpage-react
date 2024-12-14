@@ -12,6 +12,10 @@ import { CircularButton } from "@components/atoms/circular-button/circular-butto
 import { IconPlus } from "@tabler/icons-react";
 import { Message } from "@components/atoms/message/message";
 import { ModalContainer } from "@components/atoms/modal-container/modal-container";
+import { DraggableCollectionStartEvent, GridList, GridListItem, useDragAndDrop } from "react-aria-components";
+import { DropIndicator } from "@components/atoms/drop-indicator/drop-indicator";
+import { DragButton } from "@components/atoms/drag-button/drag-button";
+import { DraggableBookmarks } from "@components/draggable-bookmarks/draggable-bookmarks";
 
 interface BookmarkFolderEditorProps {
 	folderId: string;
@@ -32,10 +36,13 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 		addBookmarkToFolder,
 		deleteBookmarkFromFolder,
 		updateBookmarkFromFolder,
+		updateBookmarkFolderBookmarks
 	} = BookmarkFactory();
+
 	const [store, setState] = useLocalStorageState<IBookmarkLibrary>(
 		LocalStorageType.BookmarkLibrary
 	);
+
 	const [folderName, setFolderName] = useState<string>(name);
 
 	const handleAddBookmark = () => {
@@ -102,9 +109,17 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 		setFolderName(newFolderName);
 	};
 
+	const handleBookmarksReorder = (reorderedBookmarks: IBookmark[]) => {
+		if (store) {
+			const updateLibrary = updateBookmarkFolderBookmarks(folderId, reorderedBookmarks, store);
+			onBookmarksUpdate(updateLibrary.bookmarkFolders.find((folder) => folder.id === folderId)!);
+			setState(updateLibrary);
+		}
+	};
+
 	return (
 		<ModalContainer>
-			<div>
+			<div className={styles["bookmark-folder-editor"]}>
 				<Input
 					name={folderName}
 					value={folderName}
@@ -116,26 +131,22 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 				{folderName !== name &&
 					<Message>Enter to save changes</Message>
 				}
+				<DraggableBookmarks
+					bookmarks={bookmarks}
+					onDeleteBookmark={handleDeleteBookmark}
+					onSaveBookmark={handleSaveBookmark}
+					onFolderReorder={handleBookmarksReorder}
+				/>
+				<CircularButton
+					className={styles["bookmark-folder-editor__add-button"]}
+					onPress={handleAddBookmark}
+					tooltip="Add bookmark"
+					tooltipPlacement="end"
+				>
+					<IconPlus size={21} />
+				</CircularButton>
 			</div>
 
-			{bookmarks?.map((bookmark) => (
-				<BookmarkEditor
-					id={bookmark.id}
-					key={bookmark.id}
-					name={bookmark.name}
-					url={bookmark.url}
-					onDelete={handleDeleteBookmark}
-					onSave={handleSaveBookmark}
-				/>
-			))}
-			<CircularButton
-				className={styles["bookmark-folder-editor__add-button"]}
-				onPress={handleAddBookmark}
-				tooltip="Add bookmark"
-				tooltipPlacement="end"
-			>
-				<IconPlus size={21} />
-			</CircularButton>
 		</ModalContainer>
 	);
 };

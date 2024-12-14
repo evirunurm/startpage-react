@@ -1,19 +1,18 @@
 @layer components.cirucular-button {
-    .circular-button {
-        border-radius: 50%;
-        cursor: pointer;
-        font-size: 1rem;
-        padding: 0.25rem 0.25rem calc(0.25rem + 1px) 0.25rem;
-        /** 1px is added to the bottom padding to visually center the icons */
-        aspect-ratio: 1 / 1;
-        transition: var(--transition);
-        display: flex;
+	.circular-button {
+		border-radius: 50%;
+		cursor: pointer;
+		font-size: 1rem;
+		padding: 0.25rem;
+		aspect-ratio: 1 / 1;
+		transition: var(--transition);
+		display: flex;
+		color: var(--color-font);
 
-        &:hover {
-            background-color: var(--color-primary);
-            color: var(--color-background);
-        }
+		&:hover {
+			color: var(--color-primary);
+		}
 
-    }
+	}
 
 }

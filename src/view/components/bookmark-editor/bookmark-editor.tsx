@@ -13,6 +13,8 @@ interface BookmarkEditorProps {
 	url: string;
 	onSave: (bookmarkId: string, newBookmark: IBookmark) => void;
 	onDelete: (bookmarkId: string) => void;
+	onInputFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
+	onInputBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
@@ -21,6 +23,8 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 	url,
 	onSave,
 	onDelete,
+	onInputFocus,
+	onInputBlur
 }) => {
 	const [bookmarkName, setBookmarkName] = useState(name);
 	const [bookmarkUrl, setBookmarkUrl] = useState(url);
@@ -67,8 +71,12 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 
 	return (
 		<section className={styles["bookmark-editor"]}>
-			<div className={styles["bookmark-editor__data"]}>
+			<div
+				aria-label="Bookmark data"
+			>
 				<Input
+					onBlur={onInputBlur}
+					onFocus={onInputFocus}
 					name={name}
 					value={bookmarkName}
 					type="text"
@@ -90,7 +98,6 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 					<Message>Enter to save changes</Message>
 					: null
 				}
-
 			</div>
 			<div className={classNames(
 				styles["bookmark-editor__buttons"], {

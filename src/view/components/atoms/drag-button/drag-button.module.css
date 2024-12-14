@@ -1,0 +1,14 @@
+@layer components.drag-button {
+	.drag-button {
+		color: var(--color-primary);
+		border: none;
+		background: none;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		&[data-focus-visible] {
+			outline: 2px solid var(--color-primary);
+		}
+	}
+}
