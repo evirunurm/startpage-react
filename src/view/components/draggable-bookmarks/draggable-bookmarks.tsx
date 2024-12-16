@@ -4,7 +4,7 @@ import { DropIndicator } from "@components/atoms/drop-indicator/drop-indicator";
 import IBookmark from "@domain/bookmarks/Bookmark";
 import { BookmarkEditor } from "@components/bookmark-editor/bookmark-editor";
 import styles from "./draggable-bookmarks.module.css";
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 type DraggableBookmarksProps = GridListPropsAria<object> & {
 	bookmarks: IBookmark[];
@@ -12,6 +12,10 @@ type DraggableBookmarksProps = GridListPropsAria<object> & {
 	onDeleteBookmark: (bookmarkId: string) => void;
 	onSaveBookmark: (bookmarkId: string, newBookmark: IBookmark) => void;
 };
+
+type DraggableBookmark = IBookmark & {
+	dragAndDropDisabled: boolean;
+}
 
 export const DraggableBookmarks = ({
 	bookmarks,
@@ -21,6 +25,18 @@ export const DraggableBookmarks = ({
 	...props
 }: DraggableBookmarksProps) => {
 	const [dragAndDropDisabled, setDragAndDropDisabled] = useState(false);
+	const [draggableBookmarks, setDraggableBookmarks] = useState<DraggableBookmark[]>([]);
+
+	const updateDragAndDropStateOnMyBookmarks = useCallback(() => {
+		if (bookmarks) {
+			setDraggableBookmarks(
+				bookmarks.map((bookmark) => ({
+					...bookmark,
+					dragAndDropDisabled: dragAndDropDisabled
+				} as DraggableBookmark))
+			);
+		}
+	}, [bookmarks, dragAndDropDisabled]);
 
 	const { dragAndDropHooks } = useDragAndDrop({
 		renderDropIndicator: (target) => (<DropIndicator target={target} />),
@@ -49,33 +65,32 @@ export const DraggableBookmarks = ({
 	});
 
 	const onInputFocus = () => {
-		setDragAndDropDisabled((prev) => {
-			console.log('onInputFocus prev', prev)
-			return true
-		});
+		setDragAndDropDisabled(true);
 	}
 
 	const onInputBlur = () => {
-		setDragAndDropDisabled((prev) => {
-			console.log('onInputBlur prev', prev)
-			return false
-		});
+		setDragAndDropDisabled(false);
 	}
+
+	useEffect(() => {
+		updateDragAndDropStateOnMyBookmarks();
+	}, [bookmarks, updateDragAndDropStateOnMyBookmarks]);
 
 	return (
 		<GridList
 			{...props}
 			aria-labelledby="Bookmarks"
-			items={bookmarks}
+			items={draggableBookmarks}
 			dragAndDropHooks={dragAndDropHooks}
 			keyboardNavigationBehavior="tab"
 		>
-			{(bookmark: IBookmark) => (
+			{(bookmark: DraggableBookmark) => (
 				<GridListItem
 					key={bookmark.id}
 					id={bookmark.id}
 					textValue={bookmark.name}
 					className={styles["bookmark-folder__grid-list-item"]}
+					style={bookmark.dragAndDropDisabled ? {} : { "-webkit-user-drag": 'element' } as React.CSSProperties}
 				>
 					<DragButton />
 					<BookmarkEditor
