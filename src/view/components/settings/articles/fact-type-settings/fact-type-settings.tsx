@@ -18,7 +18,7 @@ export const FactTypeSettings: React.FC = () => {
 		if (storedFactType === null) {
 			setStoredFactType(FactType.Cats);
 		}
-	}, [storedFactType]);
+	}, [storedFactType, setStoredFactType]);
 
 	return (
 		<Article>
@@ -28,12 +28,12 @@ export const FactTypeSettings: React.FC = () => {
 			>
 				<Label>Fact type</Label>
 				{
-					getEnumArray(FactType).map((factType: any) => (
+					getEnumArray(FactType).map(({ key, value }) => (
 						<Radio
-							key={factType.key}
-							value={factType.value.toString()}
+							key={key}
+							value={value.toString()}
 						>
-							{factType.key}
+							{key}
 						</Radio>
 					))
 				}

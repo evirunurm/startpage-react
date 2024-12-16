@@ -1,21 +1,18 @@
-import { BookmarkEditor } from "@components/bookmark-editor/bookmark-editor";
 import { Input } from "@components/atoms/input/input";
-import BookmarkFactory from "@application/BookmarkFactory";
 import { useLocalStorageState } from "@utils/utils";
-import IBookmark from "@domain/bookmarks/Bookmark";
-import IBookmarkLibrary from "@domain/bookmarks/BookmarkLibrary";
+import IBookmark from "@domain/bookmarks/IBookmark";
+import IBookmarkLibrary from "@domain/bookmarks/IBookmarkLibrary";
 import { LocalStorageType } from "@domain/localStorage/LocalStorageTypeEnum";
 import { useState } from "react";
-import IBookmarkFolder from "@domain/bookmarks/BookmarkFolder";
+import IBookmarkFolder from "@domain/bookmarks/IBookmarkFolder";
 import styles from "./bookmark-folder-editor.module.css";
 import { CircularButton } from "@components/atoms/circular-button/circular-button";
 import { IconPlus } from "@tabler/icons-react";
 import { Message } from "@components/atoms/message/message";
 import { ModalContainer } from "@components/atoms/modal-container/modal-container";
-import { DraggableCollectionStartEvent, GridList, GridListItem, useDragAndDrop } from "react-aria-components";
-import { DropIndicator } from "@components/atoms/drop-indicator/drop-indicator";
-import { DragButton } from "@components/atoms/drag-button/drag-button";
 import { DraggableBookmarks } from "@components/draggable-bookmarks/draggable-bookmarks";
+import BookmarkLibraryFactory from "@application/bookmarks/bookmark-library.factory";
+import BookmarkFolderFactory from "@application/bookmarks/bookmark-folder.factory";
 
 interface BookmarkFolderEditorProps {
 	folderId: string;
@@ -33,43 +30,39 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 	onBookmarksUpdate,
 }) => {
 	const {
-		addBookmarkToFolder,
-		deleteBookmarkFromFolder,
-		updateBookmarkFromFolder,
-		updateBookmarkFolderBookmarks
-	} = BookmarkFactory();
+		getFolderById
+	} = BookmarkLibraryFactory();
+
+	const {
+		createNewBookmark,
+		deleteBookmark,
+		updateBookmark,
+		setBookmarks
+	} = BookmarkFolderFactory();
 
 	const [store, setState] = useLocalStorageState<IBookmarkLibrary>(
 		LocalStorageType.BookmarkLibrary
 	);
-
 	const [folderName, setFolderName] = useState<string>(name);
 
 	const handleAddBookmark = () => {
-		const newLibrary = addBookmarkToFolder(
-			"New Bookmark",
-			"",
-			folderId,
-			store!
-		);
+		if (!store) return;
+		const newLibrary = createNewBookmark(folderId, store);
 		setState(newLibrary);
-		const updatedFolder = newLibrary.bookmarkFolders.find(
-			(folder) => folder.id === folderId
-		);
+		const updatedFolder = getFolderById(folderId, newLibrary);
 		if (updatedFolder) {
 			onBookmarksUpdate(updatedFolder);
 		}
 	};
 
 	const handleDeleteBookmark = (bookmarkId: string) => {
-		const newLibrary = deleteBookmarkFromFolder(
+		if (!store) return;
+		const newLibrary = deleteBookmark(
 			bookmarkId,
 			folderId,
-			store!
+			store
 		);
-		const updatedFolder = newLibrary.bookmarkFolders.find(
-			(folder) => folder.id === folderId
-		);
+		const updatedFolder = getFolderById(folderId, newLibrary);
 		if (updatedFolder) {
 			onBookmarksUpdate(updatedFolder);
 		}
@@ -81,17 +74,16 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 		}
 	};
 
-	const handleSaveBookmark = (bookmarkId: string, newBookmark: IBookmark) => {
-		const newLibrary = updateBookmarkFromFolder(
-			bookmarkId,
+	const handleSaveBookmark = (newBookmark: IBookmark) => {
+		if (!store) return;
+
+		const newLibrary = updateBookmark(
 			newBookmark,
 			folderId,
-			store!
+			store
 		);
 		setState(newLibrary);
-		const updatedFolder = newLibrary.bookmarkFolders.find(
-			(folder) => folder.id === folderId
-		);
+		const updatedFolder = getFolderById(folderId, newLibrary);
 		if (updatedFolder) {
 			onBookmarksUpdate(updatedFolder);
 		}
@@ -110,11 +102,9 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 	};
 
 	const handleBookmarksReorder = (reorderedBookmarks: IBookmark[]) => {
-		if (store) {
-			const updateLibrary = updateBookmarkFolderBookmarks(folderId, reorderedBookmarks, store);
-			onBookmarksUpdate(updateLibrary.bookmarkFolders.find((folder) => folder.id === folderId)!);
-			setState(updateLibrary);
-		}
+		const updateLibrary = setBookmarks(reorderedBookmarks, folderId, store!);
+		onBookmarksUpdate(updateLibrary.bookmarkFolders.find((folder) => folder.id === folderId)!);
+		setState(updateLibrary);
 	};
 
 	return (

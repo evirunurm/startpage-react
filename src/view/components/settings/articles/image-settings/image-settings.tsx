@@ -9,11 +9,15 @@ import { LocalStorageType } from "@domain/localStorage/LocalStorageTypeEnum";
 import { useLocalStorageState } from "@utils/utils";
 import { ImageTypes } from "@domain/image/ImageTypesEnum";
 
+interface HandleFileDropEvent {
+	items: DropItem[];
+}
+
 export const ImageSettings: React.FC = () => {
 	const [, setStoredImage] = useLocalStorageState<IImage>(LocalStorageType.Image);
 	const [file, setFile] = React.useState<File | null>(null);
 
-	const handleFileDrop = async (e: any) => {
+	const handleFileDrop = async (e: HandleFileDropEvent): Promise<void> => {
 		const files = e.items.filter((file: DropItem) => file.kind === 'file') as FileDropItem[];
 		const file = await files[0].getFile();
 

@@ -1,6 +1,6 @@
 import { Button } from "@components/atoms/button/button";
 import { Input } from "@components/atoms/input/input";
-import IBookmark from "@domain/bookmarks/Bookmark";
+import IBookmark from "@domain/bookmarks/IBookmark";
 import { useState } from "react";
 import styles from "./bookmark-editor.module.css";
 import { IconDeviceFloppy, IconPencilMinus, IconTrashX } from "@tabler/icons-react";
@@ -11,7 +11,7 @@ interface BookmarkEditorProps {
 	id: string;
 	name: string;
 	url: string;
-	onSave: (bookmarkId: string, newBookmark: IBookmark) => void;
+	onSave: (newBookmark: IBookmark) => void;
 	onDelete: (bookmarkId: string) => void;
 	onInputFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
 	onInputBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
@@ -60,12 +60,12 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 	};
 
 	const saveBookmark = () => {
-		onSave(id, {
+		const newBookmark: IBookmark = {
 			id,
 			name: bookmarkName,
 			url: bookmarkUrl,
-			order: 0,
-		} as IBookmark);
+		}
+		onSave(newBookmark);
 		setIsEditingOpen(false);
 	}
 
@@ -92,6 +92,8 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 						key={`${id}-url-edit`}
 						onKeyDown={handleKeyDown}
 						onChange={handleUrlChange}
+						onBlur={onInputBlur}
+						onFocus={onInputFocus}
 					/>
 				)}
 				{bookmarkName != name || bookmarkUrl != url ?

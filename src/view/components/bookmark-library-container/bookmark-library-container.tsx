@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useLocalStorageState } from "@utils/utils";
-import BookmarkFactory from "@application/BookmarkFactory";
-import IBookmarkLibrary from "@domain/bookmarks/BookmarkLibrary";
+import BookmarkFolderFactory from "@application/bookmarks/bookmark-folder.factory";
+import BookmarkLibraryFactory from "@application/bookmarks/bookmark-library.factory";
+import IBookmarkLibrary from "@domain/bookmarks/IBookmarkLibrary";
 import { LocalStorageType } from "@domain/localStorage/LocalStorageTypeEnum";
-import IBookmarkFolder from "@domain/bookmarks/BookmarkFolder";
+import IBookmarkFolder from "@domain/bookmarks/IBookmarkFolder";
 import { BookmarkFolderEditor } from "@components/bookmark-folder-editor/bookmark-folder-editor";
 import styles from "./bookmark-library-container.module.css";
 import { Modal } from "@components/atoms/modal/modal";
@@ -13,12 +14,17 @@ import { IconPlus } from "@tabler/icons-react";
 
 export const BookmarkLibraryContainer: React.FC = () => {
 	const {
-		editBookmarkFolderName,
-		deleteBookmarkFolder,
+		maxAmountFolders,
 		getDefaultBookmarkLibrary,
-		getMaximumAmountOfFolders,
-		addBookmarkFolder,
-	} = BookmarkFactory();
+		editFolderName,
+		createNewFolder,
+		deleteFolder,
+		getFolderById
+	} = BookmarkLibraryFactory();
+
+	const {
+		setBookmarks,
+	} = BookmarkFolderFactory();
 
 	const [store, setStore] = useLocalStorageState<IBookmarkLibrary>(
 		LocalStorageType.BookmarkLibrary
@@ -27,66 +33,50 @@ export const BookmarkLibraryContainer: React.FC = () => {
 		null
 	);
 	const [amountFolders, setAmountFolders] = useState<number | undefined>(undefined);
-	const [maxAmountFolder, setMaxAmountFolder] = useState<number | undefined>(undefined);
 
 	const handleFolderNameSave = (folderId: string, newFolderName: string) => {
-		const newLibrary = editBookmarkFolderName(
-			folderId,
+		if (!store) return;
+		const newLibrary = editFolderName(
 			newFolderName,
-			store!
+			folderId,
+			store
 		);
 		setStore(newLibrary);
 		setEditingFolder(null);
 	};
 
 	const handleFolderEditClick = (folderId: string) => {
-		const folder = store?.bookmarkFolders.find(
-			(folder) => folder.id === folderId
-		);
+		if (!store) return;
+		const folder = getFolderById(folderId, store);
 		if (folder) {
 			setEditingFolder(folder);
 		}
 	};
 
 	const handleFolderDelete = (folderId: string) => {
-		const newLibrary = deleteBookmarkFolder(folderId, store!);
+		if (!store) return;
+		const newLibrary = deleteFolder(folderId, store);
 		setStore(newLibrary);
 		setEditingFolder(null);
 	};
 
 	const handleAddNewFolder = () => {
-		let newLibrary: IBookmarkLibrary | null = null;
-		let errorCounter = 0;
-		while (errorCounter < 5 && !newLibrary) {
-			try {
-				newLibrary = addBookmarkFolder(
-					"New folder" + (errorCounter > 0 ? ` ${errorCounter}` : ""),
-					store!
-				);
-			} catch (e) {
-				errorCounter++;
-			}
-		}
-		if (newLibrary) {
+		if (!store) return;
+		try {
+			const newLibrary = createNewFolder(store);
 			setStore(newLibrary);
-			setEditingFolder(
-				newLibrary.bookmarkFolders[
+			setEditingFolder(newLibrary.bookmarkFolders[
 				newLibrary.bookmarkFolders.length - 1
-				]
-			);
-		} else {
-			console.error(
-				"Failed to add new folder, too many folders have been created."
-			);
+			]);
+		} catch (error) {
+			console.error(error);
+			// TODO: Show error message
 		}
 	};
 
 	const handleBookmarksUpdate = (updatedFolder: IBookmarkFolder) => {
-		const newLibrary = {
-			bookmarkFolders: store?.bookmarkFolders.map((folder) =>
-				folder.id === updatedFolder.id ? updatedFolder : folder
-			)
-		} as IBookmarkLibrary;
+		if (!store) return;
+		const newLibrary = setBookmarks(updatedFolder.bookmarks, updatedFolder.id, store);
 		setStore(newLibrary);
 		setEditingFolder(updatedFolder);
 	};
@@ -102,9 +92,8 @@ export const BookmarkLibraryContainer: React.FC = () => {
 			setStore(getDefaultBookmarkLibrary());
 		} else {
 			setAmountFolders(store.bookmarkFolders.length);
-			setMaxAmountFolder(getMaximumAmountOfFolders());
 		}
-	}, [store, getDefaultBookmarkLibrary, setStore, getMaximumAmountOfFolders]);
+	}, [store, getDefaultBookmarkLibrary, setStore]);
 
 	return (
 		<div className={styles["bookmark-library-container"]}>
@@ -116,16 +105,18 @@ export const BookmarkLibraryContainer: React.FC = () => {
 				isOpen={!!editingFolder}
 				onOpenChange={handleOpenEditorChange}
 			>
-				<BookmarkFolderEditor
-					key={editingFolder?.id}
-					folderId={editingFolder?.id!}
-					name={editingFolder?.name!}
-					bookmarks={editingFolder?.bookmarks!}
-					onNameSave={handleFolderNameSave}
-					onBookmarksUpdate={handleBookmarksUpdate}
-				/>
+				{editingFolder && (
+					<BookmarkFolderEditor
+						key={editingFolder?.id}
+						folderId={editingFolder.id}
+						name={editingFolder.name}
+						bookmarks={editingFolder.bookmarks}
+						onNameSave={handleFolderNameSave}
+						onBookmarksUpdate={handleBookmarksUpdate}
+					/>
+				)}
 			</Modal>
-			{amountFolders && maxAmountFolder && amountFolders < maxAmountFolder && (
+			{amountFolders && maxAmountFolders && amountFolders < maxAmountFolders && (
 				<CircularButton
 					tooltip="Add Folder"
 					className={styles["add-folder-button"]}

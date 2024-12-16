@@ -1,73 +1,44 @@
 {
-  "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "lib": [
-      "ES2020",
-      "DOM",
-      "DOM.Iterable"
-    ],
-    "module": "ESNext",
-    "skipLibCheck": true,
-    /** Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "plugins": [
-      {
-        "name": "typescript-plugin-css-modules",
-        "skipLibCheck": true
-      }
-    ],
-    /** Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "baseUrl": "./src",
-    "paths": {
-      "@components/*": [
-        "view/components/*"
-      ],
-      "@pages/*": [
-        "view/pages/*"
-      ],
-      "@context/*": [
-        "view/context/*"
-      ],
-      "@assets/*": [
-        "view/assets/*"
-      ],
-      "@domain/*": [
-        "domain/*"
-      ],
-      "@application/*": [
-        "application/*"
-      ],
-      "@utils/*": [
-        "utils/*"
-      ],
-      "@service/*": [
-        "service/*"
-      ],
-      "@hooks/*": [
-        "hooks/*"
-      ],
-    }
-  },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "**/node_modules",
-    "**/.*/"
-  ],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ]
+	"compilerOptions": {
+		"target": "ES2020",
+		"useDefineForClassFields": true,
+		"lib": ["ES2020", "DOM", "DOM.Iterable"],
+		"module": "ESNext",
+		"skipLibCheck": true,
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"noEmit": true,
+		"jsx": "react-jsx",
+		"plugins": [
+			{
+				"name": "typescript-plugin-css-modules",
+				"skipLibCheck": true
+			}
+		],
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true,
+		"baseUrl": "./src",
+		"paths": {
+			"@components/*": ["view/components/*"],
+			"@pages/*": ["view/pages/*"],
+			"@context/*": ["view/context/*"],
+			"@assets/*": ["view/assets/*"],
+			"@domain/*": ["domain/*"],
+			"@application/*": ["application/*"],
+			"@utils/*": ["utils/*"],
+			"@service/*": ["service/*"],
+			"@hooks/*": ["hooks/*"]
+		}
+	},
+	"include": ["src"],
+	"exclude": ["**/node_modules", "**/.*/"],
+	"references": [
+		{
+			"path": "./tsconfig.node.json"
+		}
+	]
 }

@@ -1,7 +1,7 @@
 import { GridList, GridListItem, GridListProps as GridListPropsAria, useDragAndDrop } from "react-aria-components";
 import { DragButton } from "@components/atoms/drag-button/drag-button";
 import { DropIndicator } from "@components/atoms/drop-indicator/drop-indicator";
-import IBookmark from "@domain/bookmarks/Bookmark";
+import IBookmark from "@domain/bookmarks/IBookmark";
 import { BookmarkEditor } from "@components/bookmark-editor/bookmark-editor";
 import styles from "./draggable-bookmarks.module.css";
 import { useEffect, useState, useCallback } from "react";
@@ -10,7 +10,7 @@ type DraggableBookmarksProps = GridListPropsAria<object> & {
 	bookmarks: IBookmark[];
 	onFolderReorder: (reorderedBookmarks: IBookmark[]) => void;
 	onDeleteBookmark: (bookmarkId: string) => void;
-	onSaveBookmark: (bookmarkId: string, newBookmark: IBookmark) => void;
+	onSaveBookmark: (newBookmark: IBookmark) => void;
 };
 
 type DraggableBookmark = IBookmark & {
@@ -90,7 +90,7 @@ export const DraggableBookmarks = ({
 					id={bookmark.id}
 					textValue={bookmark.name}
 					className={styles["bookmark-folder__grid-list-item"]}
-					style={bookmark.dragAndDropDisabled ? {} : { "-webkit-user-drag": 'element' } as React.CSSProperties}
+					style={bookmark.dragAndDropDisabled ? {} : { "WebkitUserDrag": 'element' } as React.CSSProperties}
 				>
 					<DragButton />
 					<BookmarkEditor

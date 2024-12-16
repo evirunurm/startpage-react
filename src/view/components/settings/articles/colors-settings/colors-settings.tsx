@@ -26,7 +26,7 @@ export const ColorsSettings: React.FC = () => {
 
 	useEffect(() => {
 		if (colors === null) {
-			var defaultColors: Colors = {
+			const defaultColors: Colors = {
 				"color-primary": "#007bff",
 				"color-secondary": "#6c757d",
 				"color-background": "#f8f9fa",
@@ -34,7 +34,7 @@ export const ColorsSettings: React.FC = () => {
 			}
 			setColors(defaultColors);
 		}
-	}, [colors]);
+	}, [colors, setColors]);
 
 	return (
 		<Article title="Colors">

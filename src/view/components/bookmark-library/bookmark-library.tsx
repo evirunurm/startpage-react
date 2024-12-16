@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { BookmarkFolder } from "@components/bookmark-folder/bookmark-folder";
 import { useLocalStorageState } from "@utils/utils";
-import BookmarkFactory from "@application/BookmarkFactory";
-import IBookmarkLibrary from "@domain/bookmarks/BookmarkLibrary";
+import BookmarkLibraryFactory from "@application/bookmarks/bookmark-library.factory";
+import IBookmarkLibrary from "@domain/bookmarks/IBookmarkLibrary";
 import { LocalStorageType } from "@domain/localStorage/LocalStorageTypeEnum";
 import styles from "./bookmark-library.module.css";
 
@@ -17,7 +17,7 @@ export const BookmarkLibrary: React.FC<BookmarkLibraryProps> = ({
 }: BookmarkLibraryProps) => {
 	const {
 		getDefaultBookmarkLibrary,
-	} = BookmarkFactory();
+	} = BookmarkLibraryFactory();
 
 	const [store, setStore] = useLocalStorageState<IBookmarkLibrary>(
 		LocalStorageType.BookmarkLibrary

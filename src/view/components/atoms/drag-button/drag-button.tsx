@@ -1,7 +1,7 @@
 
 import { Button } from "../button/button";
 import { ButtonProps } from "react-aria-components";
-import { IconBaselineDensityMedium, IconGripVertical } from "@tabler/icons-react";
+import { IconBaselineDensityMedium } from "@tabler/icons-react";
 import styles from "./drag-button.module.css";
 
 export const DragButton = ({ className = '', ...props }: ButtonProps) => (

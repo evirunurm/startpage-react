@@ -1,5 +1,3 @@
-import IBookmarkLibrary from "@domain/bookmarks/BookmarkLibrary";
-import { LocalStorageType } from "@domain/localStorage/LocalStorageTypeEnum";
 import React from "react";
 
 export function getEnumArray<
