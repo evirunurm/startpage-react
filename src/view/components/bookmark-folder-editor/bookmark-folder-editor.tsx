@@ -108,7 +108,9 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 	};
 
 	return (
-		<ModalContainer>
+		<ModalContainer
+			initialPosition="center"
+		>
 			<div className={styles["bookmark-folder-editor"]}>
 				<Input
 					name={folderName}
