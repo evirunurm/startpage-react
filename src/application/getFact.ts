@@ -2,6 +2,10 @@ import { useCatFactService } from "@service/catFactsAdapter";
 import { FactType } from "@domain/fact/FactTypeEnum";
 import ICatsFactResult from "@domain/fact/ICatsFactResult";
 import { IFactsService } from "@application/ports";
+import IDogsFactResult from "@domain/fact/IDogsFactResult";
+import { useDogFactService } from "@service/dogFactsAdapter";
+import IJokesResult from "@domain/fact/IJokesResult";
+import { useJokesService } from "@service/jokesAdapter";
 
 export default function useGetFact() {
 	// Usually, we access services through Dependency Injection.
@@ -9,6 +13,8 @@ export default function useGetFact() {
 
 	let fact: string = String();
 	const catFactService: IFactsService<ICatsFactResult> = useCatFactService();
+	const dogFactService: IFactsService<IDogsFactResult> = useDogFactService();
+	const jokesService: IFactsService<IJokesResult> = useJokesService();
 
 	function getFact(): string {
 		return fact;
@@ -19,6 +25,12 @@ export default function useGetFact() {
 		switch (factType) {
 			case FactType.Cats:
 				newFact = await getCatFact();
+				break;
+			case FactType.Dogs:
+				newFact = await getDogFact();
+				break;
+			case FactType.Jokes:
+				newFact = await getJoke();
 				break;
 			default:
 				throw new Error("Unknown fact type");
@@ -31,8 +43,18 @@ export default function useGetFact() {
 		return newFact.fact;
 	}
 
+	async function getDogFact(): Promise<string> {
+		const newFact = await dogFactService.getFact();
+		return newFact.facts[0];
+	}
+
+	async function getJoke(): Promise<string> {
+		const newFact = await jokesService.getFact();
+		return `${newFact.setup} ${newFact.punchline}`;
+	}
+
 	return {
 		getFact,
-		updateFact
+		updateFact,
 	};
 }

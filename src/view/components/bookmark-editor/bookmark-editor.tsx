@@ -42,11 +42,7 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 	};
 
 	const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (e.currentTarget.value) {
-			setBookmarkName(e.currentTarget.value);
-		} else {
-			// Show error message
-		}
+		setBookmarkName(e.currentTarget.value);
 	};
 
 	const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,12 +50,18 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 	};
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+
 		if (e.key === "Enter") {
 			saveBookmark();
 		}
 	};
 
 	const saveBookmark = () => {
+		if (!bookmarkName) {
+			// TODO: Show error message
+			console.error("Name is required");
+			return;
+		}
 		const newBookmark: IBookmark = {
 			id,
 			name: bookmarkName,
@@ -72,6 +74,7 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 	return (
 		<section className={styles["bookmark-editor"]}>
 			<div
+				className={styles["bookmark-editor__inputs"]}
 				aria-label="Bookmark data"
 			>
 				<Input
@@ -83,6 +86,8 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 					key={`${id}-name-edit`}
 					onKeyDown={handleKeyDown}
 					onChange={handleNameChange}
+					maxLength={25}
+					max={25}
 				/>
 				{isEditingOpen && (
 					<Input
