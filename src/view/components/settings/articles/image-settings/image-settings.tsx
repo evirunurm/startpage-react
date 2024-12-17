@@ -8,6 +8,7 @@ import IImage from "@domain/image/Image";
 import { LocalStorageType } from "@domain/localStorage/LocalStorageTypeEnum";
 import { useLocalStorageState } from "@utils/utils";
 import { ImageTypes } from "@domain/image/ImageTypesEnum";
+import { Disclosure } from "@components/atoms/disclosure/disclosure";
 
 interface HandleFileDropEvent {
 	items: DropItem[];
@@ -78,18 +79,20 @@ export const ImageSettings: React.FC = () => {
 	}
 
 	return (
-		<Article title="Image">
-			<DropZone onDrop={handleFileDrop} >
-				<FileTrigger
-					acceptedFileTypes={[ImageTypes.JPEG, ImageTypes.PNG, ImageTypes.GIF]}
-					onSelect={handleFileUpload}
-				>
-					<Button center>Upload image</Button>
-				</FileTrigger>
-				<Label>
-					{getFileName() || 'Drop image here'}
-				</Label>
-			</DropZone>
-		</Article>
+		<Disclosure title="Image" wide>
+			<Article>
+				<DropZone onDrop={handleFileDrop} >
+					<FileTrigger
+						acceptedFileTypes={[ImageTypes.JPEG, ImageTypes.PNG, ImageTypes.GIF]}
+						onSelect={handleFileUpload}
+					>
+						<Button center>Upload image</Button>
+					</FileTrigger>
+					<Label>
+						{getFileName() || 'Drop image here'}
+					</Label>
+				</DropZone>
+			</Article>
+		</Disclosure>
 	);
 }

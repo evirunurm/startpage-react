@@ -4,7 +4,7 @@
 @layer reset {
 
 	*:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *,
-			symbol *)) {
+			symbol *):not([hidden])) {
 		all: unset;
 		display: revert;
 	}

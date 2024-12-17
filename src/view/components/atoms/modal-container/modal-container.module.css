@@ -8,10 +8,12 @@
 		gap: 1rem;
 		padding: 1rem;
 		transform: translate(-100%);
+		width: 275px;
 	}
 
 	.modal-container--centered {
 		transform: translate(-50%, -50%);
+		width: 325px;
 	}
 
 	.drag-handle {

@@ -1,0 +1,31 @@
+@layer components.disclosure {
+	.disclosure {
+		[slot=trigger] {
+			background: none;
+			border: none;
+			color: var(--color-text);
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			padding: 0;
+		}
+
+		.icon {
+			rotate: 0deg;
+			transition: rotate 200ms;
+		}
+
+		&[data-expanded] .icon {
+			rotate: 90deg;
+		}
+
+		.panel {
+			margin-top: 0.5rem;
+			margin-left: 1.25rem;
+		}
+
+		.panel--wide {
+			margin-left: 0;
+		}
+	}
+}

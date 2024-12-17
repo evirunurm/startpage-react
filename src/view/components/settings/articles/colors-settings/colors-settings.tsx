@@ -6,6 +6,7 @@ import { LocalStorageType } from "@domain/localStorage/LocalStorageTypeEnum";
 import { ColorPicker } from "@components/atoms/color-picker/color-picker";
 import { Color } from "react-aria-components";
 import ColorsContext from "@context/colors-context";
+import { Disclosure } from "@components/atoms/disclosure/disclosure";
 
 export const ColorsSettings: React.FC = () => {
 	const [, setStoredColors] = useLocalStorageState<Colors>(LocalStorageType.Colors);
@@ -37,19 +38,21 @@ export const ColorsSettings: React.FC = () => {
 	}, [colors, setColors]);
 
 	return (
-		<Article title="Colors">
-			{
-				colors && Object.keys(colors)
-					.map((key: string) => (
-						<ColorPicker
-							onOpenChange={handleOpenChange}
-							onChange={handleColorChange(key)}
-							label={key}
-							key={key}
-							defaultValue={colors[key as keyof Colors]}
-						/>
-					))
-			}
-		</Article>
+		<Disclosure title="Colors" wide>
+			<Article>
+				{
+					colors && Object.keys(colors)
+						.map((key: string) => (
+							<ColorPicker
+								onOpenChange={handleOpenChange}
+								onChange={handleColorChange(key)}
+								label={key}
+								key={key}
+								defaultValue={colors[key as keyof Colors]}
+							/>
+						))
+				}
+			</Article>
+		</Disclosure>
 	);
 }

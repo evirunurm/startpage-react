@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { Article } from "@components/atoms/article/article";
 import { RadioGroup } from "@components/atoms/radio-group/radio-group";
 import { Radio } from "@components/atoms/radio/radio";
-import { Label } from "@components/atoms/label/label";
 import { getEnumArray, useLocalStorageState } from "@utils/utils";
 import { FactType } from "@domain/fact/FactTypeEnum";
 import { LocalStorageType } from "@domain/localStorage/LocalStorageTypeEnum";
+import { Disclosure } from "@components/atoms/disclosure/disclosure";
 
 export const FactTypeSettings: React.FC = () => {
 	const [storedFactType, setStoredFactType] = useLocalStorageState<FactType>(LocalStorageType.FactType);
@@ -21,23 +21,25 @@ export const FactTypeSettings: React.FC = () => {
 	}, [storedFactType, setStoredFactType]);
 
 	return (
-		<Article>
-			<RadioGroup
-				value={storedFactType?.toString()}
-				onChange={handleFactTypeChange}
-			>
-				<Label>Fact type</Label>
-				{
-					getEnumArray(FactType).map(({ key, value }) => (
-						<Radio
-							key={key}
-							value={value.toString()}
-						>
-							{key}
-						</Radio>
-					))
-				}
-			</RadioGroup>
-		</Article>
+		<Disclosure title="Fact type">
+			<Article>
+				<RadioGroup
+					value={storedFactType?.toString()}
+					onChange={handleFactTypeChange}
+					aria-label="Fact Type"
+				>
+					{
+						getEnumArray(FactType).map(({ key, value }) => (
+							<Radio
+								key={key}
+								value={value.toString()}
+							>
+								{key}
+							</Radio>
+						))
+					}
+				</RadioGroup>
+			</Article>
+		</Disclosure>
 	);
 }
