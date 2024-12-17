@@ -1,4 +1,4 @@
-import { LocalStorageType } from "@domain/localStorage/LocalStorageTypeEnum";
+import { LocalStorageType } from "@domain/localStorage/LocalStorageType";
 import ICatsFactResult from "../domain/fact/ICatsFactResult";
 import IDogsFactResult from "@domain/fact/IDogsFactResult";
 import IJokesResult from "@domain/fact/IJokesResult";

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import IImage from "@domain/image/Image";
-import { LocalStorageType } from "@domain/localStorage/LocalStorageTypeEnum";
-import { useLocalStorageState } from "@utils/utils";
+import { LocalStorageType } from "@domain/localStorage/LocalStorageType";
+import { useLocalStorageState } from "@hooks/useLocalStorageState";
 import ImageFactory from "@application/ImageFactory";
 import styles from "./image.module.css";
 

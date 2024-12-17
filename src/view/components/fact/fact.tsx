@@ -1,9 +1,9 @@
 import useGetFact from "@application/getFact";
 import { Button } from "@components/atoms/button/button";
 import styles from "./fact.module.css";
-import { useLocalStorageState } from "@utils/utils";
-import { LocalStorageType } from "@domain/localStorage/LocalStorageTypeEnum";
-import { FactType } from "@domain/fact/FactTypeEnum";
+import { useLocalStorageState } from "@hooks/useLocalStorageState";
+import { LocalStorageType } from "@domain/localStorage/LocalStorageType";
+import { FactType } from "@domain/fact/FactType";
 
 export const Fact: React.FC = () => {
 	const { getFact, updateFact } = useGetFact();

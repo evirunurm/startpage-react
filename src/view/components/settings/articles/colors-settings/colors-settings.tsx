@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import { Article } from "@components/atoms/article/article";
-import { useLocalStorageState } from "@utils/utils";
+import { useLocalStorageState } from "@hooks/useLocalStorageState";
 import Colors from "@domain/colors/Colors";
-import { LocalStorageType } from "@domain/localStorage/LocalStorageTypeEnum";
+import { LocalStorageType } from "@domain/localStorage/LocalStorageType";
 import { ColorPicker } from "@components/atoms/color-picker/color-picker";
 import { Color } from "react-aria-components";
 import ColorsContext from "@context/colors-context";

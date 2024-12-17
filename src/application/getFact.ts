@@ -1,5 +1,5 @@
 import { useCatFactService } from "@service/catFactsAdapter";
-import { FactType } from "@domain/fact/FactTypeEnum";
+import { FactType } from "@domain/fact/FactType";
 import ICatsFactResult from "@domain/fact/ICatsFactResult";
 import { IFactsService } from "@application/ports";
 import IDogsFactResult from "@domain/fact/IDogsFactResult";

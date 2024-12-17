@@ -1,20 +1,30 @@
-import { transformDateTo12H, transformDateTo24H } from "@utils/utils";
+import { formatTime } from "@utils/date-date-utils";
 import { useEffect, useState } from "react";
 import styles from "./current-time.module.css";
+import { TimeFormat } from "@domain/timeFomat/ITimeFormat";
+import { useLocalStorageState } from "@hooks/useLocalStorageState";
+import { LocalStorageType } from "@domain/localStorage/LocalStorageType";
+
+const DEFAULT_TIME_FORMAT = TimeFormat.TWELVE_HOUR_AM_PM;
 
 export const CurrentTime: React.FC = () => {
-  const getCurrentTime = (hour24: boolean = true) => 
-    hour24 ? transformDateTo24H(new Date()) : transformDateTo12H(new Date());
+	const [storedTimeFormat] = useLocalStorageState<TimeFormat>(LocalStorageType.TimeFormat);
+	const getCurrentTime = (format: TimeFormat) => formatTime(new Date(), format);
+	const [time, setTime] = useState<string>(getCurrentTime(DEFAULT_TIME_FORMAT));
 
-  const [time, setTime] = useState<string>(getCurrentTime(false));
+	const updateTime = () => {
+		setTime(getCurrentTime(storedTimeFormat ?? DEFAULT_TIME_FORMAT));
+	}
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setTime(getCurrentTime(false));
-    }, 1000);
+	useEffect(() => {
+		updateTime();
 
-    return () => clearInterval(intervalId);
-  }, []);
+		const intervalId = setInterval(() => {
+			updateTime();
+		}, 1000);
 
-  return <h2 className={styles["current-time"]}>{time}</h2>;
+		return () => clearInterval(intervalId);
+	}, [storedTimeFormat, getCurrentTime]);
+
+	return <h2 className={styles["current-time"]}>{time}</h2>;
 };

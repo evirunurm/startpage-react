@@ -1,0 +1,10 @@
+{
+	"time": {
+		"TWELVE_HOUR_WITH_SECONDS_AM_PM": "12H (with seconds)",
+		"TWELVE_HOUR_WITH_SECONDS": "12H (with seconds, no AM/PM)",
+		"TWELVE_HOUR_AM_PM": "12H",
+		"TWELVE_HOUR": "12H (no AM/PM)",
+		"TWENTY_FOUR_HOUR_WITH_SECONDS": "24H (with seconds)",
+		"TWENTY_FOUR_HOUR": "24H"
+	}
+}

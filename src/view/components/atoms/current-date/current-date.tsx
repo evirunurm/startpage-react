@@ -1,19 +1,19 @@
-import { transformDateToString } from "@utils/utils";
+import { formatDate } from "@utils/date-date-utils";
 import { useEffect, useState } from "react";
 import styles from "./current-date.module.css";
 
 export const CurrentDate: React.FC = () => {
-  const getCurrentDate = () => transformDateToString(new Date());
+	const getCurrentDate = () => formatDate(new Date());
 
-  const [date, setDate] = useState<string>(getCurrentDate());
+	const [date, setDate] = useState<string>(getCurrentDate());
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setDate(getCurrentDate());
-    }, 1000);
+	useEffect(() => {
+		const intervalId = setInterval(() => {
+			setDate(getCurrentDate());
+		}, 1000);
 
-    return () => clearInterval(intervalId);
-  }, []);
+		return () => clearInterval(intervalId);
+	}, []);
 
-  return <h1 className={styles["current-date"]}>{date}</h1>;
+	return <h1 className={styles["current-date"]}>{date}</h1>;
 };

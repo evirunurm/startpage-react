@@ -5,9 +5,9 @@ import { Button } from "@components/atoms/button/button";
 import { Label } from "@components/atoms/label/label";
 import { DropZone } from "@components/atoms/drop-zone/drop-zone";
 import IImage from "@domain/image/Image";
-import { LocalStorageType } from "@domain/localStorage/LocalStorageTypeEnum";
-import { useLocalStorageState } from "@utils/utils";
-import { ImageTypes } from "@domain/image/ImageTypesEnum";
+import { LocalStorageType } from "@domain/localStorage/LocalStorageType";
+import { useLocalStorageState } from "@hooks/useLocalStorageState";
+import { ImageTypes } from "@domain/image/ImageTypes";
 import { Disclosure } from "@components/atoms/disclosure/disclosure";
 
 interface HandleFileDropEvent {

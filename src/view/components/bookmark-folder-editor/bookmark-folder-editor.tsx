@@ -1,8 +1,8 @@
 import { Input } from "@components/atoms/input/input";
-import { useLocalStorageState } from "@utils/utils";
+import { useLocalStorageState } from "@hooks/useLocalStorageState";
 import IBookmark from "@domain/bookmarks/IBookmark";
 import IBookmarkLibrary from "@domain/bookmarks/IBookmarkLibrary";
-import { LocalStorageType } from "@domain/localStorage/LocalStorageTypeEnum";
+import { LocalStorageType } from "@domain/localStorage/LocalStorageType";
 import { useState } from "react";
 import IBookmarkFolder from "@domain/bookmarks/IBookmarkFolder";
 import styles from "./bookmark-folder-editor.module.css";

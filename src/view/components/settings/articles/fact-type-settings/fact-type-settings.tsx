@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import { Article } from "@components/atoms/article/article";
 import { RadioGroup } from "@components/atoms/radio-group/radio-group";
 import { Radio } from "@components/atoms/radio/radio";
-import { getEnumArray, useLocalStorageState } from "@utils/utils";
-import { FactType } from "@domain/fact/FactTypeEnum";
-import { LocalStorageType } from "@domain/localStorage/LocalStorageTypeEnum";
+import { getEnumArray } from "@utils/utils";
+import { useLocalStorageState } from "@hooks/useLocalStorageState";
+import { FactType } from "@domain/fact/FactType";
+import { LocalStorageType } from "@domain/localStorage/LocalStorageType";
 import { Disclosure } from "@components/atoms/disclosure/disclosure";
 
 export const FactTypeSettings: React.FC = () => {

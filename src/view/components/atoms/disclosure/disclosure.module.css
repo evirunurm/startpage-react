@@ -1,5 +1,12 @@
 @layer components.disclosure {
 	.disclosure {
+		display: flex;
+		flex-direction: column;
+
+		&[data-expanded] .icon {
+			rotate: 90deg;
+		}
+
 		[slot=trigger] {
 			background: none;
 			border: none;
@@ -15,17 +22,15 @@
 			transition: rotate 200ms;
 		}
 
-		&[data-expanded] .icon {
-			rotate: 90deg;
-		}
+		&[data-expanded] {
+			.panel {
+				margin-top: 0.5rem;
+				margin-left: 1.25rem;
+			}
 
-		.panel {
-			margin-top: 0.5rem;
-			margin-left: 1.25rem;
-		}
-
-		.panel--wide {
-			margin-left: 0;
+			.panel--wide {
+				margin-left: 0;
+			}
 		}
 	}
 }
