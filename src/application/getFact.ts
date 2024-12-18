@@ -8,9 +8,6 @@ import IJokesResult from "@domain/fact/IJokesResult";
 import { useJokesService } from "@service/jokesAdapter";
 
 export default function useGetFact() {
-	// Usually, we access services through Dependency Injection.
-	// Here we can use hooks as a crooked “DI-container”.
-
 	let fact: string = String();
 	const catFactService: IFactsService<ICatsFactResult> = useCatFactService();
 	const dogFactService: IFactsService<IDogsFactResult> = useDogFactService();

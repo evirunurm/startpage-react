@@ -2,6 +2,8 @@ import { LocalStorageType } from "@domain/localStorage/LocalStorageType";
 import ICatsFactResult from "../domain/fact/ICatsFactResult";
 import IDogsFactResult from "@domain/fact/IDogsFactResult";
 import IJokesResult from "@domain/fact/IJokesResult";
+import ICryptoResult from "@domain/crypto/ICryptoResult";
+import { Cryptocurrency } from "@domain/crypto/Cryptocurrency";
 
 export async function catFactsAPI(): Promise<ICatsFactResult> {
 	const apiUrl = process.env.REACT_APP_FACTS_CATS_URL || "";
@@ -37,6 +39,19 @@ export async function jokesAPI(): Promise<IJokesResult> {
 	}
 	const data = await response.json();
 	return data as IJokesResult;
+}
+
+export async function coincapAPI(currency: Cryptocurrency): Promise<ICryptoResult> {
+	let apiUrl = process.env.REACT_APP_CRYPTO_PRICE_URL || "";
+	apiUrl = apiUrl.concat(currency);
+	const response = await fetch(apiUrl, {
+		mode: "cors",
+	});
+	if (!response.ok) {
+		throw new Error("Network response was not ok");
+	}
+	const data = await response.json();
+	return data as ICryptoResult;
 }
 
 export async function getLocalStorage(

@@ -5,4 +5,5 @@ export enum LocalStorageType {
 	FactType = "factType",
 	Colors = "colors",
 	TimeFormat = "timeFormat",
+	Crypto = "crypto",
 }

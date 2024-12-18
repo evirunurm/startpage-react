@@ -10,6 +10,7 @@ export default defineConfig({
 			REACT_APP_FACTS_CATS_URL: "https://catfact.ninja/fact",
 			REACT_APP_FACTS_JOKES_URL:
 				"https://official-joke-api.appspot.com/random_joke",
+			REACT_APP_CRYPTO_PRICE_URL: "https://api.coincap.io/v2/assets/",
 		},
 	},
 	resolve: {

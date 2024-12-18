@@ -10,6 +10,7 @@ import { SettingsButton } from "@components/seetings-button/settings-button";
 import { useContext, useEffect } from "react";
 import Colors from "@domain/colors/Colors";
 import ColorsContext from "@context/colors-context";
+import { CryptocurrencyInfo } from "@components/cryptocurrency/cryptocurrency-info";
 
 
 const Startpage = () => {
@@ -34,6 +35,7 @@ const Startpage = () => {
 			<RowLayout>
 				<ColumnLayout>
 					<DateTime />
+					<CryptocurrencyInfo />
 					<Fact />
 				</ColumnLayout>
 				<Image />
