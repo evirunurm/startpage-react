@@ -8,7 +8,7 @@ import IJokesResult from "@domain/fact/IJokesResult";
 import { useJokesService } from "@service/jokesAdapter";
 
 export default function useGetFact() {
-	let fact: string = String();
+	let fact: string = '';
 	const catFactService: IFactsService<ICatsFactResult> = useCatFactService();
 	const dogFactService: IFactsService<IDogsFactResult> = useDogFactService();
 	const jokesService: IFactsService<IJokesResult> = useJokesService();
@@ -17,22 +17,19 @@ export default function useGetFact() {
 		return fact;
 	}
 
-	async function updateFact(factType: FactType): Promise<void> {
-		let newFact: string;
-		switch (factType) {
-			case FactType.Cats:
-				newFact = await getCatFact();
-				break;
-			case FactType.Dogs:
-				newFact = await getDogFact();
-				break;
-			case FactType.Jokes:
-				newFact = await getJoke();
-				break;
-			default:
-				throw new Error("Unknown fact type");
-		}
-		fact = newFact;
+	async function updateFact(factType: FactType | null): Promise<void> {
+		if (factType === null) return;
+
+		const factFetchers = {
+			[FactType.Cats]: getCatFact,
+			[FactType.Dogs]: getDogFact,
+			[FactType.Jokes]: getJoke
+		};
+
+		const fetchFact = factFetchers[factType];
+		if (!fetchFact) throw new Error("Unknown fact type");
+
+		fact = await fetchFact();
 	}
 
 	async function getCatFact(): Promise<string> {

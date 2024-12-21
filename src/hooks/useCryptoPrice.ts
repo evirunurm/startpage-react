@@ -23,6 +23,7 @@ export function useCryptoPrice(currency: Cryptocurrency) {
 		{
 			staleTime: process.env.MAX_STALE_TIME ? parseInt(process.env.MAX_STALE_TIME) : 360000,
 			cacheTime: process.env.MAX_CACHE_TIME ? parseInt(process.env.MAX_CACHE_TIME) : 360000,
+			enabled: !!currency,
 		}
 	);
 

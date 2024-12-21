@@ -1,5 +1,5 @@
 import IImage from "@domain/image/Image";
-import * as DefaultImageURL from "@assets/robot-bar.png";
+import * as DefaultImageURL from "@assets/hands_animation.gif";
 
 const defaultImage: IImage = {
 	name: "robot-bar",

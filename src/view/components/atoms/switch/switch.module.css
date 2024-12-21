@@ -1,5 +1,7 @@
 @layer components.switch {
 	.switch {
+		cursor: pointer;
+
 		.indicator {
 			width: 2rem;
 			height: 1.15rem;

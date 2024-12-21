@@ -1,56 +1,9 @@
 import IBookmarkLibrary from "@domain/bookmarks/IBookmarkLibrary";
 import IBookmarkFolder from "@domain/bookmarks/IBookmarkFolder";
-import IBookmark from "@domain/bookmarks/IBookmark";
 import { generateUniqueId } from "@utils/utils";
 import BookmarkFolderFactory from "./bookmark-folder.factory";
 import { IBookmarkLibraryFactory } from "@domain/factories/bookmarks/IBookmarkLibraryFactory";
-
-const DEFAULT_BOOKMARK_LIBRARY: IBookmarkLibrary = {
-	bookmarkFolders: [
-		{
-			id: generateUniqueId(),
-			name: "Folder 1",
-			bookmarks: [
-				{
-					id: generateUniqueId(),
-					name: "Bookmark 1",
-					url: "https://www.google.com",
-				},
-				{
-					id: generateUniqueId(),
-					name: "Bookmark 2",
-					url: "https://www.facebook.com",
-				},
-				{
-					id: generateUniqueId(),
-					name: "Bookmark 3",
-					url: "https://www.twitter.com",
-				},
-			] as IBookmark[],
-		} as IBookmarkFolder,
-		{
-			id: generateUniqueId(),
-			name: "Folder 2",
-			bookmarks: [
-				{
-					id: generateUniqueId(),
-					name: "Bookmark 4",
-					url: "https://www.youtube.com",
-				},
-				{
-					id: generateUniqueId(),
-					name: "Bookmark 5",
-					url: "https://www.linkedin.com",
-				},
-				{
-					id: generateUniqueId(),
-					name: "Bookmark 6",
-					url: "https://www.instagram.com",
-				},
-			] as IBookmark[],
-		} as IBookmarkFolder,
-	],
-} as IBookmarkLibrary;
+import DEFAULT_BOOKMARK_LIBRARY from "@application/bookmarks/default-bookmark-library";
 
 const MAX_AMOUNT_FOLDERS: number = 4;
 

@@ -25,25 +25,24 @@ export const DraggableBookmarks = ({
 	...props
 }: DraggableBookmarksProps) => {
 	const [dragAndDropDisabled, setDragAndDropDisabled] = useState(false);
-	const [draggableBookmarks, setDraggableBookmarks] = useState<DraggableBookmark[]>([]);
+	const [draggableBookmarks, setDraggableBookmarks] = useState<DraggableBookmark[]>(bookmarks.map((bookmark) => ({
+		...bookmark,
+		dragAndDropDisabled: false
+	})));
 
-	const updateDragAndDropStateOnMyBookmarks = useCallback(() => {
-		if (bookmarks) {
-			setDraggableBookmarks(
-				bookmarks.map((bookmark) => ({
-					...bookmark,
-					dragAndDropDisabled: dragAndDropDisabled
-				} as DraggableBookmark))
-			);
-		}
+	const updateDraggableBookmarks = useCallback(() => {
+		setDraggableBookmarks(
+			bookmarks.map((bookmark) => ({
+				...bookmark,
+				dragAndDropDisabled
+			}))
+		);
 	}, [bookmarks, dragAndDropDisabled]);
 
 	const { dragAndDropHooks } = useDragAndDrop({
 		renderDropIndicator: (target) => (<DropIndicator target={target} />),
-		getItems: (draggedBookmarkIds) => [...draggedBookmarkIds].map((draggedBookmarkId) => ({
-			'custom-app-type': JSON.stringify(
-				bookmarks.find((bookmark) => bookmark.id === draggedBookmarkId)
-			)
+		getItems: (draggedBookmarkIds) => [...draggedBookmarkIds].map((id) => ({
+			'custom-app-type': JSON.stringify(bookmarks.find((bookmark) => bookmark.id === id))
 		})),
 		onReorder(e) {
 			const updatedBookmarks = [...bookmarks];
@@ -51,12 +50,9 @@ export const DraggableBookmarks = ({
 			const targetIndex = updatedBookmarks.findIndex((bookmark) => bookmark.id === e.target.key);
 
 			if (movedBookmark) {
-				updatedBookmarks.splice(updatedBookmarks.indexOf(movedBookmark), 1); // Remove the moved bookmark
-				if (e.target.dropPosition === 'before') {
-					updatedBookmarks.splice(targetIndex, 0, movedBookmark); // Insert before the target
-				} else if (e.target.dropPosition === 'after') {
-					updatedBookmarks.splice(targetIndex + 1, 0, movedBookmark); // Insert after the target
-				}
+				updatedBookmarks.splice(updatedBookmarks.indexOf(movedBookmark), 1);
+				const insertIndex = e.target.dropPosition === 'before' ? targetIndex : targetIndex + 1;
+				updatedBookmarks.splice(insertIndex, 0, movedBookmark);
 				onFolderReorder(updatedBookmarks);
 			}
 		},
@@ -64,17 +60,12 @@ export const DraggableBookmarks = ({
 		isDisabled: dragAndDropDisabled
 	});
 
-	const onInputFocus = () => {
-		setDragAndDropDisabled(true);
-	}
-
-	const onInputBlur = () => {
-		setDragAndDropDisabled(false);
-	}
+	const handleInputFocus = () => setDragAndDropDisabled(true);
+	const handleInputBlur = () => setDragAndDropDisabled(false);
 
 	useEffect(() => {
-		updateDragAndDropStateOnMyBookmarks();
-	}, [bookmarks, updateDragAndDropStateOnMyBookmarks]);
+		updateDraggableBookmarks();
+	}, [bookmarks, updateDraggableBookmarks]);
 
 	return (
 		<GridList
@@ -90,18 +81,18 @@ export const DraggableBookmarks = ({
 					id={bookmark.id}
 					textValue={bookmark.name}
 					className={styles["bookmark-folder__grid-list-item"]}
-					style={bookmark.dragAndDropDisabled ? {} : { "WebkitUserDrag": 'element' } as React.CSSProperties}
+					style={bookmark.dragAndDropDisabled ? {} : { WebkitUserDrag: 'element' } as React.CSSProperties}
 				>
 					<DragButton />
 					<BookmarkEditor
 						id={bookmark.id}
-						key={bookmark.id + "-editor"}
+						key={`${bookmark.id}-editor`}
 						name={bookmark.name}
 						url={bookmark.url}
 						onDelete={onDeleteBookmark}
 						onSave={onSaveBookmark}
-						onInputFocus={onInputFocus}
-						onInputBlur={onInputBlur}
+						onInputFocus={handleInputFocus}
+						onInputBlur={handleInputBlur}
 					/>
 				</GridListItem>
 			)}

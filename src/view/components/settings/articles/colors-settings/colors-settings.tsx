@@ -7,6 +7,8 @@ import { ColorPicker } from "@components/atoms/color-picker/color-picker";
 import { Color } from "react-aria-components";
 import ColorsContext from "@context/colors-context";
 import { Disclosure } from "@components/atoms/disclosure/disclosure";
+import DEFAULT_COLORS from '@application/colors/default-colors';
+import { t } from "i18next";
 
 export const ColorsSettings: React.FC = () => {
 	const [, setStoredColors] = useLocalStorageState<Colors>(LocalStorageType.Colors);
@@ -27,14 +29,14 @@ export const ColorsSettings: React.FC = () => {
 
 	useEffect(() => {
 		if (colors === null) {
-			const defaultColors: Colors = {
-				"color-primary": "#007bff",
-				"color-secondary": "#6c757d",
-				"color-background": "#f8f9fa",
-				"color-font": "#343a40",
-			}
-			setColors(defaultColors);
+			setColors(DEFAULT_COLORS);
 		}
+		Object.keys(colors)
+			.map((key: string) => {
+				console.log(key)
+				console.log(colors[key as keyof Colors])
+			})
+
 	}, [colors, setColors]);
 
 	return (
@@ -46,7 +48,7 @@ export const ColorsSettings: React.FC = () => {
 							<ColorPicker
 								onOpenChange={handleOpenChange}
 								onChange={handleColorChange(key)}
-								label={key}
+								label={t(`colors.${key}`)}
 								key={key}
 								defaultValue={colors[key as keyof Colors]}
 							/>

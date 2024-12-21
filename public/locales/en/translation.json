@@ -12,5 +12,13 @@
 		"ethereum": "ETH",
 		"bitcoin-cash": "BCH",
 		"stellar": "XLM"
+	},
+	"colors": {
+		"color-primary": "Primary",
+		"color-background": "Background",
+		"color-font": "Font"
+	},
+	"common": {
+		"next": "Next"
 	}
 }

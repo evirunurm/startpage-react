@@ -1,9 +1,8 @@
 
 type Colors = {
-    "color-primary": string;
-    "color-secondary": string;
-    "color-font": string;
-    "color-background": string;
+	"color-primary": string;
+	"color-font": string;
+	"color-background": string;
 }
 
 export default Colors;

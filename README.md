@@ -188,7 +188,7 @@ For example, for this application we could have:
 
 - **Fact**: Includes a fact type and the fact itself.
 - **Image**: Includes the Base64 image, a name for the image, etc
-- **Color scheme**: Includes a primary, a secondary, a background and a font hex color.
+- **Color scheme**: Includes a primary, a background and a font hex color.
 - **Bookmarks**: Includes a named list of bookmarks; each consisting of a name, and order, and an URL.
 
 ##### Application

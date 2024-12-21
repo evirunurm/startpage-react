@@ -15,6 +15,7 @@
 		align-items: center;
 		position: relative;
 		cursor: default;
+		text-align: center;
 	}
 
 	.bookmark-folder__title__text {

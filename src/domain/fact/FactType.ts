@@ -1,6 +1,5 @@
 export enum FactType {
-    None,
-    Cats,
-    Dogs,
-    Jokes 
+	Cats,
+	Dogs,
+	Jokes
 }

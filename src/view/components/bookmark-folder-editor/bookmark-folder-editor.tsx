@@ -10,7 +10,7 @@ import { CircularButton } from "@components/atoms/circular-button/circular-butto
 import { IconPlus } from "@tabler/icons-react";
 import { Message } from "@components/atoms/message/message";
 import { ModalContainer } from "@components/atoms/modal-container/modal-container";
-import { DraggableBookmarks } from "@components/draggable-bookmarks/draggable-bookmarks";
+import { DraggableBookmarks } from "./draggable-bookmarks/draggable-bookmarks";
 import BookmarkLibraryFactory from "@application/bookmarks/bookmark-library.factory";
 import BookmarkFolderFactory from "@application/bookmarks/bookmark-folder.factory";
 
@@ -112,17 +112,19 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 			initialPosition="center"
 		>
 			<div className={styles["bookmark-folder-editor"]}>
-				<Input
-					name={folderName}
-					value={folderName}
-					type="text"
-					key={`${folderId}-name-edit`}
-					onKeyDown={handleKeyPress}
-					onChange={handleNameChange}
-				/>
-				{folderName !== name &&
-					<Message>Enter to save changes</Message>
-				}
+				<div>
+					<Input
+						name={folderName}
+						value={folderName}
+						type="text"
+						key={`${folderId}-name-edit`}
+						onKeyDown={handleKeyPress}
+						onChange={handleNameChange}
+					/>
+					{folderName !== name &&
+						<Message>Enter to save changes</Message>
+					}
+				</div>
 				<DraggableBookmarks
 					bookmarks={bookmarks}
 					onDeleteBookmark={handleDeleteBookmark}
