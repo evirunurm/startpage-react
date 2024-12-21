@@ -29,7 +29,7 @@ export const TimeFormatSettings: React.FC = () => {
 			<Article>
 				<RadioGroup
 					value={storedTimeFormat?.toString()}
-					aria-label="Fact Type"
+					aria-label="Time Format"
 					onChange={handleTimeFormatChange}
 				>
 					{

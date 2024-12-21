@@ -32,7 +32,7 @@ export const BookmarkLibraryContainer: React.FC = () => {
 	const [editingFolder, setEditingFolder] = useState<IBookmarkFolder | null>(
 		null
 	);
-	const [amountFolders, setAmountFolders] = useState<number | undefined>(undefined);
+	const [amountFolders, setAmountFolders] = useState<number | null>(null);
 
 	const handleFolderNameSave = (folderId: string, newFolderName: string) => {
 		if (!store) return;

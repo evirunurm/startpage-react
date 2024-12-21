@@ -1,35 +1,45 @@
 
-import useGetCrypto from "@application/getCrypto";
+import { useCryptoPrice } from "@hooks/useCryptoPrice";
 import styles from "./cryptocurrency-info.module.css";
 import { LocalStorageType } from "@domain/localStorage/LocalStorageType";
-import { useLocalStorageState } from "@hooks/useLocalStorageState";
 import { Cryptocurrency } from "@domain/crypto/Cryptocurrency";
-import { useEffect, useState } from "react";
+import { useLocalStorageState } from "@hooks/useLocalStorageState";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { Tag } from "@components/atoms/tag/tag";
 
 export const CryptocurrencyInfo: React.FC = () => {
-	const [price, setPrice] = useState<number>();
-	const [percent, setPercent] = useState<number>();
-	const { getPrice, getChangePercent, updateCryptoInfo } = useGetCrypto();
-	const [storedCrypto] = useLocalStorageState<Cryptocurrency | null>(LocalStorageType.Crypto);
+	const { t } = useTranslation();
+	const [storedCryptocurrency] = useLocalStorageState<Cryptocurrency>(LocalStorageType.Crypto);
+	const { data, isLoading, error } = useCryptoPrice(storedCryptocurrency as Cryptocurrency);
 
-	const fetchCryptoData = async () => {
-		await updateCryptoInfo(Cryptocurrency.Bitcoin);
-		setPrice(roundTwoDecimals(getPrice()));
-		setPercent(roundTwoDecimals(getChangePercent()));
-	}
+	const roundToTwoDecimals = (num: number): number => Math.round(num * 100) / 100;
 
-	const roundTwoDecimals = (value: number) => {
-		return Math.round(value * 100) / 100;
-	}
+	const price = useMemo((): string => {
+		const price = roundToTwoDecimals(data.price);
+		const formattedPrice = price.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+		return `${formattedPrice} USD`;
+	}, [data.price]);
 
-	useEffect(() => {
-		fetchCryptoData();
-	}, [storedCrypto, updateCryptoInfo]);
+	const percent = useMemo((): string => {
+		const percent = roundToTwoDecimals(data.changePercent24H);
+		return percent > 0 ? `+ ${percent}%` : `${percent}%`;
+	}, [data.changePercent24H]);
+
+	if (!storedCryptocurrency) return null;
 
 	return (
-		<section className={styles["cryptocurrency-info"]}>
-			<p>{price} USD</p>
-			<p>{percent}%</p>
-		</section>
+		storedCryptocurrency && !isLoading && !error && data &&
+		(
+			<section className={styles["cryptocurrency-info"]} >
+				<Tag
+					href={data.explorer}
+					target="_blank"
+					tooltip={percent}
+				>
+					<p>{t(`crypto.${storedCryptocurrency}`)} {price}</p>
+				</Tag>
+			</section >
+		)
 	);
 };

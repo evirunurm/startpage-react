@@ -1,0 +1,55 @@
+@layer components.switch {
+	.switch {
+		.indicator {
+			width: 2rem;
+			height: 1.15rem;
+			border: 1px solid var(--color-font);
+			background: var(--color-background);
+			border-radius: 1.15rem;
+			transition: all 200ms;
+
+			&:before {
+				content: '';
+				display: block;
+				margin: 0.2rem 0.25rem;
+				width: 0.65rem;
+				height: 0.65rem;
+				background: var(--color-primary);
+				border-radius: 1.15rem;
+				transition: all 200ms;
+			}
+		}
+
+		&[data-pressed] .indicator {
+			border-color: var(--color-primary);
+
+			&:before {
+				background: var(--color-primary);
+			}
+		}
+
+		&[data-selected] {
+			.indicator {
+				border-color: var(--color-primary);
+				background: var(--color-primary);
+
+				&:before {
+					background: var(--color-background);
+					transform: translateX(125%);
+				}
+			}
+
+			&[data-pressed] {
+				.indicator {
+					border-color: var(--color-primary);
+					background: var(--color-primary);
+				}
+			}
+		}
+
+		&[data-focus-visible] .indicator {
+			outline: 2px solid var(--color-primary);
+			outline-offset: 2px;
+		}
+	}
+}

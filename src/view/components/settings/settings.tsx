@@ -4,9 +4,9 @@ import { FactTypeSettings } from "./articles/fact-type-settings/fact-type-settin
 import { ColorsSettings } from "./articles/colors-settings/colors-settings";
 import { ImageSettings } from "./articles/image-settings/image-settings";
 import { TimeFormatSettings } from "./articles/time-format-settings/time-format-settings";
+import { CryptocurrencySettings } from "./articles/cryptocurrency-settings/cryptocurrency-settings";
 
-export const SettingsModal: React.FC = () => {
-
+const SettingsModal: React.FC = () => {
 	return (
 		<ModalContainer
 			initialPosition="top-right"
@@ -14,10 +14,12 @@ export const SettingsModal: React.FC = () => {
 			<h1>Settings</h1>
 			<FactTypeSettings />
 			<ImageSettings />
-			{/* Choosing time format, and wheter to siplay the AM/PM string */}
 			<ColorsSettings />
 			<TimeFormatSettings />
+			<CryptocurrencySettings />
 			{/* Credits and link to Github */}
 		</ModalContainer>
 	);
 }
+
+export default SettingsModal;

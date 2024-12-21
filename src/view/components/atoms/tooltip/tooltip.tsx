@@ -9,19 +9,16 @@ interface TooltipProps extends TooltipAriaProps {
 
 export const ToolTip: React.FC<TooltipProps> = ({
 	text,
+	className,
 	...props
 }) => (
 	<TooltipAria
 		{...props}
-		className={styles.tooltip}
+		className={`${styles.tooltip} ${className}`}
 	>
 		<OverlayArrow
 			className={styles["overlay-arrow"]}
 		>
-			{/* <svg width={8} height={8} viewBox="0 0 8 8">
-                <path d="M0 0 L4 4 L8 0" />
-            </svg> */}
-
 			<IconTriangleInvertedFilled size={14} />
 		</OverlayArrow>
 		{text}

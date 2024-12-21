@@ -14,12 +14,14 @@
 		"@tabler/icons-react": "^3.21.0",
 		"@types/node": "^22.10.2",
 		"classnames": "^2.5.1",
+		"dotenv": "^16.4.7",
 		"i18next": "^24.1.2",
 		"i18next-http-backend": "^3.0.1",
 		"react": "^18.2.0",
 		"react-aria-components": "^1.1.1",
 		"react-dom": "^18.2.0",
-		"react-i18next": "^15.2.0"
+		"react-i18next": "^15.2.0",
+		"react-query": "^3.39.3"
 	},
 	"devDependencies": {
 		"@types/react": "^18.2.43",
