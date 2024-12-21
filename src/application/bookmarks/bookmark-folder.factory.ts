@@ -32,9 +32,9 @@ export default function BookmarkFolderFactory(): IBookmarkFolderFactory {
 			bookmarkFolders: library.bookmarkFolders.map((folder) =>
 				folder.id === folderId
 					? {
-							...folder,
-							bookmarks: [...folder.bookmarks, newBookmark],
-					  }
+						...folder,
+						bookmarks: [...folder.bookmarks, newBookmark],
+					}
 					: folder
 			),
 		};
@@ -69,9 +69,9 @@ export default function BookmarkFolderFactory(): IBookmarkFolderFactory {
 			bookmarkFolders: library.bookmarkFolders.map((folder) =>
 				folder.id === folderId
 					? {
-							...folder,
-							bookmarks: [...folder.bookmarks, newBookmark],
-					  }
+						...folder,
+						bookmarks: [...folder.bookmarks, newBookmark],
+					}
 					: folder
 			),
 		};
@@ -86,11 +86,11 @@ export default function BookmarkFolderFactory(): IBookmarkFolderFactory {
 			bookmarkFolders: library.bookmarkFolders.map((folder) =>
 				folder.id === folderId
 					? {
-							...folder,
-							bookmarks: folder.bookmarks.filter(
-								(bookmark) => bookmark.id !== bookmarkId
-							),
-					  }
+						...folder,
+						bookmarks: folder.bookmarks.filter(
+							(bookmark) => bookmark.id !== bookmarkId
+						),
+					}
 					: folder
 			),
 		};
@@ -105,13 +105,13 @@ export default function BookmarkFolderFactory(): IBookmarkFolderFactory {
 			bookmarkFolders: library.bookmarkFolders.map((folder) =>
 				folder.id === folderId
 					? {
-							...folder,
-							bookmarks: folder.bookmarks.map((bookmark) =>
-								bookmark.id === newBookmark.id
-									? newBookmark
-									: bookmark
-							),
-					  }
+						...folder,
+						bookmarks: folder.bookmarks.map((bookmark) =>
+							bookmark.id === newBookmark.id
+								? newBookmark
+								: bookmark
+						),
+					}
 					: folder
 			),
 		};

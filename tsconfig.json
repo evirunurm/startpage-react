@@ -2,7 +2,11 @@
 	"compilerOptions": {
 		"target": "ES2020",
 		"useDefineForClassFields": true,
-		"lib": ["ES2020", "DOM", "DOM.Iterable"],
+		"lib": [
+			"ES2020",
+			"DOM",
+			"DOM.Iterable"
+		],
 		"module": "ESNext",
 		"skipLibCheck": true,
 		"moduleResolution": "bundler",
@@ -23,19 +27,42 @@
 		"noFallthroughCasesInSwitch": true,
 		"baseUrl": "./src",
 		"paths": {
-			"@components/*": ["view/components/*"],
-			"@pages/*": ["view/pages/*"],
-			"@context/*": ["view/context/*"],
-			"@assets/*": ["view/assets/*"],
-			"@domain/*": ["domain/*"],
-			"@application/*": ["application/*"],
-			"@utils/*": ["utils/*"],
-			"@service/*": ["service/*"],
-			"@hooks/*": ["hooks/*"]
+			"@components/*": [
+				"view/components/*"
+			],
+			"@pages/*": [
+				"view/pages/*"
+			],
+			"@context/*": [
+				"view/context/*"
+			],
+			"@assets/*": [
+				"view/assets/*"
+			],
+			"@domain/*": [
+				"domain/*"
+			],
+			"@application/*": [
+				"application/*"
+			],
+			"@utils/*": [
+				"utils/*"
+			],
+			"@service/*": [
+				"service/*"
+			],
+			"@hooks/*": [
+				"hooks/*"
+			]
 		}
 	},
-	"include": ["src"],
-	"exclude": ["**/node_modules", "**/.*/"],
+	"include": [
+		"src"
+	],
+	"exclude": [
+		"**/node_modules",
+		"**/.*/"
+	],
 	"references": [
 		{
 			"path": "./tsconfig.node.json"

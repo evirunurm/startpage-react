@@ -9,12 +9,12 @@ export default defineConfig({
 	plugins: [react()],
 	define: {
 		"process.env": {
-			REACT_APP_FACTS_DOGS_URL: process.env.VITE_REACT_APP_FACTS_DOGS_URL,
-			REACT_APP_FACTS_CATS_URL: process.env.VITE_REACT_APP_FACTS_CATS_URL,
-			REACT_APP_FACTS_JOKES_URL: process.env.VITE_REACT_APP_FACTS_JOKES_URL,
-			REACT_APP_CRYPTO_PRICE_URL: process.env.VITE_REACT_APP_CRYPTO_PRICE_URL,
-			MAX_STALE_TIME: process.env.VITE_MAX_STALE_TIME,
-			MAX_CACHE_TIME: process.env.VITE_MAX_CACHE_TIME
+			VITE_REACT_APP_FACTS_DOGS_URL: process.env.VITE_REACT_APP_FACTS_DOGS_URL,
+			VITE_REACT_APP_FACTS_CATS_URL: process.env.VITE_REACT_APP_FACTS_CATS_URL,
+			VITE_REACT_APP_FACTS_JOKES_URL: process.env.VITE_REACT_APP_FACTS_JOKES_URL,
+			VITE_REACT_APP_CRYPTO_PRICE_URL: process.env.VITE_REACT_APP_CRYPTO_PRICE_URL,
+			VITE_MAX_STALE_TIME: process.env.VITE_MAX_STALE_TIME,
+			VITE_MAX_CACHE_TIME: process.env.VITE_MAX_CACHE_TIME
 		},
 	},
 	resolve: {
@@ -30,5 +30,12 @@ export default defineConfig({
 			"@hooks": path.resolve(__dirname, "src/hooks"),
 			"@context": path.resolve(__dirname, "src/view/context"),
 		},
+	},
+	build: {
+		minify: 'esbuild',
+		sourcemap: true,
+	},
+	optimizeDeps: {
+		include: ["react", "react-dom"],
 	},
 });
