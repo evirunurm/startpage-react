@@ -19,11 +19,11 @@ describe("BookmarkLibraryFactory", () => {
 		);
 	});
 
-	it("should return a default bookmark library with two folders", () => {
+	it("should return a default bookmark library with four folders", () => {
 		const { getDefaultBookmarkLibrary } = bookmarkLibraryFactory;
 		const defaultBookmarkLibrary = getDefaultBookmarkLibrary();
 
-		expect(defaultBookmarkLibrary.bookmarkFolders.length).toBe(2);
+		expect(defaultBookmarkLibrary.bookmarkFolders.length).toBe(4);
 	});
 
 	it("should have a maximun amount of folders", () => {
@@ -33,21 +33,37 @@ describe("BookmarkLibraryFactory", () => {
 	});
 
 	it("should allow to create a new folder", () => {
-		const { createNewFolder, getDefaultBookmarkLibrary } =
+		const { createNewFolder } =
 			BookmarkLibraryFactory();
-		const defaultBookmarkLibrary = getDefaultBookmarkLibrary();
+		const initialLibrary = {
+			bookmarkFolders: [
+				{
+					name: "Folder",
+					bookmarks: [],
+					id: "0",
+				},
+			],
+		};
 
-		const library = createNewFolder(defaultBookmarkLibrary);
+		const library = createNewFolder(initialLibrary);
 
-		expect(library.bookmarkFolders.length).toBe(3);
+		expect(library.bookmarkFolders.length).toBe(2);
 	});
 
 	it("should create new folder with name 'Folder Name'", () => {
-		const { createNewFolder, getDefaultBookmarkLibrary } =
+		const { createNewFolder } =
 			BookmarkLibraryFactory();
-		const defaultBookmarkLibrary = getDefaultBookmarkLibrary();
+		const initialLibrary = {
+			bookmarkFolders: [
+				{
+					name: "Folder",
+					bookmarks: [],
+					id: "0",
+				},
+			],
+		};
 
-		const library = createNewFolder(defaultBookmarkLibrary);
+		const library = createNewFolder(initialLibrary);
 
 		const newFolder =
 			library.bookmarkFolders[library.bookmarkFolders.length - 1];
@@ -152,6 +168,23 @@ describe("BookmarkLibraryFactory", () => {
 			(folder) => folder.id === folderIdToNotDelete
 		);
 		expect(notDeletedFolder).toBeDefined();
+	});
+
+	it("should not delete the last folder", () => {
+		const { deleteFolder } = BookmarkLibraryFactory();
+		const folderIdToNotDelete = "1";
+
+		const initialLibrary = {
+			bookmarkFolders: [
+				{
+					name: "Folder",
+					bookmarks: [],
+					id: folderIdToNotDelete,
+				}
+			],
+		};
+
+		expect(() => deleteFolder(folderIdToNotDelete, initialLibrary)).toThrowError();
 	});
 
 	it("should edit name of exiting folder", () => {

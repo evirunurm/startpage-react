@@ -219,4 +219,24 @@ describe("BookmarkFolderFactory", () => {
 		expect(updatedBookmark?.name).toBe(bookmarkNewName);
 		expect(updatedBookmark?.url).toBe(bookmarkNewUrl);
 	});
+
+	it("should not allow to create more than maximum amount of bookmarks", () => {
+		const { createNewBookmark, getDefaultBookmarkFolder, maxAmountBookmarks } =
+			bookmarkFolderFactory;
+
+		const folder = getDefaultBookmarkFolder();
+		folder.bookmarks = Array.from({ length: maxAmountBookmarks }, (_, i) => ({
+			id: i.toString(),
+			name: `Bookmark ${i}`,
+			url: `https://www.bookmark.com/${i}`,
+		}));
+		const initialLibrary: IBookmarkLibrary = {
+			bookmarkFolders: [folder],
+		};
+
+		const library = createNewBookmark(folder.id, initialLibrary);
+
+		const newFolder = library.bookmarkFolders[0];
+		expect(newFolder.bookmarks.length).toBe(maxAmountBookmarks);
+	});
 });

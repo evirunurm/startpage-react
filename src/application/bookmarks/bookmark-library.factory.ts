@@ -68,6 +68,8 @@ export default function BookmarkLibraryFactory(): IBookmarkLibraryFactory {
 		id: string,
 		library: IBookmarkLibrary
 	): IBookmarkLibrary => {
+		if (library.bookmarkFolders.length <= 1) throw new Error("You can't delete the last folder");
+
 		if (!libraryHasFolderWithId(library, id)) {
 			throw new Error(`Folder with name ${id} doesn't exist`);
 		}
