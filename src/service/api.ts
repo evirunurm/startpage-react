@@ -4,7 +4,7 @@ import IDogsFactResult from "@domain/fact/IDogsFactResult";
 import IJokesResult from "@domain/fact/IJokesResult";
 
 export async function catFactsAPI(): Promise<ICatsFactResult> {
-	const apiUrl = process.env.REACT_APP_FACTS_CATS_URL || "";
+	const apiUrl = process.env.VITE_REACT_APP_FACTS_CATS_URL || "";
 	const response = await fetch(apiUrl, {
 		mode: "cors",
 	});
@@ -16,7 +16,7 @@ export async function catFactsAPI(): Promise<ICatsFactResult> {
 }
 
 export async function dogFactsAPI(): Promise<IDogsFactResult> {
-	const apiUrl = process.env.REACT_APP_FACTS_DOGS_URL || "";
+	const apiUrl = process.env.VITE_REACT_APP_FACTS_DOGS_URL || "";
 	const response = await fetch(apiUrl, {
 		mode: "cors",
 	});
@@ -28,7 +28,7 @@ export async function dogFactsAPI(): Promise<IDogsFactResult> {
 }
 
 export async function jokesAPI(): Promise<IJokesResult> {
-	const apiUrl = process.env.REACT_APP_FACTS_JOKES_URL || "";
+	const apiUrl = process.env.VITE_REACT_APP_FACTS_JOKES_URL || "";
 	const response = await fetch(apiUrl, {
 		mode: "cors",
 	});

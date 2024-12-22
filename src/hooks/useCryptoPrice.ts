@@ -4,7 +4,7 @@ import ICryptoResult from "@domain/crypto/ICryptoResult";
 import { useQuery } from "react-query";
 
 export async function fetchCryptoPrice(currency: Cryptocurrency): Promise<ICryptoResult> {
-	let apiUrl = process.env.REACT_APP_CRYPTO_PRICE_URL || "";
+	let apiUrl = process.env.VITE_REACT_APP_CRYPTO_PRICE_URL || "";
 	apiUrl = apiUrl.concat(currency);
 	const response = await fetch(apiUrl, {
 		mode: "cors",
