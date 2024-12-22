@@ -8,7 +8,7 @@ import IBookmarkFolder from "@domain/bookmarks/IBookmarkFolder";
 import { BookmarkFolderEditor } from "@components/bookmark-folder-editor/bookmark-folder-editor";
 import styles from "./bookmark-library-container.module.css";
 import { Modal } from "@components/atoms/modal/modal";
-import { BookmarkLibrary } from "@components/bookmark-library/bookmark-library";
+import { BookmarkLibrary } from "./bookmark-library/bookmark-library";
 import { CircularButton } from "@components/atoms/circular-button/circular-button";
 import { IconPlus } from "@tabler/icons-react";
 

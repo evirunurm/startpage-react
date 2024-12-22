@@ -1,4 +1,4 @@
-import { formatTime } from "@utils/date-date-utils";
+import { formatTime } from "@utils/date-utils";
 import { useEffect, useState, useCallback } from "react";
 import styles from "./current-time.module.css";
 import { TimeFormat } from "@domain/timeFomat/ITimeFormat";

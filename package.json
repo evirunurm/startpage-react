@@ -8,10 +8,11 @@
 		"build": "tsc && vite build",
 		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
 		"preview": "vite preview",
-		"test": "vitest"
+		"test": "vitest --clearScreen"
 	},
 	"dependencies": {
 		"@tabler/icons-react": "^3.21.0",
+		"@testing-library/jest-dom": "^6.6.3",
 		"@types/node": "^22.10.2",
 		"classnames": "^2.5.1",
 		"dotenv": "^16.4.7",
@@ -24,6 +25,7 @@
 		"react-query": "^3.39.3"
 	},
 	"devDependencies": {
+		"@testing-library/react": "^16.1.0",
 		"@types/react": "^18.2.43",
 		"@types/react-dom": "^18.2.17",
 		"@typescript-eslint/eslint-plugin": "^6.14.0",
@@ -34,6 +36,7 @@
 		"eslint-plugin-react-hooks": "^4.6.0",
 		"eslint-plugin-react-refresh": "^0.4.5",
 		"eslint-plugin-storybook": "^0.6.15",
+		"jsdom": "^25.0.1",
 		"typescript": "^5.2.2",
 		"typescript-plugin-css-modules": "^5.1.0",
 		"vite": "^5.0.8",

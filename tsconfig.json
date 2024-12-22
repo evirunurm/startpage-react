@@ -7,6 +7,9 @@
 			"DOM",
 			"DOM.Iterable"
 		],
+		"types": [
+			"vitest/globals"
+		],
 		"module": "ESNext",
 		"skipLibCheck": true,
 		"moduleResolution": "bundler",
@@ -53,8 +56,11 @@
 			],
 			"@hooks/*": [
 				"hooks/*"
+			],
+			"@test/*": [
+				"test/*"
 			]
-		}
+		},
 	},
 	"include": [
 		"src"
@@ -65,7 +71,7 @@
 	],
 	"references": [
 		{
-			"path": "./tsconfig.node.json"
+			"path": "./tsconfig.vite.json"
 		}
 	]
 }

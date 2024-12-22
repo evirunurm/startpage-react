@@ -1,8 +1,4 @@
-# React startpage
-
-This project is me learning the basics of clean   er react code.
-
-This code's purpose is purely educational.
+# Retopage - A retro-themed startpage
 
 ## Project creation
 
@@ -215,3 +211,55 @@ Also, in the application layer there are **ports—interfaces** for communicatin
 ##### Adapters
 
 In the adapters layer, we declare adapters to **external services**. Adapters make incompatible **APIs of third-party services** compatible to our system.
+
+## Testing
+
+### Packages
+
+#### Vitest
+
+Benefits from the speed and efficiency of the Vite build tool. Offers a zero-config setup, simplifying the testing process for React components. Jest can be problematic when used with Vite, since it doesn't support ESM out of the box. Vitest solves this issue by providing a Jest-like experience with Vite.
+
+#### Testing Library
+
+Light-weight solution for testing web pages by querying and interacting with DOM nodes. The main utilities it provides involve querying the DOM for nodes in a way that's similar to how the user finds elements on the page. In this way, the library helps ensure your tests give you confidence that your application will work when a real user uses it.
+
+The core library is wrapped into ergonomic APIs for several frameworks, including React.
+
+#### JSDOM
+
+A pure-JavaScript implementation of the DOM and HTML standards. It's used to simulate a browser environment for testing purposes. JSDOM is a dependency of Testing Library, which uses it to create a virtual DOM for testing.
+
+### Setup
+
+Once installed the dependencies, they must be configured in the `vite.config.ts` file.
+
+1. Create a `test-setup.ts` file in the root of the project.
+
+``` ts
+import { afterEach } from 'vitest';
+import { cleanup } from '@testing-library/react';
+// Import the Jest DOM matchers, which extend Jest's 'expect' function
+import '@testing-library/jest-dom/vitest';
+
+// Cleanup the DOM after each test
+afterEach(() => {
+  cleanup();
+});
+
+```
+
+
+
+``` ts
+// ...
+export default defineConfig({
+  // ...
+  test: {
+    environment: 'jsdom',
+    setupFiles: ['./test-setup.ts'],
+    globals: true,
+  },
+  // ...
+});
+```

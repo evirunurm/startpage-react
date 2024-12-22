@@ -3,22 +3,114 @@
 ## Table of contents
 
 - [Project Wiki](#project-wiki)
-  - [Table of contents](#table-of-contents)
-  - [Concepts](#concepts)
-    - [React Fragments](#react-fragments)
-    - [React.lazy](#reactlazy)
-    - [Enums](#enums)
-    - [Provider](#provider)
-    - [Styling React Components](#styling-react-components)
-      - [Plain CSS](#plain-css)
-      - [Inline styles with JS-style obejcts](#inline-styles-with-js-style-obejcts)
-      - [JSS](#jss)
-      - [CSS Modules (This project)](#css-modules-this-project)
-    - [Keys](#keys)
+	- [Table of contents](#table-of-contents)
+	- [Concepts](#concepts)
+		- [JSX](#jsx)
+		- [React Fragments](#react-fragments)
+		- [React.lazy](#reactlazy)
+		- [Enums](#enums)
+		- [Styling React Components](#styling-react-components)
+			- [Plain CSS](#plain-css)
+			- [Inline styles with JS-style obejcts](#inline-styles-with-js-style-obejcts)
+			- [JSS](#jss)
+			- [CSS Modules (This project)](#css-modules-this-project)
+				- [Configuration](#configuration)
+		- [Keys](#keys)
+	- [Testing Principles](#testing-principles)
+		- [What to test?](#what-to-test)
+		- [Types of rendering](#types-of-rendering)
+			- [*Shallow* rendering](#shallow-rendering)
+			- [*Full* rendering](#full-rendering)
+		- [Test structure](#test-structure)
 
 ___
 
 ## Concepts
+
+### JSX
+
+The JSX is compiled to React.createElement. The API to React.createElement is:
+
+``` jsx
+function createElement(elementType, props, ...children) {}
+```
+
+- `elementType`: A string or a function (class) for the type of element to be created.
+- `props`: An object for the props we want applied to the element (or null if we specify no props).
+- `...children`: All the children we want applied to the element too.
+
+An example of this could be the following:
+
+``` tsx
+ui = (
+  <div>
+    <span>Hello</span> <span>World</span>
+  </div>
+)
+ui = React.createElement('div', {
+  children: [
+    React.createElement('span', null, 'Hello'),
+    ' ',
+    React.createElement('span', null, 'World'),
+  ],
+})
+
+// Note: babel uses the third argument for children:
+ui = React.createElement(
+  'div', // type
+  null, // props
+  // children are the rest:
+  React.createElement('span', null, 'Hello'),
+  ' ',
+  React.createElement('span', null, 'World'),
+)
+```
+
+What you get back from a React.createElement call is a simple object:
+
+``` ts
+// <div id="root">Hello world</div>
+{
+  type: "div",
+  key: null,
+  ref: null,
+  props: { id: "root", children: "Hello world" },
+  _owner: null,
+  _store: {}
+}
+```
+
+When you pass an object like that to ReactDOM.render or any other renderer, it's the renderer's job to interpret that element object and create DOM nodes or whatever else out of it.
+
+Some more complex examples of this could look like this:
+
+``` tsx
+// Conditional rendering
+ui = <div>{error ? <span>{error}</span> : <span>good to go</span>}</div>
+ui = React.createElement(
+  'div',
+  null,
+  error
+    ? React.createElement('span', null, error)
+    : React.createElement('span', null, 'good to go'),
+)
+
+// Mapping over an array
+ui = (
+  <div>
+    {items.map((i) => (
+      <span key={i.id}>{i.content}</span>
+    ))}
+  </div>
+)
+ui = React.createElement(
+  'div',
+  null,
+  items.map((i) => React.createElement('span', { key: i.id }, i.content)),
+)
+```
+
+Whatever you put inside { and } is left alone. This is called **interpolation** and it allows you to **dynamically inject variables** into the values of props and children. Because of the way this works, the **contents of an interpolation must be JavaScript expressions** because they're essentially the right hand of an object assignment or used as an argument to a function call.
 
 ### React Fragments
 
@@ -49,7 +141,7 @@ ___
 
 ### Enums
 
-TypeScript enums are quite simple objects:
+TypeScript enums are simple objects:
 
 ``` tsx
 enum TrafficLight {
@@ -63,10 +155,26 @@ In the definition above, Green is mapped to the number 1. The subsequent members
 
 If we didn’t specify the mapping Green = 1, TypeScript would pick 0 as a starting index.
 
-Enums are compiled in two ways:
+Enums are **compiled in two ways**:
 
 1. Each element is assigned to a **numeric value** starting with 0 (or with the number we specify).
-2. Each string value is assigned a numeric key; this is a reverse mapping.
+2. Each string value is assigned a numeric key; this is a **reverse mapping**.
+
+``` tsx
+console.log(TrafficLight.Green) // 1
+console.log(TrafficLight[1]) // Green
+
+// Notice that if we print the whole object, we’ll see both the numeric and string keys
+console.log(TrafficLight) 
+// { 
+//   '1': 'Green', 
+//   '2': 'Yellow', 
+//   '3': 'Red', 
+//   Green: 1, 
+//   Yellow: 2, 
+//   Red: 3 
+// }
+```
 
 If we want to only list the string keys, we’ll have to filter out the numeric ones:
 
@@ -79,10 +187,6 @@ stringKeys.forEach((key, index) => {
     console.log(`${key} has index ${index}`)
 })
 ```
-
-___
-
-### Provider
 
 ___
 
@@ -191,6 +295,8 @@ function App() {
 
 CSS Modules scope CSS to a specific component, making it easier to manage styles in larger applications and reducing naming conflicts.
 
+##### Configuration
+
 - Configuration to use project's Typescript version instead local must be configred in .vscode folder, settings.json file
 
 ``` json
@@ -256,4 +362,56 @@ bookmarks.bookmarkFolders
         key={bookmarkFolder.id}
       />)
     }) 
+```
+
+## Testing Principles
+
+### What to test?
+
+When testing React components, you should focus on **testing the component's behavior**.
+
+This means you should test what the component does (behavior), not how it does it (implementation details). Implementation details can change, and you don't want your tests to **break when you refactor** your code.
+
+### Types of rendering
+
+There are two types of rendering in React testing:
+
+#### *Shallow* rendering
+
+Shallow rendering is a technique used to **render a component one level deep** and assert facts about what its render method returns, without worrying about the behavior of child components.
+
+Shallow rendering is useful to constrain yourself to testing a component as a unit, and to ensure that your tests aren't indirectly asserting on behavior of child components. But be careful to **not test implementation details**, as this can make your tests brittle.
+
+#### *Full* rendering
+
+Full rendering, also referred to as deep rendering, involves **rendering the full component tree**, including all child components and their descendants. This method provides a more comprehensive testing environment because it simulates the component's actual behavior in a real-world application. However, it can be **slower** than shallow rendering and may require additional setup.
+
+### Test structure
+
+When writing tests for React components, you should follow a **three-step process**:
+
+1. **Arrange**: Set up the component and any dependencies.
+2. **Act**: Render the component and perform any actions.
+3. **Assert**: Check that the component behaves as expected.
+
+Here's an example of a test structure for a React component:
+
+``` tsx
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import MyComponent from './MyComponent';
+
+describe('MyComponent', () => {
+  it('should render the component', () => {
+    // Arrange
+    render(<MyComponent />);
+
+    // Act
+    const button = screen.getByRole('button');
+    userEvent.click(button);
+
+    // Assert
+    expect(screen.getByText('Hello, world!')).toBeInTheDocument();
+  });
+});
 ```

@@ -1,11 +1,11 @@
 import { CircularButton } from "@components/atoms/circular-button/circular-button";
 import { IconSettings } from "@tabler/icons-react";
-import React, { lazy, useState } from "react";
-import styles from "./settings-button.module.css";
+import React, { useState } from "react";
+import styles from "./settings-trigger.module.css";
 import { Modal } from "@components/atoms/modal/modal";
-const SettingsModal = lazy(() => import('@components/settings/settings'));
+import SettingsModal from "./settings/settings";
 
-export const SettingsButton: React.FC = () => {
+export const SettingsTrigger: React.FC = () => {
 	const [isOpen, setOpen] = useState(false);
 
 	const handleButtonPress = () => {

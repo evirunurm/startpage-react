@@ -17,11 +17,8 @@ export const CryptocurrencySettings: React.FC = () => {
 
 	const handleEnabledChange = (enabled: boolean) => {
 		setEnabled(enabled);
-
-		if (!enabled) {
-			setExpanded(enabled);
-			setStoredCrypto(null);
-		}
+		setExpanded(enabled);
+		setStoredCrypto(enabled ? Cryptocurrency.Bitcoin : null);
 	}
 
 	const handleCryptoChange = (cryptocurrency: string) => {

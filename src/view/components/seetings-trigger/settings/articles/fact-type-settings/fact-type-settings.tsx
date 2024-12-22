@@ -15,11 +15,8 @@ export const FactTypeSettings: React.FC = () => {
 
 	const handleEnabledChange = (enabled: boolean) => {
 		setEnabled(enabled);
-
-		if (!enabled) {
-			setExpanded(enabled);
-			setStoredFactType(null);
-		}
+		setExpanded(enabled);
+		setStoredFactType(enabled ? FactType.Cats : null);
 	}
 
 	const handleFactTypeChange = (newValue: string) => {

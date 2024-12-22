@@ -3,7 +3,10 @@ import path from "path";
 
 export default defineConfig({
 	test: {
+		environment: 'jsdom',
+		setupFiles: ['./test-setup.ts'],
 		globals: true,
+
 	},
 	resolve: {
 		alias: {
@@ -16,6 +19,7 @@ export default defineConfig({
 			"@assets": path.resolve(__dirname, "src/view/assets"),
 			"@hooks": path.resolve(__dirname, "src/hooks"),
 			"@context": path.resolve(__dirname, "src/view/context"),
+			"@test": path.resolve(__dirname, "src/test"),
 		},
 	},
 });

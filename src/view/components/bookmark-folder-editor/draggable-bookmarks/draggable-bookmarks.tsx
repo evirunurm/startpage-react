@@ -2,7 +2,7 @@ import { GridList, GridListItem, GridListProps as GridListPropsAria, useDragAndD
 import { DragButton } from "@components/atoms/drag-button/drag-button";
 import { DropIndicator } from "@components/atoms/drop-indicator/drop-indicator";
 import IBookmark from "@domain/bookmarks/IBookmark";
-import { BookmarkEditor } from "@components/bookmark-editor/bookmark-editor";
+import { BookmarkEditor } from "../bookmark-editor/bookmark-editor";
 import styles from "./draggable-bookmarks.module.css";
 import { useEffect, useState, useCallback } from "react";
 

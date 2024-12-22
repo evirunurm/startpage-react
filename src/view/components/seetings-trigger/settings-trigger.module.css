@@ -1,0 +1,7 @@
+@layer components.settings-trigger {
+	.settings-button {
+		position: fixed;
+		top: 1rem;
+		right: 1rem;
+	}
+}

@@ -1,4 +1,4 @@
-import { Bookmark } from "@components/bookmark/bookmark";
+import { Bookmark } from "./bookmark/bookmark";
 import IBookmark from "@domain/bookmarks/IBookmark";
 import { IconPencil, IconX } from "@tabler/icons-react";
 import { CircularButton } from "@components/atoms/circular-button/circular-button";

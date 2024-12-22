@@ -18,9 +18,17 @@ export function useLocalStorageState<TResult>(key: string) {
 		return () => void window.removeEventListener("storage", listener);
 	};
 
+	const safeParseJSON = <T>(jsonString: string, fallback: T): T => {
+		try {
+			return JSON.parse(jsonString) as T;
+		} catch {
+			return fallback;
+		}
+	};
+
 	const storeSnapshot = React.useSyncExternalStore(subscribe, getSnapshot);
 	const store: TResult | null = storeSnapshot
-		? (JSON.parse(storeSnapshot as string) as TResult)
+		? safeParseJSON<TResult>(storeSnapshot as string, storeSnapshot as TResult)
 		: null;
 
 	return [store, setState] as const;

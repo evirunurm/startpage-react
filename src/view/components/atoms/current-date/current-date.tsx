@@ -1,4 +1,4 @@
-import { formatDate } from "@utils/date-date-utils";
+import { formatDate } from "@utils/date-utils";
 import { useEffect, useState } from "react";
 import styles from "./current-date.module.css";
 
