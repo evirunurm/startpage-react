@@ -31,12 +31,6 @@ export const ColorsSettings: React.FC = () => {
 		if (colors === null) {
 			setColors(DEFAULT_COLORS);
 		}
-		Object.keys(colors)
-			.map((key: string) => {
-				console.log(key)
-				console.log(colors[key as keyof Colors])
-			})
-
 	}, [colors, setColors]);
 
 	return (

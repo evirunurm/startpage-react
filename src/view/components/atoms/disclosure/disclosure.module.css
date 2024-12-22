@@ -15,12 +15,12 @@
 		}
 
 		.icon {
-			rotate: 0deg;
+			rotate: 90deg;
 			transition: rotate 200ms;
 		}
 
 		&[data-expanded] .icon {
-			rotate: 90deg;
+			rotate: 180deg;
 		}
 
 		.heading {

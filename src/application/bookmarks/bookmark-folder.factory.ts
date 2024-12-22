@@ -27,6 +27,12 @@ export default function BookmarkFolderFactory(): IBookmarkFolderFactory {
 		folderId: string,
 		library: IBookmarkLibrary
 	): IBookmarkLibrary => {
+		const folder = library.bookmarkFolders.find((folder) => folder.id === folderId);
+
+		if (!folder || folder.bookmarks.length >= maxAmountBookmarks) {
+			return library;
+		}
+
 		const newBookmark = getDefaultBookmark();
 		return {
 			bookmarkFolders: library.bookmarkFolders.map((folder) =>
