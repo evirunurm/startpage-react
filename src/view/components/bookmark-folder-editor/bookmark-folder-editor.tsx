@@ -40,10 +40,10 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 		setBookmarks
 	} = BookmarkFolderFactory();
 
+	const [folderName, setFolderName] = useState<string>(name);
 	const [store, setState] = useLocalStorageState<IBookmarkLibrary>(
 		LocalStorageType.BookmarkLibrary
 	);
-	const [folderName, setFolderName] = useState<string>(name);
 
 	const handleAddBookmark = () => {
 		if (!store) return;
@@ -69,7 +69,7 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 	};
 
 	const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if (e.key === "Enter") {
+		if (folderName && e.key === "Enter") {
 			onNameSave(folderId, folderName);
 		}
 	};
@@ -90,13 +90,6 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 	};
 
 	const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (e.currentTarget.value) {
-			setFolderName(e.currentTarget.value);
-		} else {
-			// Show error message
-		}
-		// Check whether the name is valid
-		// Check whether there's been changes on bookmark links.
 		const newFolderName = e.currentTarget.value;
 		setFolderName(newFolderName);
 	};

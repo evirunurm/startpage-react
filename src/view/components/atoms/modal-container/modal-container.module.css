@@ -11,6 +11,11 @@
 		min-width: 275px;
 	}
 
+	.modal-container--blured {
+		backdrop-filter: blur(2px);
+		background-color: color-mix(in srgb, var(--color-background) 25%, transparent);
+	}
+
 	.modal-container--centered {
 		transform: translate(-50%, -50%);
 		min-width: 325px;
@@ -19,7 +24,7 @@
 	.drag-handle {
 		position: absolute;
 		top: 0;
-		right: 0.1rem;
+		right: 0.2rem;
 		cursor: move;
 		color: var(--color-primary);
 		opacity: 0.5;

@@ -42,7 +42,8 @@ export const BookmarkLibraryContainer: React.FC = () => {
 			store
 		);
 		setStore(newLibrary);
-		setEditingFolder(null);
+		const newFolder = getFolderById(folderId, newLibrary)
+		setEditingFolder(newFolder);
 	};
 
 	const handleFolderEditClick = (folderId: string) => {
@@ -70,7 +71,6 @@ export const BookmarkLibraryContainer: React.FC = () => {
 			]);
 		} catch (error) {
 			console.error(error);
-			// TODO: Show error message
 		}
 	};
 

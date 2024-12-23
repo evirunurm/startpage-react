@@ -3,7 +3,9 @@ import { Input } from "@components/atoms/input/input";
 import IBookmark from "@domain/bookmarks/IBookmark";
 import { useState } from "react";
 import styles from "./bookmark-editor.module.css";
-import { IconDeviceFloppy, IconPencilMinus, IconTrashX } from "@tabler/icons-react";
+import {
+	IconDeviceFloppy, IconLink, IconTrashX, IconChecks
+} from "@tabler/icons-react";
 import classNames from 'classnames';
 import { Message } from "@components/atoms/message/message";
 
@@ -26,6 +28,7 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 	onInputFocus,
 	onInputBlur
 }) => {
+	const [deleteConfirmation, setDeleteConfirmation] = useState(false);
 	const [bookmarkName, setBookmarkName] = useState(name);
 	const [bookmarkUrl, setBookmarkUrl] = useState(url);
 	const [isEditingOpen, setIsEditingOpen] = useState(false);
@@ -35,10 +38,12 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 	};
 
 	const handleDeleteBookmark = () => {
-		const confirmation = window.confirm("Are you sure you want to delete this bookmark?");
-		if (confirmation) {
-			onDelete(id);
-		}
+		setDeleteConfirmation(true);
+	};
+
+	const handleConfirmDeleteBookmark = () => {
+		setDeleteConfirmation(false);
+		onDelete(id);
 	};
 
 	const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,7 +55,6 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 	};
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-
 		if (e.key === "Enter") {
 			saveBookmark();
 		}
@@ -58,7 +62,6 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 
 	const saveBookmark = () => {
 		if (!bookmarkName) {
-			// TODO: Show error message
 			console.error("Name is required");
 			return;
 		}
@@ -119,7 +122,7 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 						aria-label="Edit bookmark"
 						padding="0.25rem"
 					>
-						<IconPencilMinus size={18} />
+						<IconLink size={18} />
 					</Button>
 				) : (
 					<Button
@@ -132,16 +135,27 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 						<IconDeviceFloppy size={18} />
 					</Button>
 				)}
-				<Button
-					tooltipPlacement="end"
-					tooltip="Delete bookmark"
-					className={styles["bookmark-editor__buttons__button"]}
-					onPress={handleDeleteBookmark}
-					aria-label="Delete bookmark"
-					padding="0.25rem"
-				>
-					<IconTrashX size={18} />
-				</Button>
+				{deleteConfirmation ? (
+					<Button
+						tooltipPlacement="end"
+						tooltip="Confirm deletion"
+						className={styles["bookmark-editor__buttons__button"]}
+						onPress={handleConfirmDeleteBookmark}
+						aria-label="Confirm deletion"
+						padding="0.25rem"
+					>
+						<IconChecks size={18} />
+					</Button>) : (<Button
+						tooltipPlacement="end"
+						tooltip="Delete bookmark"
+						className={styles["bookmark-editor__buttons__button"]}
+						onPress={handleDeleteBookmark}
+						aria-label="Delete bookmark"
+						padding="0.25rem"
+					>
+						<IconTrashX size={18} />
+					</Button>
+				)}
 			</div>
 		</section>
 	);

@@ -16,7 +16,8 @@ type DisclosureProps = DisclosurePropsAria & {
 export const Disclosure = ({ title, wide, children, selected, onSelectedSwitch, ...props }: PropsWithChildren<DisclosureProps>) => {
 
 	return (
-		<DiscloreAria className={styles.disclosure}
+		<DiscloreAria
+			className={styles.disclosure}
 			{...props}
 		>
 			<Heading className={styles['heading']}>
@@ -40,7 +41,11 @@ export const Disclosure = ({ title, wide, children, selected, onSelectedSwitch, 
 					/>
 				}
 			</Heading>
-			<DisclosurePanel className={classNames(styles['panel'], { [styles['panel--wide']]: wide })}>
+			<DisclosurePanel
+				className={classNames(styles['panel'], {
+					[styles['panel--wide']]: wide
+				})}
+			>
 				{children}
 			</DisclosurePanel>
 		</DiscloreAria>
