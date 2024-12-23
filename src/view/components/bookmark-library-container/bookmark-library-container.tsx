@@ -11,8 +11,10 @@ import { Modal } from "@components/atoms/modal/modal";
 import { BookmarkLibrary } from "./bookmark-library/bookmark-library";
 import { CircularButton } from "@components/atoms/circular-button/circular-button";
 import { IconPlus } from "@tabler/icons-react";
+import { useTranslation } from "react-i18next";
 
 export const BookmarkLibraryContainer: React.FC = () => {
+	const { t } = useTranslation();
 	const {
 		maxAmountFolders,
 		getDefaultBookmarkLibrary,
@@ -118,10 +120,10 @@ export const BookmarkLibraryContainer: React.FC = () => {
 			</Modal>
 			{amountFolders && maxAmountFolders && amountFolders < maxAmountFolders && (
 				<CircularButton
-					tooltip="Add Folder"
+					tooltip={t('common.add-folder')}
 					className={styles["add-folder-button"]}
 					onPress={handleAddNewFolder}
-					tooltipPlacement="end"
+					tooltipPlacement="start"
 				>
 					<IconPlus
 						size={21}

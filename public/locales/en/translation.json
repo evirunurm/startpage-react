@@ -1,5 +1,6 @@
 {
 	"time": {
+		"time-format": "Time format",
 		"TWELVE_HOUR_WITH_SECONDS_AM_PM": "12H (with seconds)",
 		"TWELVE_HOUR_WITH_SECONDS": "12H (with seconds, no AM/PM)",
 		"TWELVE_HOUR_AM_PM": "12H",
@@ -8,17 +9,36 @@
 		"TWENTY_FOUR_HOUR": "24H"
 	},
 	"crypto": {
+		"crypto": "Crypto",
 		"bitcoin": "BTC",
 		"ethereum": "ETH",
-		"bitcoin-cash": "BCH",
+		"bitcoincash": "BCH",
 		"stellar": "XLM"
 	},
+	"facts": {
+		"fact": "Fact",
+		"cats": "Facts about cats",
+		"dogs": "Discover more about the world of dogs",
+		"jokes": "Need a laugh? I've got you covered"
+	},
 	"colors": {
+		"color-theme": "Color theme",
 		"color-primary": "Primary",
 		"color-background": "Background",
 		"color-font": "Font"
 	},
 	"common": {
-		"next": "Next"
+		"settings": "Settings",
+		"next": "Next fact",
+		"image": "Image",
+		"image-placeholder": "Drop image here",
+		"image-upload": "Upload image",
+		"add-folder": "Add folder"
+	},
+	"errors": {
+		"image": {
+			"image-type": "Only jpeg, png or gif images are allowed.",
+			"image-size": "Image exceeded the maximum size. Please upload a smaller image."
+		}
 	}
 }

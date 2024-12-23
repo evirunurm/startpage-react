@@ -27,7 +27,7 @@ export const CryptocurrencySettings: React.FC = () => {
 
 	return (
 		<Disclosure
-			title="Cryptocurrency"
+			title={t("crypto.crypto")}
 			selected={enabled}
 			onSelectedSwitch={handleEnabledChange}
 			isExpanded={expanded}
@@ -36,7 +36,7 @@ export const CryptocurrencySettings: React.FC = () => {
 			<Article>
 				<RadioGroup
 					value={storedCrypto?.toString() || ""}
-					aria-label="Cryptocurrency"
+					aria-label={t("crypto.crypto")}
 					onChange={handleCryptoChange}
 				>
 					{
@@ -46,7 +46,7 @@ export const CryptocurrencySettings: React.FC = () => {
 									key={key}
 									value={value.toString()}
 								>
-									{t(`${key}`)}
+									{t(`crypto.${key.toLowerCase()}`)}
 								</Radio>
 							))
 					}

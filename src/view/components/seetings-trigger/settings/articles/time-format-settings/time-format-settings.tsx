@@ -25,11 +25,11 @@ export const TimeFormatSettings: React.FC = () => {
 	}, [storedTimeFormat, setStoredTimeFormat]);
 
 	return (
-		<Disclosure title="Time Format">
+		<Disclosure title={t("time.time-format")}>
 			<Article>
 				<RadioGroup
 					value={storedTimeFormat?.toString()}
-					aria-label="Time Format"
+					aria-label={t("time.time-format")}
 					onChange={handleTimeFormatChange}
 				>
 					{

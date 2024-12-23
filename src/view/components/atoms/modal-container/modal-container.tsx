@@ -7,12 +7,14 @@ import useDraggable from '@hooks/useDraggable';
 interface ModalContainerProps {
 	initialPosition?: 'center' | 'top-right';
 	onClose?: () => void;
+	className?: string;
 }
 
 const ModalContent: React.FC<React.PropsWithChildren<ModalContainerProps>> = ({
 	children,
 	initialPosition,
-	onClose
+	onClose,
+	className = ''
 }) => {
 	const modalRef = useRef<HTMLDivElement>(null);
 
@@ -45,7 +47,8 @@ const ModalContent: React.FC<React.PropsWithChildren<ModalContainerProps>> = ({
 			ref={modalRef}
 			className={classNames(
 				styles['modal-container'],
-				{ [styles['modal-container--centered']]: initialPosition === 'center' }
+				{ [styles['modal-container--centered']]: initialPosition === 'center' },
+				className
 			)}
 			style={{ left: position.x, top: position.y }}
 			role="dialog"

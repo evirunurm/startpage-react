@@ -1,7 +1,7 @@
 @layer components.radio {
 	.radio {
 		display: flex;
-		align-items: flex-start;
+		align-items: center;
 		gap: 0.5rem;
 		font-size: 1rem;
 		forced-color-adjust: none;
@@ -12,13 +12,12 @@
 		&:before {
 			content: '';
 			display: block;
-			width: 1.25rem;
+			min-width: 1.25rem;
 			height: 1.25rem;
-			box-sizing: border-box;
-			border: 0.125rem solid var(--color-primary);
+			border: 0.125rem solid var(--color-font);
 			background: var(--color-background);
 			border-radius: 1.25rem;
-			transition: all 100ms;
+			transition: var(--transition);
 		}
 
 		&[data-pressed]:before {
@@ -27,7 +26,8 @@
 
 		&[data-selected] {
 			&:before {
-				border-width: 0.38rem;
+				border-width: 0.4rem;
+				border-color: var(--color-primary);
 			}
 		}
 

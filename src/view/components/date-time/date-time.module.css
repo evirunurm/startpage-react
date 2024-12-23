@@ -1,7 +1,8 @@
 @layer components.date-time {
-  .date-time {
-    display: flex;
-    flex-direction: column;
-    align-items: end;
-  }
+	.date-time {
+		display: flex;
+		flex-direction: column;
+		align-items: end;
+		margin-bottom: 0.75rem;
+	}
 }

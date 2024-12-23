@@ -8,9 +8,10 @@ import { Color } from "react-aria-components";
 import ColorsContext from "@context/colors-context";
 import { Disclosure } from "@components/atoms/disclosure/disclosure";
 import DEFAULT_COLORS from '@application/colors/default-colors';
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 export const ColorsSettings: React.FC = () => {
+	const { t } = useTranslation();
 	const [, setStoredColors] = useLocalStorageState<Colors>(LocalStorageType.Colors);
 	const { colors, setColors } = useContext(ColorsContext);
 
@@ -34,7 +35,7 @@ export const ColorsSettings: React.FC = () => {
 	}, [colors, setColors]);
 
 	return (
-		<Disclosure title="Colors" wide>
+		<Disclosure title={t("colors.color-theme")} wide>
 			<Article>
 				{
 					colors && Object.keys(colors)

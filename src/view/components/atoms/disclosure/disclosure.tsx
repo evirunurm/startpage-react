@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react';
 import styles from './disclosure.module.css';
 import { DisclosurePanel, Heading, Disclosure as DiscloreAria, DisclosureProps as DisclosurePropsAria } from 'react-aria-components';
 import { Button } from '../button/button';
-import { IconTriangleFilled } from '@tabler/icons-react/';
+import { IconChevronRight } from '@tabler/icons-react/';
 import { Switch } from '../switch/switch';
 import classNames from 'classnames';
 
@@ -20,16 +20,17 @@ export const Disclosure = ({ title, wide, children, selected, onSelectedSwitch, 
 			className={styles.disclosure}
 			{...props}
 		>
-			<Heading className={styles['heading']}>
+			<Heading className={classNames(styles['heading'], {
+				[styles['heading--disabled']]: selected === false
+			})}>
 				<Button
 					className={classNames({ [styles['button--disabled']]: selected === false })}
-					padding='0'
 					slot="trigger"
 					isDisabled={selected === false}
 				>
-					<IconTriangleFilled
+					<IconChevronRight
 						className={styles.icon}
-						size={12}
+						size={24}
 					/>
 					{title}
 				</Button>

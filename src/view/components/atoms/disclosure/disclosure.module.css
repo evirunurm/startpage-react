@@ -4,6 +4,7 @@
 		flex-direction: column;
 
 		.panel {
+			padding: 0 1rem;
 			opacity: 0;
 			transition: var(--transition);
 		}
@@ -11,8 +12,7 @@
 		&[data-expanded] {
 			.panel {
 				opacity: 1;
-				margin-top: 0.5rem;
-				margin-left: 1.25rem;
+				margin: 0.15rem 0 0.75rem 1.25rem;
 			}
 
 			.panel--wide {
@@ -21,33 +21,38 @@
 		}
 
 		.icon {
-			rotate: 90deg;
+			rotate: 0deg;
 			transition: rotate 200ms;
 		}
 
 		&[data-expanded] .icon {
-			rotate: 180deg;
+			rotate: 90deg;
 		}
 
 		.heading {
+			padding: 0 1rem;
 			display: flex;
 			justify-content: space-between;
-			align-items: center;
-		}
+			align-items: baseline;
 
-		[slot=trigger] {
-			background: none;
-			border: none;
-			color: var(--color-text);
-			display: flex;
-			align-items: center;
-			gap: 0.5rem;
-			padding: 0;
-		}
+			[slot=trigger] {
+				width: 100%;
+				background: none;
+				border: none;
+				color: var(--color-text);
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				padding: 0.5rem 0;
+			}
 
-		[slot=trigger].button--disabled {
-			opacity: 0.65;
-		}
+			[slot=trigger].button--disabled {
+				opacity: 0.65;
+			}
 
+			&:hover:not(.heading--disabled) {
+				background-color: color-mix(in srgb, var(--color-font) 10%, transparent);
+			}
+		}
 	}
 }

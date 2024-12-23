@@ -7,8 +7,10 @@ import { useLocalStorageState } from "@hooks/useLocalStorageState";
 import { FactType } from "@domain/fact/FactType";
 import { LocalStorageType } from "@domain/localStorage/LocalStorageType";
 import { Disclosure } from "@components/atoms/disclosure/disclosure";
+import { useTranslation } from "react-i18next";
 
 export const FactTypeSettings: React.FC = () => {
+	const { t } = useTranslation();
 	const [storedFactType, setStoredFactType] = useLocalStorageState<FactType | null>(LocalStorageType.FactType);
 	const [enabled, setEnabled] = useState<boolean>(storedFactType !== null);
 	const [expanded, setExpanded] = useState<boolean>(false);
@@ -29,13 +31,13 @@ export const FactTypeSettings: React.FC = () => {
 			onSelectedSwitch={handleEnabledChange}
 			isExpanded={expanded}
 			onExpandedChange={setExpanded}
-			title="Fact type"
+			title={t("facts.fact")}
 		>
 			<Article>
 				<RadioGroup
 					value={storedFactType?.toString() || ""}
 					onChange={handleFactTypeChange}
-					aria-label="Fact Type"
+					aria-label={t("facts.fact")}
 				>
 					{
 						getEnumArray(FactType).map(({ key, value }) => (
@@ -43,7 +45,7 @@ export const FactTypeSettings: React.FC = () => {
 								key={key}
 								value={value.toString()}
 							>
-								{key}
+								{t(`facts.${key.toLowerCase()}`)}
 							</Radio>
 						))
 					}

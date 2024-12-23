@@ -13,7 +13,7 @@ interface CustomButtonProps extends ButtonProps {
 export const Button: React.FC<CustomButtonProps> = ({
 	children,
 	className = '',
-	padding = '0.5rem 1rem',
+	padding = '',
 	center = false,
 	tooltip,
 	tooltipPlacement,

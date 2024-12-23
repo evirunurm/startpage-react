@@ -9,12 +9,14 @@ import { LocalStorageType } from "@domain/localStorage/LocalStorageType";
 import { useLocalStorageState } from "@hooks/useLocalStorageState";
 import { ImageTypes } from "@domain/image/ImageTypes";
 import { Disclosure } from "@components/atoms/disclosure/disclosure";
+import { useTranslation } from "react-i18next";
 
 interface HandleFileDropEvent {
 	items: DropItem[];
 }
 
 export const ImageSettings: React.FC = () => {
+	const { t } = useTranslation();
 	const [, setStoredImage] = useLocalStorageState<IImage>(LocalStorageType.Image);
 	const [file, setFile] = React.useState<File | null>(null);
 
@@ -23,7 +25,7 @@ export const ImageSettings: React.FC = () => {
 		const file = await files[0].getFile();
 
 		if (!isValidFileType(file)) {
-			alert('Only jpeg, png or gif images are allowed');
+			alert(t('errors.image.image-type'));
 			return;
 		}
 		saveImageFile(file);
@@ -33,7 +35,7 @@ export const ImageSettings: React.FC = () => {
 		if (e) {
 			const file = Array.from(e)[0];
 			if (!isValidFileType(file)) {
-				alert('Only jpeg, png or gif images are allowed');
+				alert(t('errors.image.image-type'));
 				return;
 			}
 			saveImageFile(file);
@@ -60,7 +62,7 @@ export const ImageSettings: React.FC = () => {
 			} as IImage);
 			setFile(file);
 		} catch (error) {
-			alert('Image exceeded the maximum size. Please upload a smaller image.');
+			alert(t('errors.image.image-size'));
 		}
 	}
 
@@ -79,17 +81,17 @@ export const ImageSettings: React.FC = () => {
 	}
 
 	return (
-		<Disclosure title="Image" wide>
+		<Disclosure title={t("common.image")} wide>
 			<Article>
 				<DropZone onDrop={handleFileDrop} >
 					<FileTrigger
 						acceptedFileTypes={[ImageTypes.JPEG, ImageTypes.PNG, ImageTypes.GIF]}
 						onSelect={handleFileUpload}
 					>
-						<Button center>Upload image</Button>
+						<Button center>{t("common.image-upload")}</Button>
 					</FileTrigger>
 					<Label>
-						{getFileName() || 'Drop image here'}
+						{getFileName() || t("common.image-placeholder")}
 					</Label>
 				</DropZone>
 			</Article>

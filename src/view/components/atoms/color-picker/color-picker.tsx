@@ -27,9 +27,9 @@ export const ColorPicker = ({
 			<Popover placement="bottom start">
 				<Dialog className={styles["color-picker-dialog"]}>
 					<ColorArea
-						colorSpace="hsl"
+						colorSpace="hsb"
 						xChannel="saturation"
-						yChannel="lightness"
+						yChannel="brightness"
 					/>
 					<ColorSlider label="Hue" colorSpace="hsl" channel="hue" />
 					<ColorField label="Hex" />

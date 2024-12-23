@@ -4,8 +4,10 @@ import React, { useState } from "react";
 import styles from "./settings-trigger.module.css";
 import { Modal } from "@components/atoms/modal/modal";
 import SettingsModal from "./settings/settings";
+import { useTranslation } from "react-i18next";
 
 export const SettingsTrigger: React.FC = () => {
+	const { t } = useTranslation();
 	const [isOpen, setOpen] = useState(false);
 
 	const handleButtonPress = () => {
@@ -21,6 +23,8 @@ export const SettingsTrigger: React.FC = () => {
 			<CircularButton
 				className={styles['settings-button']}
 				onPress={handleButtonPress}
+				tooltip={t("common.settings")}
+				tooltipPlacement="start"
 			>
 				<IconSettings size={28} />
 			</CircularButton>
