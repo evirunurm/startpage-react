@@ -37,7 +37,8 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 		createNewBookmark,
 		deleteBookmark,
 		updateBookmark,
-		setBookmarks
+		setBookmarks,
+		maxAmountBookmarks
 	} = BookmarkFolderFactory();
 
 	const [folderName, setFolderName] = useState<string>(name);
@@ -129,6 +130,7 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 					onPress={handleAddBookmark}
 					tooltip="Add bookmark"
 					tooltipPlacement="end"
+					isDisabled={bookmarks.length >= maxAmountBookmarks}
 				>
 					<IconPlus size={21} />
 				</CircularButton>

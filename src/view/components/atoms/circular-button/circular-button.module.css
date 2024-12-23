@@ -1,7 +1,6 @@
 @layer components.cirucular-button {
 	.circular-button {
 		border-radius: 50%;
-		cursor: pointer;
 		font-size: 1rem;
 		padding: 0.25rem;
 		aspect-ratio: 1 / 1;
@@ -9,8 +8,13 @@
 		display: flex;
 		color: var(--color-font);
 
-		&:hover {
+		&:not(:disabled):hover {
+			cursor: pointer;
 			color: var(--color-primary);
+		}
+
+		&:disabled {
+			opacity: 0.65;
 		}
 
 	}
