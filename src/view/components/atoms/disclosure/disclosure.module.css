@@ -33,7 +33,7 @@
 			padding: 0 1rem;
 			display: flex;
 			justify-content: space-between;
-			align-items: baseline;
+			align-items: center;
 
 			[slot=trigger] {
 				width: 100%;
