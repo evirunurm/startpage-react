@@ -4,6 +4,7 @@
 		padding: 1rem 2rem 2rem 2rem;
 		display: flex;
 		flex-direction: column;
+		gap: 0.15rem;
 		align-items: end;
 		align-items: center;
 		--button-positioning: 105%;
