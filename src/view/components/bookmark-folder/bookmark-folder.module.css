@@ -13,9 +13,9 @@
 	.bookmark-folder__title {
 		display: flex;
 		align-items: center;
-
 		cursor: default;
 		text-align: center;
+		margin-bottom: 0.5rem;
 	}
 
 	.bookmark-folder__title__text {

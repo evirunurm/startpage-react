@@ -55,7 +55,7 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 	};
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if (e.key === "Enter") {
+		if (e.key === "Enter" && (bookmarkName != name || bookmarkUrl != url)) {
 			saveBookmark();
 		}
 	};
