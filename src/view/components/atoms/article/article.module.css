@@ -1,9 +1,7 @@
 @layer components.article {
-    .article {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-
-    .title {}
+	.article {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
 }

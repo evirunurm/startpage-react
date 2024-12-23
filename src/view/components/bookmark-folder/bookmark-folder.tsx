@@ -36,6 +36,7 @@ export const BookmarkFolder: React.FC<BookmarkFolderProps> = ({
 	return (
 		<div className={styles["bookmark-folder"]}>
 			<CircularButton
+				aria-label="Delete folder"
 				tooltip="Delete folder"
 				className={styles["bookmark-folder__title__delete-button"]}
 				onPress={handleDeleteFolderClick}
@@ -43,6 +44,7 @@ export const BookmarkFolder: React.FC<BookmarkFolderProps> = ({
 				<IconX size={23} />
 			</CircularButton>
 			<CircularButton
+				aria-label="Edit folder"
 				tooltip="Edit folder"
 				className={styles["bookmark-folder__title__edit-button"]}
 				onPress={handleEditFolderClick}

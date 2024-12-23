@@ -226,30 +226,45 @@ Light-weight solution for testing web pages by querying and interacting with DOM
 
 The core library is wrapped into ergonomic APIs for several frameworks, including React.
 
+##### Testing Library/React
+
+A set of utilities for testing React components. It's built on top of the core Testing Library, providing a more React-specific API. It's used to render components, interact with them, and make assertions about their state.
+
+##### Testing Library/Jest-Dom
+
+A set of matchers for Jest that extend its `expect` function. These matchers are used to make assertions about the DOM nodes returned by Testing Library. They provide a more readable way to check if a node has certain attributes, styles, text content...
+
 #### JSDOM
 
 A pure-JavaScript implementation of the DOM and HTML standards. It's used to simulate a browser environment for testing purposes. JSDOM is a dependency of Testing Library, which uses it to create a virtual DOM for testing.
+
+#### Vitest Axe
+
+An accessibility testing utility for Vitest. It's used to check if your components are accessible to users with disabilities. It's a wrapper around the Axe-core library and a fork of the Jest-axe library.
 
 ### Setup
 
 Once installed the dependencies, they must be configured in the `vite.config.ts` file.
 
-1. Create a `test-setup.ts` file in the root of the project.
+1. **Create** a `vitest-setup.ts` file in the root of the project.
 
 ``` ts
+// Import the Vitest Axe matchers, which extend Jest's 'expect' function
+import "vitest-axe/extend-expect";
+// Import the Jest DOM matchers, which extend Vitest's 'expect' function
+import '@testing-library/jest-dom/vitest';
 import { afterEach } from 'vitest';
 import { cleanup } from '@testing-library/react';
-// Import the Jest DOM matchers, which extend Jest's 'expect' function
-import '@testing-library/jest-dom/vitest';
+
 
 // Cleanup the DOM after each test
 afterEach(() => {
   cleanup();
+  localStorage.clear();
 });
-
 ```
 
-
+2. **Configure** the setup file in the `vite.config.ts` file. This file is run before each test file.
 
 ``` ts
 // ...
@@ -257,9 +272,71 @@ export default defineConfig({
   // ...
   test: {
     environment: 'jsdom',
-    setupFiles: ['./test-setup.ts'],
+    setupFiles: ['./vitest-setup.ts'],
     globals: true,
   },
   // ...
+});
+```
+
+3. **Include** the setup file in the `tsconfig.json` file. If it's not included, the typescript compiler will not recognize the setup file, but the tests will still run.
+
+``` ts
+{
+// ...
+  "compilerOptions": {
+    // ...
+  },
+  "include": [
+    // ...
+    "vitest-setup.ts"
+  ]
+  // ...
+}
+```
+
+4. Create the **utility file** for the tests, in `test/test-utils.ts`. This file will contain the **custom render function**, which will be used to render the components in the tests with all the necessary providers.
+
+``` ts
+import React from 'react'
+// Import the render function from Testing Library, which will be overridden
+import { render } from '@testing-library/react'
+// Import the AllTheProviders component, which wraps the component to be tested
+import AllTheProviders from './all-providers'
+
+// Define the custom render options
+interface CustomRenderOptions extends Omit<Parameters<typeof render>[1], 'wrapper'> { }
+
+// Override the render function from Testing Library
+const customRender = (ui: React.ReactElement, options?: CustomRenderOptions) =>
+  render(ui, { wrapper: AllTheProviders, ...options })
+
+// Export the custom render function, together with the rest of Testing Library utilities
+export * from '@testing-library/react'
+export { customRender as render }
+```
+
+1. Create a **test file** and **use the utilities**. The file should be named `component.test.tsx` and placed in the same directory as the component to be tested.
+
+``` tsx
+import { render } from "@test/test-utils"
+import { Component } from "./component";
+import { describe, it, expect } from "vitest";
+import { axe } from "vitest-axe";
+
+describe("Component", () => {
+  it("is accessible", async () => {
+    const { container } = render(<Component />);
+    const results = await axe(container);
+
+    expect(results).toHaveNoViolations();
+  });
+
+  it("is accessible", async () => {
+    const { container } = render(<Component />);
+    const results = await axe(container);
+
+    expect(results).toHaveNoViolations();
+  });
 });
 ```
