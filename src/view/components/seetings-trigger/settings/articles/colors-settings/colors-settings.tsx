@@ -7,13 +7,14 @@ import { ColorPicker } from "@components/atoms/color-picker/color-picker";
 import { Color } from "react-aria-components";
 import ColorsContext from "@context/colors-context";
 import { Disclosure } from "@components/atoms/disclosure/disclosure";
-import DEFAULT_COLORS from '@application/colors/default-colors';
 import { useTranslation } from "react-i18next";
+import ColorsFactory from "@application/colors/colors.factory";
 
 export const ColorsSettings: React.FC = () => {
 	const { t } = useTranslation();
 	const [, setStoredColors] = useLocalStorageState<Colors>(LocalStorageType.Colors);
 	const { colors, setColors } = useContext(ColorsContext);
+	const { getDefaultColors } = ColorsFactory();
 
 	const handleColorChange = (key: string) => {
 		return (color: Color) => {
@@ -30,9 +31,9 @@ export const ColorsSettings: React.FC = () => {
 
 	useEffect(() => {
 		if (colors === null) {
-			setColors(DEFAULT_COLORS);
+			setColors(getDefaultColors());
 		}
-	}, [colors, setColors]);
+	}, [colors, setColors, getDefaultColors]);
 
 	return (
 		<Disclosure title={t("colors.color-theme")} wide>

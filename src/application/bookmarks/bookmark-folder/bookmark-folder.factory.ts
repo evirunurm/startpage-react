@@ -1,14 +1,9 @@
-import IBookmarkFolder from "@domain/bookmarks/IBookmarkFolder";
-import IBookmark from "@domain/bookmarks/IBookmark";
-import { generateUniqueId } from "@utils/utils";
-import IBookmarkLibrary from "@domain/bookmarks/IBookmarkLibrary";
-import { IBookmarkFolderFactory } from "@domain/factories/bookmarks/IBookmarkFolderFactory";
-
-const DEFAULT_BOOKMARK_FOLDER: IBookmarkFolder = {
-	name: "Folder Name",
-	bookmarks: [],
-	id: "",
-};
+import IBookmarkFolder from '@domain/bookmarks/IBookmarkFolder';
+import IBookmark from '@domain/bookmarks/IBookmark';
+import { generateUniqueId } from '@utils/utils';
+import IBookmarkLibrary from '@domain/bookmarks/IBookmarkLibrary';
+import DEFAULT_BOOKMARK_FOLDER from './default-bookmark-folder'
+import IBookmarkFolderFactory from './bookmark-folder.type';
 
 const DEFAULT_BOOKMARK: IBookmark = {
 	name: "Bookmark",

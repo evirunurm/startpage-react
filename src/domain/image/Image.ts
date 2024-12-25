@@ -1,5 +1,7 @@
-export default interface IImage {
-    name: string;
-    url: string;
-    custom: boolean;
+type Image = {
+	name: string;
+	url: string;
+	custom: boolean;
 }
+
+export default Image;

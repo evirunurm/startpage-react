@@ -2,7 +2,7 @@ import { Button as ButtonAria, ButtonProps, TooltipTrigger } from "react-aria-co
 import styles from "./button.module.css";
 import { ToolTip } from "../tooltip/tooltip";
 
-interface CustomButtonProps extends ButtonProps {
+type CustomButtonProps = ButtonProps & {
 	className?: string;
 	padding?: string;
 	center?: boolean;

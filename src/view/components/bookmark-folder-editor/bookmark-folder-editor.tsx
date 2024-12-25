@@ -11,8 +11,8 @@ import { IconPlus } from "@tabler/icons-react";
 import { Message } from "@components/atoms/message/message";
 import { ModalContainer } from "@components/atoms/modal-container/modal-container";
 import { DraggableBookmarks } from "./draggable-bookmarks/draggable-bookmarks";
-import BookmarkLibraryFactory from "@application/bookmarks/bookmark-library.factory";
-import BookmarkFolderFactory from "@application/bookmarks/bookmark-folder.factory";
+import BookmarkLibraryFactory from "@application/bookmarks/bookmark-library/bookmark-library.factory";
+import BookmarkFolderFactory from "@application/bookmarks/bookmark-folder/bookmark-folder.factory";
 
 interface BookmarkFolderEditorProps {
 	folderId: string;

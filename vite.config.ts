@@ -24,14 +24,14 @@ export default defineConfig(({ mode }) => {
 			alias: {
 				"@components": path.resolve(__dirname, "src/view/components"),
 				"@pages": path.resolve(__dirname, "src/view/pages"),
+				"@context": path.resolve(__dirname, "src/view/context"),
+				"@assets": path.resolve(__dirname, "src/view/assets"),
+				"@hooks": path.resolve(__dirname, "src/view/hooks"),
 				"@domain": path.resolve(__dirname, "src/domain"),
 				"@service": path.resolve(__dirname, "src/service"),
 				"@application": path.resolve(__dirname, "src/application"),
 				"@utils": path.resolve(__dirname, "src/utils"),
-				"@assets": path.resolve(__dirname, "src/view/assets"),
-				"@hooks": path.resolve(__dirname, "src/hooks"),
 				"@test": path.resolve(__dirname, "src/test"),
-				"@context": path.resolve(__dirname, "src/view/context"),
 				...(isDevelopment && {
 					'@tabler/icons-react': '@tabler/icons-react/dist/esm/icons/index.mjs',
 				}),

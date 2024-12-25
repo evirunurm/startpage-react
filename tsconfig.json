@@ -42,6 +42,9 @@
 			"@assets/*": [
 				"view/assets/*"
 			],
+			"@hooks/*": [
+				"view/hooks/*"
+			],
 			"@domain/*": [
 				"domain/*"
 			],
@@ -53,9 +56,6 @@
 			],
 			"@service/*": [
 				"service/*"
-			],
-			"@hooks/*": [
-				"hooks/*"
 			],
 			"@test/*": [
 				"test/*"

@@ -16,7 +16,7 @@ export const TimeFormatSettings: React.FC = () => {
 		setStoredTimeFormat(newValue as TimeFormat);
 	}
 
-	const sortByKey = (a: { key: string }, b: { key: string }) => (a.key < b.key ? -1 : 1)
+	const sortByKey = (previous: { key: string }, next: { key: string }) => (previous.key < next.key ? -1 : 1)
 
 	useEffect(() => {
 		if (storedTimeFormat === null) {

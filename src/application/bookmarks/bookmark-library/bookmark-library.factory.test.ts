@@ -1,6 +1,5 @@
-import { describe, it, expect, beforeEach } from "vitest";
 import BookmarkLibraryFactory from "./bookmark-library.factory";
-import { IBookmarkLibraryFactory } from "@domain/factories/bookmarks/IBookmarkLibraryFactory";
+import IBookmarkLibraryFactory from "./bookmark-library.type";
 
 describe("BookmarkLibraryFactory", () => {
 	let bookmarkLibraryFactory: IBookmarkLibraryFactory;

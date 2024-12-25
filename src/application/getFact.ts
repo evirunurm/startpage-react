@@ -1,11 +1,11 @@
-import { useCatFactService } from "@service/catFactsAdapter";
+import { useCatFactService } from "@service/cat-facts.service";
 import { FactType } from "@domain/fact/FactType";
 import ICatsFactResult from "@domain/fact/ICatsFactResult";
 import { IFactsService } from "@application/ports";
 import IDogsFactResult from "@domain/fact/IDogsFactResult";
-import { useDogFactService } from "@service/dogFactsAdapter";
+import { useDogFactService } from "@service/dog-facts.service";
 import IJokesResult from "@domain/fact/IJokesResult";
-import { useJokesService } from "@service/jokesAdapter";
+import { useJokesService } from "@service/joke-facts.service";
 
 export default function useGetFact() {
 	let fact: string = '';

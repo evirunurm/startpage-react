@@ -4,7 +4,7 @@ import { DropItem, FileDropItem, FileTrigger } from "react-aria-components";
 import { Button } from "@components/atoms/button/button";
 import { Label } from "@components/atoms/label/label";
 import { DropZone } from "@components/atoms/drop-zone/drop-zone";
-import IImage from "@domain/image/Image";
+import Image from "@domain/image/Image";
 import { LocalStorageType } from "@domain/localStorage/LocalStorageType";
 import { useLocalStorageState } from "@hooks/useLocalStorageState";
 import { ImageTypes } from "@domain/image/ImageTypes";
@@ -17,7 +17,7 @@ interface HandleFileDropEvent {
 
 export const ImageSettings: React.FC = () => {
 	const { t } = useTranslation();
-	const [, setStoredImage] = useLocalStorageState<IImage>(LocalStorageType.Image);
+	const [, setStoredImage] = useLocalStorageState<Image>(LocalStorageType.Image);
 	const [file, setFile] = React.useState<File | null>(null);
 
 	const handleFileDrop = async (e: HandleFileDropEvent): Promise<void> => {
@@ -55,13 +55,12 @@ export const ImageSettings: React.FC = () => {
 	const onImageUrlLoad = (file: File, event: ProgressEvent<FileReader>) => {
 		try {
 			setStoredImage({
-				file: file,
 				url: event.target?.result as string,
 				name: file.name,
 				custom: true
-			} as IImage);
+			} as Image);
 			setFile(file);
-		} catch (error) {
+		} catch {
 			alert(t('errors.image.image-size'));
 		}
 	}

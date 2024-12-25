@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocalStorageState } from "@hooks/useLocalStorageState";
-import BookmarkFolderFactory from "@application/bookmarks/bookmark-folder.factory";
-import BookmarkLibraryFactory from "@application/bookmarks/bookmark-library.factory";
+import BookmarkFolderFactory from "@application/bookmarks/bookmark-folder/bookmark-folder.factory";
+import BookmarkLibraryFactory from "@application/bookmarks/bookmark-library/bookmark-library.factory";
 import IBookmarkLibrary from "@domain/bookmarks/IBookmarkLibrary";
 import { LocalStorageType } from "@domain/localStorage/LocalStorageType";
 import IBookmarkFolder from "@domain/bookmarks/IBookmarkFolder";

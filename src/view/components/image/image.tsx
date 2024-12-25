@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import IImage from "@domain/image/Image";
+import ImageType from "@domain/image/Image";
 import { LocalStorageType } from "@domain/localStorage/LocalStorageType";
 import { useLocalStorageState } from "@hooks/useLocalStorageState";
-import ImageFactory from "@application/ImageFactory";
+import ImageFactory from "@application/image";
 import styles from "./image.module.css";
 
 export const Image: React.FC = () => {
-	const [store, setState] = useLocalStorageState<IImage>(
+	const [store, setState] = useLocalStorageState<ImageType>(
 		LocalStorageType.Image
 	);
 	const { getDefaultImage } = ImageFactory();

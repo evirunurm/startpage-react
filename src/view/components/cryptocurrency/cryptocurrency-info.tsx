@@ -1,5 +1,5 @@
 
-import { useCryptoPrice } from "@hooks/useCryptoPrice";
+import { useCryptoPrice } from "@service/crypto.service";
 import styles from "./cryptocurrency-info.module.css";
 import { LocalStorageType } from "@domain/localStorage/LocalStorageType";
 import { Cryptocurrency } from "@domain/crypto/Cryptocurrency";

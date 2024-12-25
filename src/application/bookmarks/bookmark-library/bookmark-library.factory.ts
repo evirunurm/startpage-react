@@ -1,9 +1,9 @@
 import IBookmarkLibrary from "@domain/bookmarks/IBookmarkLibrary";
 import IBookmarkFolder from "@domain/bookmarks/IBookmarkFolder";
 import { generateUniqueId } from "@utils/utils";
-import BookmarkFolderFactory from "./bookmark-folder.factory";
-import { IBookmarkLibraryFactory } from "@domain/factories/bookmarks/IBookmarkLibraryFactory";
-import DEFAULT_BOOKMARK_LIBRARY from "@application/bookmarks/default-bookmark-library";
+import BookmarkFolderFactory from "../bookmark-folder/bookmark-folder.factory";
+import DEFAULT_BOOKMARK_LIBRARY from "./default-bookmark-library";
+import IBookmarkLibraryFactory from "./bookmark-library.type";
 
 const MAX_AMOUNT_FOLDERS: number = 4;
 

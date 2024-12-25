@@ -1,4 +1,3 @@
-import { LocalStorageType } from "@domain/localStorage/LocalStorageType";
 import ICatsFactResult from "../domain/fact/ICatsFactResult";
 import IDogsFactResult from "@domain/fact/IDogsFactResult";
 import IJokesResult from "@domain/fact/IJokesResult";
@@ -39,16 +38,3 @@ export async function jokesAPI(): Promise<IJokesResult> {
 	return data as IJokesResult;
 }
 
-export async function getLocalStorage(
-	key: LocalStorageType
-): Promise<string | null> {
-	const item = window.localStorage.getItem(key);
-	return item;
-}
-
-export async function postLocalStorage(
-	key: LocalStorageType,
-	value: string
-): Promise<void> {
-	window.localStorage.setItem(key, value);
-}

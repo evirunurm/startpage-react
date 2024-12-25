@@ -2,7 +2,7 @@ import React, { createContext, useState, PropsWithChildren } from 'react';
 import Colors from '@domain/colors/Colors';
 import { useLocalStorageState } from '@hooks/useLocalStorageState';
 import { LocalStorageType } from '@domain/localStorage/LocalStorageType';
-import DEFAULT_COLORS from '@application/colors/default-colors';
+import ColorsFactory from '@application/colors/colors.factory';
 
 interface ColorsContextType {
 	colors: Colors;
@@ -12,8 +12,9 @@ interface ColorsContextType {
 const ColorsContext = createContext<ColorsContextType>({} as ColorsContextType);
 
 export const ColorsProvider: React.FC<PropsWithChildren> = ({ children }) => {
+	const { getDefaultColors } = ColorsFactory();
 	const [storedColors] = useLocalStorageState<Colors>(LocalStorageType.Colors);
-	const [colors, setColors] = useState<Colors>(storedColors ?? DEFAULT_COLORS);
+	const [colors, setColors] = useState<Colors>(storedColors ?? getDefaultColors());
 
 	return (
 		<ColorsContext.Provider value={{ colors, setColors }}>
@@ -21,6 +22,5 @@ export const ColorsProvider: React.FC<PropsWithChildren> = ({ children }) => {
 		</ColorsContext.Provider>
 	);
 };
-
 
 export default ColorsContext;

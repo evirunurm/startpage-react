@@ -1,3 +1,4 @@
+import React from "react";
 import { Fact } from "@components/fact/fact";
 import { Image } from "@components/image/image";
 import { DateTime } from "@components/date-time";
@@ -8,26 +9,19 @@ import { HorizontalLine } from "@components/atoms/horizontal-line/horizontal-lin
 import { BookmarkLibraryContainer } from "@components/bookmark-library-container/bookmark-library-container";
 import { SettingsTrigger } from "@components/seetings-trigger/settings-trigger";
 import { useContext, useEffect } from "react";
-import Colors from "@domain/colors/Colors";
 import ColorsContext from "@context/colors-context";
 import { CryptocurrencyInfo } from "@components/cryptocurrency/cryptocurrency-info";
+import ColorsFactory from "@application/colors/colors.factory";
 
-
-const Startpage = () => {
+const Startpage: React.FC = () => {
 	const { colors } = useContext(ColorsContext);
-
-	const updateCSSVariables = (colors: Colors) => {
-		Object.keys(colors).forEach((color: string) => {
-			document.documentElement.style.setProperty(`--${color}`, colors[color as keyof Colors]);
-		});
-	}
+	const { updateCSSVariables } = ColorsFactory();
 
 	useEffect(() => {
 		if (colors) {
 			updateCSSVariables(colors);
 		}
-
-	}, [colors]);
+	}, [colors, updateCSSVariables]);
 
 	return (
 		<StartpageLayout>

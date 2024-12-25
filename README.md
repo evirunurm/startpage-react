@@ -212,6 +212,36 @@ Also, in the application layer there are **ports—interfaces** for communicatin
 
 In the adapters layer, we declare adapters to **external services**. Adapters make incompatible **APIs of third-party services** compatible to our system.
 
+## Linter
+
+In order to enforce a consistent code style ESLint is used.
+
+1. **Install** the ESLint package
+
+``` cmd
+npm install eslint --save-dev
+```
+
+2. **Initialize** the ESLint CLI **configuration**, with following answers.
+
+``` cmd
+npm init @eslint/config
+> How would you like to use ESLint? · problems
+> What type of modules does your project use? · esm 
+> Which framework does your project use? · react
+> Does your project use TypeScript? · typescript 
+> Where does your code run? · browser
+```
+
+1. Install the suggested **dependencies**.
+
+``` cmd
+eslint, globals, @eslint/js, typescript-eslint, eslint-plugin-react
+```
+
+4. Install the **ESLint plugin** for VSCode
+
+
 ## Testing
 
 ### Packages

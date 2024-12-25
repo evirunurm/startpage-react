@@ -1,7 +1,7 @@
 import IBookmarkFolder from "@domain/bookmarks/IBookmarkFolder";
 import IBookmarkLibrary from "@domain/bookmarks/IBookmarkLibrary";
 
-export interface IBookmarkLibraryFactory {
+export default interface IBookmarkLibraryFactory {
 	maxAmountFolders: number;
 	getDefaultBookmarkLibrary: () => IBookmarkLibrary;
 	createNewFolder: (library: IBookmarkLibrary) => IBookmarkLibrary;
