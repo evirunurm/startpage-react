@@ -1,6 +1,6 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useState } from 'react';
 import styles from './disclosure.module.css';
-import { DisclosurePanel, Heading, Disclosure as DiscloreAria, DisclosureProps as DisclosurePropsAria } from 'react-aria-components';
+import { DisclosurePanel, Heading, Disclosure as DisclosureAria, DisclosureProps as DisclosurePropsAria } from 'react-aria-components';
 import { Button } from '../button/button';
 import { IconChevronRight } from '@tabler/icons-react/';
 import { Switch } from '../switch/switch';
@@ -14,11 +14,13 @@ type DisclosureProps = DisclosurePropsAria & {
 }
 
 export const Disclosure = ({ title, wide, children, selected, onSelectedSwitch, ...props }: PropsWithChildren<DisclosureProps>) => {
+	const [isExpanded, setIsExpanded] = useState(false);
 
 	return (
-		<DiscloreAria
+		<DisclosureAria
 			className={styles.disclosure}
 			{...props}
+			onExpandedChange={setIsExpanded}
 		>
 			<Heading className={classNames(styles['heading'], {
 				[styles['heading--disabled']]: selected === false
@@ -47,8 +49,8 @@ export const Disclosure = ({ title, wide, children, selected, onSelectedSwitch, 
 					[styles['panel--wide']]: wide
 				})}
 			>
-				{children}
+				{isExpanded && children}
 			</DisclosurePanel>
-		</DiscloreAria>
+		</DisclosureAria>
 	);
 }

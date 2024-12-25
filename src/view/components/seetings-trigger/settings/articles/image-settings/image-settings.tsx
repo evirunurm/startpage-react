@@ -7,9 +7,9 @@ import { DropZone } from "@components/atoms/drop-zone/drop-zone";
 import Image from "@domain/image/Image";
 import { LocalStorageType } from "@domain/localStorage/LocalStorageType";
 import { useLocalStorageState } from "@hooks/useLocalStorageState";
-import { ImageTypes } from "@domain/image/ImageTypes";
 import { Disclosure } from "@components/atoms/disclosure/disclosure";
 import { useTranslation } from "react-i18next";
+import ImageFactory from "@application/image";
 
 interface HandleFileDropEvent {
 	items: DropItem[];
@@ -18,65 +18,42 @@ interface HandleFileDropEvent {
 export const ImageSettings: React.FC = () => {
 	const { t } = useTranslation();
 	const [, setStoredImage] = useLocalStorageState<Image>(LocalStorageType.Image);
-	const [file, setFile] = React.useState<File | null>(null);
+	const { processFile, getValidImageTypes } = ImageFactory();
+	const [fileName, setFileName] = React.useState<string | null>(null);
 
 	const handleFileDrop = async (e: HandleFileDropEvent): Promise<void> => {
 		const files = e.items.filter((file: DropItem) => file.kind === 'file') as FileDropItem[];
 		const file = await files[0].getFile();
-
-		if (!isValidFileType(file)) {
-			alert(t('errors.image.image-type'));
-			return;
-		}
-		saveImageFile(file);
+		await processDroppedFile(file);
 	};
 
 	const handleFileUpload = async (e: FileList | null) => {
 		if (e) {
 			const file = Array.from(e)[0];
-			if (!isValidFileType(file)) {
-				alert(t('errors.image.image-type'));
-				return;
-			}
-			saveImageFile(file);
+			await processFile(file, onImageUrlLoad);
+			setFileName(getShortenedFileName(file.name));
 		}
 	};
 
-	const isValidFileType = (file: File) => {
-		return [ImageTypes.JPEG, ImageTypes.PNG, ImageTypes.GIF]
-			.map((type) => type.toString())
-			.includes(file.type);
-	};
-
-	const saveImageFile = (file: File) => {
-		convertImageToBase64(file, onImageUrlLoad);
-	};
-
-	const onImageUrlLoad = (file: File, event: ProgressEvent<FileReader>) => {
+	const processDroppedFile = async (file: File) => {
 		try {
-			setStoredImage({
-				url: event.target?.result as string,
-				name: file.name,
-				custom: true
-			} as Image);
-			setFile(file);
-		} catch {
-			alert(t('errors.image.image-size'));
+			await processFile(file, onImageUrlLoad);
+			setFileName(getShortenedFileName(file.name));
+		} catch (error) {
+			alert(error);
 		}
+	};
+
+	const onImageUrlLoad = (url: string) => {
+		setStoredImage({
+			url: url,
+			name: fileName,
+			custom: true
+		} as Image);
 	}
 
-	const convertImageToBase64 = (
-		file: File,
-		onLoad: (file: File, event: ProgressEvent<FileReader>) => void
-	) => {
-		const reader = new FileReader();
-		reader.onload = (event) => onLoad(file, event);
-		reader.readAsDataURL(file);
-	}
-
-	const getFileName = () => {
-		if (!file) return null;
-		return file.name.length > 20 ? `${file.name.substring(0, 20)}...` : file.name;
+	const getShortenedFileName = (name: string) => {
+		return name.length > 20 ? `${name.substring(0, 20)}...` : name;
 	}
 
 	return (
@@ -84,13 +61,15 @@ export const ImageSettings: React.FC = () => {
 			<Article>
 				<DropZone onDrop={handleFileDrop} >
 					<FileTrigger
-						acceptedFileTypes={[ImageTypes.JPEG, ImageTypes.PNG, ImageTypes.GIF]}
+						acceptedFileTypes={getValidImageTypes()}
 						onSelect={handleFileUpload}
 					>
-						<Button center>{t("common.image-upload")}</Button>
+						<Button center>
+							{t("common.image-upload")}
+						</Button>
 					</FileTrigger>
 					<Label>
-						{getFileName() || t("common.image-placeholder")}
+						{fileName || t("common.image-placeholder")}
 					</Label>
 				</DropZone>
 			</Article>

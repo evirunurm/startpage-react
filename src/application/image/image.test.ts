@@ -15,16 +15,16 @@ describe("ImageFactory", () => {
 		expect(getDefaultImage()).toBeDefined();
 	});
 
-	it("should return maximum KB size of 3000", () => {
-		const { maxKBSize } = imageFactory;
+	it("should return maximum KB size of 3000000", () => {
+		const { maxByteSize } = imageFactory;
 
-		expect(maxKBSize).toBe(3000);
+		expect(maxByteSize).toBe(3000000);
 	});
 
-	it("should reject processing files heavier than 3MB", async () => {
+	it("should reject processing files heavier than 3000000Bytes (3000KB)", async () => {
 		const { processFile } = imageFactory;
-		const heavyFile = new File([""], 'heavyFile.png');
-		Object.defineProperty(heavyFile, 'size', { value: 3001, configurable: true });
+		const heavyFile = new File([""], 'heavyFile.png', { type: ImageTypes.PNG });
+		Object.defineProperty(heavyFile, 'size', { value: 3000001, configurable: true });
 
 
 		await expect(processFile(heavyFile, () => { })).rejects.toThrow("File is too large");

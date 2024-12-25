@@ -4,7 +4,7 @@ import IImageFactory from "./image.type";
 import { ImageTypes } from "@domain/image/ImageTypes";
 
 export default function ImageFactory(): IImageFactory {
-	const maxKBSize = 3000
+	const maxByteSize = 3000000;
 
 	const getDefaultImage = (): Image => {
 		return defaultImage;
@@ -15,7 +15,7 @@ export default function ImageFactory(): IImageFactory {
 	}
 
 	const processFile = async (file: File, onLoad: (result: string) => void): Promise<void> => {
-		if (file.size > maxKBSize) {
+		if (file.size > maxByteSize) {
 			throw new Error("File is too large");
 		}
 		if (!getValidImageTypes().includes(file.type)) {
@@ -33,7 +33,7 @@ export default function ImageFactory(): IImageFactory {
 	}
 
 	return {
-		maxKBSize,
+		maxByteSize,
 		getDefaultImage,
 		getValidImageTypes,
 		processFile
