@@ -1,0 +1,35 @@
+@layer components.reorderable-bookmarks {
+	.header {
+		display: none;
+	}
+
+	.body {
+		.body__row {
+			display: flex;
+			width: 100%;
+
+			&[data-dragging] {
+				opacity: 0.6;
+			}
+
+			&[data-focus-visible] {
+				outline: 2px solid red;
+				outline-offset: -2px;
+			}
+
+			.body__row__bookmark-editor {
+				width: 100%;
+			}
+
+			.body__row__drag-button {
+				cursor: grab;
+
+				button {
+					width: 100%;
+					height: 100%;
+				}
+			}
+		}
+	}
+
+}
