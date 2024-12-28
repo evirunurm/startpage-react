@@ -10,7 +10,7 @@ import { CircularButton } from "@components/atoms/circular-button/circular-butto
 import { IconPlus } from "@tabler/icons-react";
 import { Message } from "@components/atoms/message/message";
 import { ModalContainer } from "@components/atoms/modal-container/modal-container";
-import { DraggableBookmarks } from "./draggable-bookmarks/draggable-bookmarks";
+import { ReorderableBookmarks } from "./reorderable-bookmarks/reorderable-bookmarks";
 import BookmarkLibraryFactory from "@application/bookmarks/bookmark-library/bookmark-library.factory";
 import BookmarkFolderFactory from "@application/bookmarks/bookmark-folder/bookmark-folder.factory";
 
@@ -119,7 +119,7 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 						<Message>Enter to save changes</Message>
 					}
 				</div>
-				<DraggableBookmarks
+				<ReorderableBookmarks
 					bookmarks={bookmarks}
 					onDeleteBookmark={handleDeleteBookmark}
 					onSaveBookmark={handleSaveBookmark}

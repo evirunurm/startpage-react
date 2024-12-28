@@ -13,11 +13,8 @@ export const CryptocurrencySettings: React.FC = () => {
 	const { t } = useTranslation();
 	const [storedCrypto, setStoredCrypto] = useLocalStorageState<Cryptocurrency | null>(LocalStorageType.Crypto);
 	const [enabled, setEnabled] = useState<boolean>(!!storedCrypto);
-	const [expanded, setExpanded] = useState<boolean>(false);
-
 	const handleEnabledChange = (enabled: boolean) => {
 		setEnabled(enabled);
-		setExpanded(enabled);
 		setStoredCrypto(enabled ? Cryptocurrency.Bitcoin : null);
 	}
 
@@ -30,8 +27,6 @@ export const CryptocurrencySettings: React.FC = () => {
 			title={t("crypto.crypto")}
 			selected={enabled}
 			onSelectedSwitch={handleEnabledChange}
-			isExpanded={expanded}
-			onExpandedChange={setExpanded}
 		>
 			<Article>
 				<RadioGroup

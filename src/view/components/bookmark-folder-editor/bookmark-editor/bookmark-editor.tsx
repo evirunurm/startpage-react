@@ -15,8 +15,8 @@ interface BookmarkEditorProps {
 	url: string;
 	onSave: (newBookmark: IBookmark) => void;
 	onDelete: (bookmarkId: string) => void;
-	onInputFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
-	onInputBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+	onInputFocus?: () => void;
+	onInputBlur?: () => void;
 }
 
 export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({

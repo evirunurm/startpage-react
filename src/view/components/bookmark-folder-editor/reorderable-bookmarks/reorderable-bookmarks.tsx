@@ -1,31 +1,32 @@
-import { GridList, GridListItem, GridListProps as GridListPropsAria, useDragAndDrop } from "react-aria-components";
+import { Cell, Column, Row, Table, TableBody, TableHeader, useDragAndDrop } from "react-aria-components";
 import { DragButton } from "@components/atoms/drag-button/drag-button";
 import { DropIndicator } from "@components/atoms/drop-indicator/drop-indicator";
 import IBookmark from "@domain/bookmarks/IBookmark";
 import { BookmarkEditor } from "../bookmark-editor/bookmark-editor";
-import styles from "./draggable-bookmarks.module.css";
+import styles from "./reorderable-bookmarks.module.css";
 import { useEffect, useState, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 
-type DraggableBookmarksProps = GridListPropsAria<object> & {
+type ReorderableBookmarksProps = {
 	bookmarks: IBookmark[];
 	onFolderReorder: (reorderedBookmarks: IBookmark[]) => void;
 	onDeleteBookmark: (bookmarkId: string) => void;
 	onSaveBookmark: (newBookmark: IBookmark) => void;
 };
 
-type DraggableBookmark = IBookmark & {
+type ReorderableBookmark = IBookmark & {
 	dragAndDropDisabled: boolean;
 }
 
-export const DraggableBookmarks = ({
+export const ReorderableBookmarks = ({
 	bookmarks,
 	onFolderReorder,
 	onDeleteBookmark,
-	onSaveBookmark,
-	...props
-}: DraggableBookmarksProps) => {
+	onSaveBookmark
+}: ReorderableBookmarksProps) => {
+	const { t } = useTranslation();
 	const [dragAndDropDisabled, setDragAndDropDisabled] = useState(false);
-	const [draggableBookmarks, setDraggableBookmarks] = useState<DraggableBookmark[]>(bookmarks.map((bookmark) => ({
+	const [draggableBookmarks, setDraggableBookmarks] = useState<ReorderableBookmark[]>(bookmarks.map((bookmark) => ({
 		...bookmark,
 		dragAndDropDisabled: false
 	})));
@@ -68,34 +69,44 @@ export const DraggableBookmarks = ({
 	}, [bookmarks, updateDraggableBookmarks]);
 
 	return (
-		<GridList
-			{...props}
-			aria-labelledby="Bookmarks"
-			items={draggableBookmarks}
+		<Table
+			aria-label="Bookmarks"
 			dragAndDropHooks={dragAndDropHooks}
-			keyboardNavigationBehavior="tab"
 		>
-			{(bookmark: DraggableBookmark) => (
-				<GridListItem
-					key={bookmark.id}
-					id={bookmark.id}
-					textValue={bookmark.name}
-					className={styles["bookmark-folder__grid-list-item"]}
-					style={bookmark.dragAndDropDisabled ? {} : { WebkitUserDrag: 'element' } as React.CSSProperties}
-				>
-					<DragButton />
-					<BookmarkEditor
+			<TableHeader className={styles["header"]}>
+				<Column>{t('common.reorder')}</Column>
+				<Column isRowHeader>{t('common.name')}</Column>
+			</TableHeader>
+			<TableBody
+				className={styles["body"]}
+				items={draggableBookmarks}
+			>
+				{(bookmark: ReorderableBookmark) => (
+					<Row
 						id={bookmark.id}
-						key={`${bookmark.id}-editor`}
-						name={bookmark.name}
-						url={bookmark.url}
-						onDelete={onDeleteBookmark}
-						onSave={onSaveBookmark}
-						onInputFocus={handleInputFocus}
-						onInputBlur={handleInputBlur}
-					/>
-				</GridListItem>
-			)}
-		</GridList >
+						key={bookmark.id}
+						textValue={bookmark.name}
+						className={styles["body__row"]}
+						style={bookmark.dragAndDropDisabled ? {} : { WebkitUserDrag: 'element' } as React.CSSProperties}
+					>
+						<Cell className={styles["body__row__drag-button"]}>
+							<DragButton />
+						</Cell>
+						<Cell className={styles["body__row__bookmark-editor"]}>
+							<BookmarkEditor
+								id={bookmark.id}
+								key={`${bookmark.id}-editor`}
+								name={bookmark.name}
+								url={bookmark.url}
+								onDelete={onDeleteBookmark}
+								onSave={onSaveBookmark}
+								onInputFocus={handleInputFocus}
+								onInputBlur={handleInputBlur}
+							/>
+						</Cell>
+					</Row>
+				)}
+			</TableBody>
+		</Table >
 	);
 };

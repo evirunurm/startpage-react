@@ -13,11 +13,9 @@ export const FactTypeSettings: React.FC = () => {
 	const { t } = useTranslation();
 	const [storedFactType, setStoredFactType] = useLocalStorageState<FactType | null>(LocalStorageType.FactType);
 	const [enabled, setEnabled] = useState<boolean>(storedFactType !== null);
-	const [expanded, setExpanded] = useState<boolean>(false);
 
 	const handleEnabledChange = (enabled: boolean) => {
 		setEnabled(enabled);
-		setExpanded(enabled);
 		setStoredFactType(enabled ? FactType.Cats : null);
 	}
 
@@ -29,8 +27,6 @@ export const FactTypeSettings: React.FC = () => {
 		<Disclosure
 			selected={enabled}
 			onSelectedSwitch={handleEnabledChange}
-			isExpanded={expanded}
-			onExpandedChange={setExpanded}
 			title={t("facts.fact")}
 		>
 			<Article>

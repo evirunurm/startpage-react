@@ -21,7 +21,7 @@ describe("Disclosure", () => {
 		expect(queryByText("Cant find me")).toBeNull();
 	});
 
-	it("expands, rendering children, when clicked on", async () => {
+	it("renders children when clicked on", async () => {
 		const { getByRole, getByText } = render(
 			<Disclosure title="Title" >
 				<Button>Find me</Button>
@@ -35,6 +35,17 @@ describe("Disclosure", () => {
 		expect(findMeButton).toBeInTheDocument();
 	});
 
+	it("expands when clicked on", async () => {
+		const { getByRole, container } = render(
+			<Disclosure title="Title" />
+		);
+
+		const expandButton = getByRole("button");
+		fireEvent.click(expandButton);
+
+		const disclosure = container.firstChild;
+		expect(disclosure).toHaveAttribute("data-expanded", "true");
+	});
 
 	it("is accessible detracted, with focusable element inside", async () => {
 		const { container } = render(

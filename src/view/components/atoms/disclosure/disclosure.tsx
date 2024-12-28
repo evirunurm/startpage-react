@@ -6,21 +6,31 @@ import { IconChevronRight } from '@tabler/icons-react/';
 import { Switch } from '../switch/switch';
 import classNames from 'classnames';
 
-type DisclosureProps = DisclosurePropsAria & {
+type DisclosureProps = Omit<DisclosurePropsAria, 'onExpandedChange' | 'isExpanded'> & {
 	title: string;
 	wide?: boolean;
 	selected?: boolean;
 	onSelectedSwitch?: (isSelected: boolean) => void;
 }
 
-export const Disclosure = ({ title, wide, children, selected, onSelectedSwitch, ...props }: PropsWithChildren<DisclosureProps>) => {
-	const [isExpanded, setIsExpanded] = useState(false);
+export const Disclosure = ({ title, wide, children, selected, onSelectedSwitch, defaultExpanded, ...props }: PropsWithChildren<DisclosureProps>) => {
+	const [isExpanded, setIsExpanded] = useState(defaultExpanded ?? false);
+
+	const handleExpandedChangeEvent = (expanded: boolean) => {
+		setIsExpanded(expanded);
+	}
+
+	const handleSelectedSwitch = (isSelected: boolean) => {
+		setIsExpanded(isSelected);
+		onSelectedSwitch?.(isSelected);
+	}
 
 	return (
 		<DisclosureAria
-			className={styles.disclosure}
 			{...props}
-			onExpandedChange={setIsExpanded}
+			className={styles.disclosure}
+			onExpandedChange={handleExpandedChangeEvent}
+			isExpanded={isExpanded}
 		>
 			<Heading className={classNames(styles['heading'], {
 				[styles['heading--disabled']]: selected === false
@@ -40,7 +50,7 @@ export const Disclosure = ({ title, wide, children, selected, onSelectedSwitch, 
 					selected !== undefined &&
 					<Switch
 						isSelected={selected}
-						onChange={onSelectedSwitch}
+						onChange={handleSelectedSwitch}
 					/>
 				}
 			</Heading>
