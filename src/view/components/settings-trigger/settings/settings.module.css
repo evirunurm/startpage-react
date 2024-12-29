@@ -1,6 +1,6 @@
 @layer components.settings {
 	.settings {
-		gap: 0rem;
+		gap: 0;
 		padding: 0 0 1rem 0;
 
 		.settings__title {
