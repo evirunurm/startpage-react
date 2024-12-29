@@ -1,5 +1,4 @@
 @import 'layers.css';
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
 @layer reset {
 
@@ -18,7 +17,7 @@
 
 @layer fonts {
 	body {
-		font-family: 'Noto Sans', sans-serif;
+		font-family: 'Poppins', sans-serif;
 		color: var(--color-font);
 	}
 }

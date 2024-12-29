@@ -2,13 +2,12 @@ export function getEnumArray<
 	T extends string,
 	TEnumValue extends string | number
 >(enumVariable: { [key in T]: TEnumValue }) {
-	const result = Object.keys(enumVariable)
+	return Object.keys(enumVariable)
 		.filter((key) => isNaN(Number(key)))
 		.map((key) => ({
 			key,
 			value: enumVariable[key as T],
 		}));
-	return result;
 }
 
 export function generateUniqueId() {
