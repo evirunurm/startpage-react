@@ -48,10 +48,10 @@ export const ReorderableBookmarks = ({
 		onReorder(e) {
 			const updatedBookmarks = [...bookmarks];
 			const movedBookmark = updatedBookmarks.find((bookmark) => bookmark.id === Array.from(e.keys)[0]);
-			const targetIndex = updatedBookmarks.findIndex((bookmark) => bookmark.id === e.target.key);
 
 			if (movedBookmark) {
 				updatedBookmarks.splice(updatedBookmarks.indexOf(movedBookmark), 1);
+				const targetIndex = updatedBookmarks.findIndex((bookmark) => bookmark.id === e.target.key);
 				const insertIndex = e.target.dropPosition === 'before' ? targetIndex : targetIndex + 1;
 				updatedBookmarks.splice(insertIndex, 0, movedBookmark);
 				onFolderReorder(updatedBookmarks);
@@ -70,7 +70,7 @@ export const ReorderableBookmarks = ({
 
 	return (
 		<Table
-			aria-label="Bookmarks"
+			aria-label={t('common.bookmarks')}
 			dragAndDropHooks={dragAndDropHooks}
 		>
 			<TableHeader className={styles["header"]}>

@@ -8,6 +8,10 @@ import {
 } from "@tabler/icons-react";
 import classNames from 'classnames';
 import { Message } from "@components/atoms/message/message";
+import { useTranslation } from "react-i18next";
+
+const MAX_NAME_LENGTH = 25;
+const MAX_URL_LENGTH = 2048;
 
 interface BookmarkEditorProps {
 	id: string;
@@ -28,6 +32,7 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 	onInputFocus,
 	onInputBlur
 }) => {
+	const { t } = useTranslation();
 	const [deleteConfirmation, setDeleteConfirmation] = useState(false);
 	const [bookmarkName, setBookmarkName] = useState(name);
 	const [bookmarkUrl, setBookmarkUrl] = useState(url);
@@ -47,11 +52,15 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 	};
 
 	const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setBookmarkName(e.currentTarget.value);
+		let newName = e.currentTarget.value;
+		if (newName.length > MAX_NAME_LENGTH) newName = newName.slice(0, MAX_NAME_LENGTH);
+		setBookmarkName(newName);
 	};
 
 	const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setBookmarkUrl(e.currentTarget.value);
+		let newURL = e.currentTarget.value;
+		if (newURL.length > MAX_URL_LENGTH) newURL = newURL.slice(0, MAX_URL_LENGTH);
+		setBookmarkUrl(newURL);
 	};
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -61,10 +70,7 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 	};
 
 	const saveBookmark = () => {
-		if (!bookmarkName) {
-			console.error("Name is required");
-			return;
-		}
+		if (!bookmarkName) return;
 		const newBookmark: IBookmark = {
 			id,
 			name: bookmarkName,
@@ -76,24 +82,22 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 
 	return (
 		<section className={styles["bookmark-editor"]}>
-			<div
-				className={styles["bookmark-editor__inputs"]}
-				aria-label="Bookmark data"
-			>
+			<div className={styles["bookmark-editor__inputs"]}>
 				<Input
-					onBlur={onInputBlur}
-					onFocus={onInputFocus}
-					name={name}
-					value={bookmarkName}
 					type="text"
 					key={`${id}-name-edit`}
+					name={name}
+					value={bookmarkName}
+					aria-label={t('common.bookmark-name')}
+					onBlur={onInputBlur}
+					onFocus={onInputFocus}
 					onKeyDown={handleKeyDown}
 					onChange={handleNameChange}
-					maxLength={25}
-					max={25}
+					maxLength={MAX_NAME_LENGTH}
 				/>
 				{isEditingOpen && (
 					<Input
+						aria-label={t('common.bookmark-url')}
 						name={name}
 						value={bookmarkUrl}
 						type="text"
@@ -102,10 +106,11 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 						onChange={handleUrlChange}
 						onBlur={onInputBlur}
 						onFocus={onInputFocus}
+						maxLength={MAX_URL_LENGTH}
 					/>
 				)}
 				{bookmarkName != name || bookmarkUrl != url ?
-					<Message>Enter to save changes</Message>
+					<Message>{t('common.enter-save-changes')}</Message>
 					: null
 				}
 			</div>
@@ -116,45 +121,39 @@ export const BookmarkEditor: React.FC<BookmarkEditorProps> = ({
 			>
 				{!isEditingOpen ? (
 					<Button
-						tooltip="Edit bookmark"
+						tooltip={t('common.edit-url')}
+						aria-label={t('common.edit-url')}
 						className={styles["bookmark-editor__buttons__button"]}
 						onPress={handleEditBookmarkClick}
-						aria-label="Edit bookmark"
 						padding="0.25rem"
-					>
-						<IconLink size={18} />
-					</Button>
+					><IconLink size={18} /></Button>
 				) : (
 					<Button
-						tooltip="Save bookmark"
+						tooltip={t('common.save-bookmark')}
+						aria-label={t('common.save-bookmark')}
 						className={styles["bookmark-editor__buttons__button"]}
 						onPress={saveBookmark}
-						aria-label="Save bookmark"
 						padding="0.25rem"
-					>
-						<IconDeviceFloppy size={18} />
-					</Button>
+					><IconDeviceFloppy size={18} /></Button>
 				)}
 				{deleteConfirmation ? (
 					<Button
-						tooltipPlacement="end"
-						tooltip="Confirm deletion"
+						tooltip={t('common.confirm-deletion')}
+						aria-label={t('common.confirm-deletion')}
 						className={styles["bookmark-editor__buttons__button"]}
 						onPress={handleConfirmDeleteBookmark}
-						aria-label="Confirm deletion"
 						padding="0.25rem"
-					>
-						<IconChecks size={18} />
-					</Button>) : (<Button
 						tooltipPlacement="end"
-						tooltip="Delete bookmark"
+					><IconChecks size={18} /></Button>
+				) : (
+					<Button
+						aria-label={t('common.delete-bookmark')}
+						tooltip={t('common.delete-bookmark')}
 						className={styles["bookmark-editor__buttons__button"]}
 						onPress={handleDeleteBookmark}
-						aria-label="Delete bookmark"
+						tooltipPlacement="end"
 						padding="0.25rem"
-					>
-						<IconTrashX size={18} />
-					</Button>
+					><IconTrashX size={18} /></Button>
 				)}
 			</div>
 		</section>

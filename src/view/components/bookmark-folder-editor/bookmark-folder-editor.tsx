@@ -13,6 +13,7 @@ import { ModalContainer } from "@components/atoms/modal-container/modal-containe
 import { ReorderableBookmarks } from "./reorderable-bookmarks/reorderable-bookmarks";
 import BookmarkLibraryFactory from "@application/bookmarks/bookmark-library/bookmark-library.factory";
 import BookmarkFolderFactory from "@application/bookmarks/bookmark-folder/bookmark-folder.factory";
+import { useTranslation } from "react-i18next";
 
 interface BookmarkFolderEditorProps {
 	folderId: string;
@@ -29,10 +30,8 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 	onNameSave,
 	onBookmarksUpdate,
 }) => {
-	const {
-		getFolderById
-	} = BookmarkLibraryFactory();
-
+	const { t } = useTranslation();
+	const { getFolderById } = BookmarkLibraryFactory();
 	const {
 		createNewBookmark,
 		deleteBookmark,
@@ -116,7 +115,7 @@ export const BookmarkFolderEditor: React.FC<BookmarkFolderEditorProps> = ({
 						onChange={handleNameChange}
 					/>
 					{folderName !== name &&
-						<Message>Enter to save changes</Message>
+						<Message>{t('common.enter-save-changes')}</Message>
 					}
 				</div>
 				<ReorderableBookmarks

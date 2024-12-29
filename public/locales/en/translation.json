@@ -33,7 +33,16 @@
 		"image": "Image",
 		"image-placeholder": "Drop image here",
 		"image-upload": "Upload image",
-		"add-folder": "Add folder"
+		"add-folder": "Add folder",
+		"enter-save-changes": "Enter to save changes",
+		"bookmark-name": "Bookmark name",
+		"bookmark-url": "Bookmark URL",
+		"drag-reorder": "Drag to reorder",
+		"edit-url": "Edit URL",
+		"save-bookmark": "Save bookmark",
+		"delete-bookmark": "Delete bookmark",
+		"confirm-deletion": "Confirm deletion",
+		"Bookmarks": "Bookmarks"
 	},
 	"errors": {
 		"image": {

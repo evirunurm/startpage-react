@@ -2,9 +2,9 @@ import { DropIndicatorProps, DropIndicator as DropIndicatorAria } from "react-ar
 import styles from "./drop-indicator.module.css";
 
 export const DropIndicator = ({ className = '', ...props }: DropIndicatorProps) => (
-    <DropIndicatorAria
-        {...props}
-        className={({ isDropTarget }) =>
-            `${styles["drop-indicator"]} ${isDropTarget ? 'active' : ''} ${className}`}
-    />
+	<DropIndicatorAria
+		{...props}
+		className={({ isDropTarget }) =>
+			`${styles["drop-indicator"]} ${isDropTarget ? styles["active"] : ''} ${className}`}
+	/>
 );
