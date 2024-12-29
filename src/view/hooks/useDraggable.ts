@@ -5,7 +5,7 @@ const useDraggable = (initialPosition: { x: number, y: number }) => {
 	const [isDragging, setIsDragging] = useState(false);
 	const [offset, setOffset] = useState({ x: 0, y: 0 });
 
-	const handleMouseDown = useCallback((e: React.MouseEvent) => {
+	const handleMouseDown = useCallback((e: MouseEvent) => {
 		setIsDragging(true);
 		setOffset({
 			x: e.clientX - position.x,

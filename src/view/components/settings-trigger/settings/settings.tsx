@@ -1,12 +1,12 @@
-import React from "react";
 import { ModalContainer } from "@components/atoms/modal-container/modal-container";
-import { FactTypeSettings } from "./articles/fact-type-settings/fact-type-settings";
-import { ColorsSettings } from "./articles/colors-settings/colors-settings";
-import { ImageSettings } from "./articles/image-settings/image-settings";
-import { TimeFormatSettings } from "./articles/time-format-settings/time-format-settings";
-import { CryptocurrencySettings } from "./articles/cryptocurrency-settings/cryptocurrency-settings";
 import styles from "./settings.module.css";
 import { useTranslation } from "react-i18next";
+import { lazy } from "react";
+const FactTypeSettings = lazy(() => import('./articles/fact-type-settings'));
+const ColorsSettings = lazy(() => import('./articles/colors-settings'));
+const ImageSettings = lazy(() => import('./articles/image-settings'));
+const TimeFormatSettings = lazy(() => import('./articles/time-format-settings'));
+const CryptocurrencySettings = lazy(() => import('./articles/cryptocurrency-settings'));
 
 const SettingsModal: React.FC = () => {
 	const { t } = useTranslation();
@@ -22,7 +22,7 @@ const SettingsModal: React.FC = () => {
 			<ColorsSettings />
 			<TimeFormatSettings />
 			<CryptocurrencySettings />
-			{/* Credits and link to Github */}
+			{/* Credits and link to GitHub */}
 		</ModalContainer>
 	);
 }

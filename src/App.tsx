@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "react-query"
 
 const queryClient = new QueryClient();
 
-function App(): JSX.Element {
+function App() {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<ColorsProvider>

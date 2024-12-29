@@ -1,3 +1,3 @@
 import { DateTime } from "./date-time";
 
-export { DateTime };
+export default DateTime;

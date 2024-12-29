@@ -1,6 +1,6 @@
 import { CircularButton } from "@components/atoms/circular-button/circular-button";
 import { IconSettings } from "@tabler/icons-react";
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./settings-trigger.module.css";
 import { Modal } from "@components/atoms/modal/modal";
 import SettingsModal from "./settings/settings";
