@@ -21,6 +21,7 @@ export const SettingsTrigger: React.FC = () => {
 	return (
 		<>
 			<CircularButton
+				aria-label={t("common.settings")}
 				className={styles['settings-button']}
 				onPress={handleButtonPress}
 				tooltip={t("common.settings")}

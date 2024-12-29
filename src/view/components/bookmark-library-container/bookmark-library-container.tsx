@@ -120,6 +120,7 @@ export const BookmarkLibraryContainer: React.FC = () => {
 			</Modal>
 			{amountFolders && maxAmountFolders && amountFolders < maxAmountFolders && (
 				<CircularButton
+					aria-label={t('common.add-folder')}
 					tooltip={t('common.add-folder')}
 					className={styles["add-folder-button"]}
 					onPress={handleAddNewFolder}
